@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { useState, useRef, useEffect } from "react"
-import { Slider } from "@/components/ui/slider"
+import { useState, useRef, useEffect } from 'react'
+import { Slider } from '@/components/ui/slider'
 
 export default function RidiculousSlider() {
   const [value, setValue] = useState([50])
@@ -21,15 +21,23 @@ export default function RidiculousSlider() {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <span className="text-sm font-medium">Value: {displayValue}</span>
-        <span className="text-sm font-medium">Actual Slider Value: {value[0]}</span>
+        <span className="text-sm font-medium">
+          Actual Slider Value: {value[0]}
+        </span>
       </div>
 
-      <Slider value={value} onValueChange={setValue} max={100} step={1} className="cursor-pointer" />
+      <Slider
+        value={value}
+        onValueChange={setValue}
+        max={100}
+        step={1}
+        className="cursor-pointer"
+      />
 
       <div className="text-sm text-muted-foreground italic">
-        Try dragging the slider and watch the displayed value move in the opposite direction!
+        Try dragging the slider and watch the displayed value move in the
+        opposite direction!
       </div>
     </div>
   )
 }
-
