@@ -1,25 +1,25 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { useState, useEffect, useRef } from "react"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
-import { Eye, EyeOff, Volume2, VolumeX } from "lucide-react"
+import { useState, useEffect, useRef } from 'react'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Button } from '@/components/ui/button'
+import { Eye, EyeOff, Volume2, VolumeX } from 'lucide-react'
 
 export default function TalkingPasswordField() {
-  const [password, setPassword] = useState("")
+  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
-  const [lastChar, setLastChar] = useState("")
+  const [lastChar, setLastChar] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [speakingVolume, setSpeakingVolume] = useState(1)
   const speechSynthesisRef = useRef<SpeechSynthesis | null>(null)
 
   // Initialize speech synthesis
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       speechSynthesisRef.current = window.speechSynthesis
     }
 
@@ -42,7 +42,7 @@ export default function TalkingPasswordField() {
       speakCharacter(newChar)
     } else if (newValue.length < password.length) {
       // Handle backspace
-      speakCharacter("backspace")
+      speakCharacter('backspace')
     }
 
     setIsTyping(true)
@@ -59,30 +59,28 @@ export default function TalkingPasswordField() {
     let textToSpeak = char
 
     // Special handling for different characters
-    if (char === "backspace") {
-      textToSpeak = "deleted"
-    } else if (char === " ") {
-      textToSpeak = "space"
-    } else if (char === "!") {
-      textToSpeak = "exclamation mark"
-    } else if (char === "@") {
-      textToSpeak = "at sign"
-    } else if (char === "#") {
-      textToSpeak = "hash"
-    } else if (char === "$") {
-      textToSpeak = "dollar sign"
-    } else if (char === "%") {
-      textToSpeak = "percent"
-    } else if (char === "^") {
-      textToSpeak = "caret"
-    } else if (char === "&") {
-      textToSpeak = "ampersand"
-    } else if (char === "*") {
-      textToSpeak = "asterisk"
-    } else if (char === "(") {
-      textToSpeak = "left parenthesis"
-    } else if (char === ")") {
-      textToSpeak = "right parenthesis"
+    if (char === ' ') {
+      textToSpeak = 'space'
+    } else if (char === '!') {
+      textToSpeak = 'exclamation mark'
+    } else if (char === '@') {
+      textToSpeak = 'at sign'
+    } else if (char === '#') {
+      textToSpeak = 'hash'
+    } else if (char === '$') {
+      textToSpeak = 'dollar sign'
+    } else if (char === '%') {
+      textToSpeak = 'percent'
+    } else if (char === '^') {
+      textToSpeak = 'caret'
+    } else if (char === '&') {
+      textToSpeak = 'ampersand'
+    } else if (char === '*') {
+      textToSpeak = 'asterisk'
+    } else if (char === '(') {
+      textToSpeak = 'left parenthesis'
+    } else if (char === ')') {
+      textToSpeak = 'right parenthesis'
     }
 
     const utterance = new SpeechSynthesisUtterance(textToSpeak)
@@ -93,7 +91,7 @@ export default function TalkingPasswordField() {
     const voices = speechSynthesisRef.current.getVoices()
     if (voices.length > 0) {
       // Try to find a female voice for variety
-      const femaleVoice = voices.find((voice) => voice.name.includes("female"))
+      const femaleVoice = voices.find((voice) => voice.name.includes('female'))
       if (femaleVoice) {
         utterance.voice = femaleVoice
       }
@@ -123,7 +121,7 @@ export default function TalkingPasswordField() {
         <div className="relative">
           <Input
             id="talking-password"
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             value={password}
             onChange={handlePasswordChange}
             placeholder="Type your password..."
@@ -136,9 +134,13 @@ export default function TalkingPasswordField() {
               size="icon"
               className="h-full"
               onClick={() => setShowPassword(!showPassword)}
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
-              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              {showPassword ? (
+                <EyeOff className="h-4 w-4" />
+              ) : (
+                <Eye className="h-4 w-4" />
+              )}
             </Button>
             <Button
               type="button"
@@ -146,9 +148,13 @@ export default function TalkingPasswordField() {
               size="icon"
               className="h-full"
               onClick={toggleMute}
-              aria-label={isMuted ? "Unmute" : "Mute"}
+              aria-label={isMuted ? 'Unmute' : 'Mute'}
             >
-              {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+              {isMuted ? (
+                <VolumeX className="h-4 w-4" />
+              ) : (
+                <Volume2 className="h-4 w-4" />
+              )}
             </Button>
           </div>
         </div>
@@ -156,12 +162,16 @@ export default function TalkingPasswordField() {
 
       {isTyping && lastChar && !isMuted && (
         <div className="flex items-center justify-center h-16 border rounded-md bg-background animate-pulse">
-          <p className="text-2xl font-bold">Speaking: "{lastChar === " " ? "SPACE" : lastChar}"</p>
+          <p className="text-2xl font-bold">
+            Speaking: "{lastChar === ' ' ? 'SPACE' : lastChar}"
+          </p>
         </div>
       )}
 
       <div className="space-y-2">
-        <Label htmlFor="volume-control">Speaker Volume: {Math.round(speakingVolume * 100)}%</Label>
+        <Label htmlFor="volume-control">
+          Speaker Volume: {Math.round(speakingVolume * 100)}%
+        </Label>
         <Input
           id="volume-control"
           type="range"
@@ -175,11 +185,11 @@ export default function TalkingPasswordField() {
 
       <div className="p-4 border rounded-md bg-yellow-50 dark:bg-yellow-950">
         <p className="text-sm text-yellow-800 dark:text-yellow-300">
-          <strong>Security Warning:</strong> This password field announces each character you type out loud. Not
-          recommended for use in public places, or anywhere really.
+          <strong>Security Warning:</strong> This password field announces each
+          character you type out loud. Not recommended for use in public places,
+          or anywhere really.
         </p>
       </div>
     </div>
   )
 }
-
