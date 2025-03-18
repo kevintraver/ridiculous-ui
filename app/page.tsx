@@ -11,6 +11,7 @@ import AlphabeticalAutocomplete from '@/components/alphabetical-autocomplete'
 import SaturnCalendar from '@/components/saturn-datepicker'
 import ExtremelyFastCarousel from '@/components/extremely-fast-carousel'
 import ReverseSkeleton from '@/components/reverse-skeleton'
+import RandomDicePagination from '@/components/random-pagination'
 
 export const metadata: Metadata = {
   title: 'Ridiculous UI Controls',
@@ -137,6 +138,13 @@ export default function RidiculousUIPage() {
               </div>
             ))}
           />
+        </section>
+        <section className="border rounded-lg p-6 bg-card">
+          <h2 className="text-2xl font-bold mb-4">Random Dice Pagination</h2>
+          <p className="mb-6 text-muted-foreground">
+            A pagination component that uses dice to navigate between pages.
+          </p>
+          <RandomDicePagination />
         </section>
 
         <section className="border rounded-lg p-6 bg-card">
