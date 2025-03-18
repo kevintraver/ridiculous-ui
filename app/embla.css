@@ -1,0 +1,53 @@
+/* Parent container */
+.embla {
+  position: relative;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Viewport */
+.embla__viewport {
+  overflow: hidden;
+  max-width: 600px;
+  margin: 0 auto;
+  height: 200px;
+}
+
+/* Slide container */
+.embla__container {
+  display: flex;
+  user-select: none;
+  -webkit-touch-callout: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  align-items: center; /* Center slides vertically */
+}
+
+/* Individual slide */
+.embla__slide {
+  position: relative;
+  flex: 0 0 90%;
+  min-width: 100%;
+  height: 90%;
+  display: flex;
+  align-items: center; /* Center content within each slide vertically */
+  justify-content: center; /* Center content within each slide horizontally */
+  box-sizing: border-box;
+  background-color: var(--background-code);
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 0 10px;
+}
+
+/* Example slide content styling (optional) */
+.slide-content {
+  font-size: 2rem;
+  color: var(--text-high-contrast);
+  padding: 2rem;
+  text-align: center;
+}

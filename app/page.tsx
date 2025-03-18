@@ -9,6 +9,7 @@ import SchrodingerCheckbox from '@/components/schrodinger-checkbox'
 import WayTooLongBreadcrumbs from '@/components/way-too-long-breadcrumbs'
 import AlphabeticalAutocomplete from '@/components/alphabetical-autocomplete'
 import SaturnCalendar from '@/components/saturn-datepicker'
+import ExtremelyFastCarousel from '@/components/extremely-fast-carousel'
 
 export const metadata: Metadata = {
   title: 'Ridiculous UI Controls',
@@ -119,6 +120,22 @@ export default function RidiculousUIPage() {
             A calendar picker for Saturn
           </p>
           <SaturnCalendar />
+        </section>
+
+        <section className="border rounded-lg p-6 bg-card">
+          <h2 className="text-2xl font-bold mb-4">
+            The Extremely Fast Carousel
+          </h2>
+          <p className="mb-6 text-muted-foreground">
+            A carousel that moves so fast it's practically unusable.
+          </p>
+          <ExtremelyFastCarousel
+            slides={Array.from({ length: 100 }, (_, i) => (
+              <div className="slide-content" key={i}>
+                Slide {i + 1}
+              </div>
+            ))}
+          />
         </section>
       </div>
     </div>
