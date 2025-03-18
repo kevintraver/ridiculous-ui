@@ -10,6 +10,7 @@ import WayTooLongBreadcrumbs from '@/components/way-too-long-breadcrumbs'
 import AlphabeticalAutocomplete from '@/components/alphabetical-autocomplete'
 import SaturnCalendar from '@/components/saturn-datepicker'
 import ExtremelyFastCarousel from '@/components/extremely-fast-carousel'
+import ReverseSkeleton from '@/components/reverse-skeleton'
 
 export const metadata: Metadata = {
   title: 'Ridiculous UI Controls',
@@ -136,6 +137,15 @@ export default function RidiculousUIPage() {
               </div>
             ))}
           />
+        </section>
+
+        <section className="border rounded-lg p-6 bg-card">
+          <h2 className="text-2xl font-bold mb-4">Reverse Skeleton</h2>
+          <p className="mb-6 text-muted-foreground">
+            The image slowly transitions to a skeleton instead of the other way
+            around!
+          </p>
+          <ReverseSkeleton />
         </section>
       </div>
     </div>
