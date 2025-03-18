@@ -42,11 +42,6 @@ const ReverseSkeletonForm = () => {
 
   return (
     <div className="flex flex-col items-center w-full max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Reverse Form Skeleton Effect</h1>
-      <p className="mb-4 text-gray-600">
-        Watch as the form slowly dissolves into a skeleton placeholder!
-      </p>
-
       <div className="relative w-full rounded-lg overflow-hidden bg-white p-6 shadow-md">
         {/* The actual form */}
         <div

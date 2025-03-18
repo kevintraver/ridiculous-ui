@@ -142,8 +142,7 @@ export default function RidiculousUIPage() {
         <section className="border rounded-lg p-6 bg-card">
           <h2 className="text-2xl font-bold mb-4">Reverse Skeleton</h2>
           <p className="mb-6 text-muted-foreground">
-            The image slowly transitions to a skeleton instead of the other way
-            around!
+            Watch as the form slowly dissolves into a skeleton placeholder!
           </p>
           <ReverseSkeleton />
         </section>
