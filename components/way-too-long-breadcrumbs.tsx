@@ -207,6 +207,28 @@ export default function OversharingBreadcrumbs() {
 
   return (
     <div className="space-y-6">
+      <div className="flex flex-wrap gap-2">
+        <Button
+          onClick={navigateDeeper}
+          disabled={navigationLevel >= folderStructure.length}
+        >
+          Navigate Deeper
+        </Button>
+        <Button
+          variant="outline"
+          onClick={goBack}
+          disabled={breadcrumbs.length <= 1}
+        >
+          Go Back
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={resetNavigation}
+          disabled={breadcrumbs.length <= 1}
+        >
+          Reset
+        </Button>
+      </div>
       <div className="flex flex-wrap items-center gap-2 p-4 border rounded-md bg-background overflow-x-auto max-w-full">
         <TooltipProvider>
           {breadcrumbs.map((crumb, index) => (
@@ -234,29 +256,6 @@ export default function OversharingBreadcrumbs() {
             </div>
           ))}
         </TooltipProvider>
-      </div>
-
-      <div className="flex flex-wrap gap-2">
-        <Button
-          onClick={navigateDeeper}
-          disabled={navigationLevel >= folderStructure.length}
-        >
-          Navigate Deeper
-        </Button>
-        <Button
-          variant="outline"
-          onClick={goBack}
-          disabled={breadcrumbs.length <= 1}
-        >
-          Go Back
-        </Button>
-        <Button
-          variant="secondary"
-          onClick={resetNavigation}
-          disabled={breadcrumbs.length <= 1}
-        >
-          Reset
-        </Button>
       </div>
 
       {navigationLevel > 5 && (
