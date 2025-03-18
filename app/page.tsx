@@ -6,7 +6,6 @@ import SelfDestructingTextField from '@/components/self-destructing-field'
 import DistractedProgressBar from '@/components/distracted-progress-bar'
 import TheRebelliousSlider from '@/components/the-rebellious-slider'
 import SchrodingerCheckbox from '@/components/schrodinger-checkbox'
-import TrolleyDilemma from '@/components/trolley-dilemma'
 
 export const metadata: Metadata = {
   title: 'Ridiculous UI Controls',
