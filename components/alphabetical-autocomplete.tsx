@@ -110,7 +110,6 @@ export default function AlphabeticalAutocomplete() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <Label htmlFor="alphabetical-autocomplete">Type something:</Label>
         <div className="relative">
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
