@@ -7,6 +7,7 @@ import DistractedProgressBar from '@/components/distracted-progress-bar'
 import TheRebelliousSlider from '@/components/the-rebellious-slider'
 import SchrodingerCheckbox from '@/components/schrodinger-checkbox'
 import WayTooLongBreadcrumbs from '@/components/way-too-long-breadcrumbs'
+import AlphabeticalAutocomplete from '@/components/alphabetical-autocomplete'
 
 export const metadata: Metadata = {
   title: 'Ridiculous UI Controls',
@@ -104,6 +105,15 @@ export default function RidiculousUIPage() {
             A breadcrumb trail that's way too long and detailed.
           </p>
           <WayTooLongBreadcrumbs />
+        </section>
+
+        <section className="border rounded-lg p-6 bg-card">
+          <h2 className="text-2xl font-bold mb-4">Alphabetical Autocomplete</h2>
+          <p className="mb-6 text-muted-foreground">
+            An autocomplete field that provides a suggestion for the next
+            letters in the alphabet.
+          </p>
+          <AlphabeticalAutocomplete />
         </section>
       </div>
     </div>
