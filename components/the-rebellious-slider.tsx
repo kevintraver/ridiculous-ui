@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Slider } from '@/components/ui/slider'
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 export default function TheRebelliousSlider() {
@@ -16,6 +15,8 @@ export default function TheRebelliousSlider() {
   const [isHolding, setIsHolding] = useState(false)
   // Flag to indicate if user has held for 3+ seconds and the slider "gives in"
   const [isHeld, setIsHeld] = useState(false)
+  // New state to track if the slider has been clicked
+  const [hasBeenClicked, setHasBeenClicked] = useState(false)
   // Refs for timers
   const holdTimer = useRef<NodeJS.Timeout | null>(null)
   const autoChangeTimer = useRef<NodeJS.Timeout | null>(null)
@@ -45,6 +46,7 @@ export default function TheRebelliousSlider() {
 
   // When user presses down on the slider thumb
   const handleMouseDown = () => {
+    setHasBeenClicked(true)
     setIsHolding(true)
     // Start hold timer: if held for 3 seconds, slider gives in
     holdTimer.current = setTimeout(() => {
@@ -71,6 +73,7 @@ export default function TheRebelliousSlider() {
 
   // When the slider value changes (triggered by user dragging)
   const handleValueChange = (newVal: number) => {
+    if (!hasBeenClicked) setHasBeenClicked(true)
     if (isHolding && !isHeld) {
       // User is trying to change the slider—but since they're not "winning,"
       // snap to the opposite extreme
@@ -95,6 +98,9 @@ export default function TheRebelliousSlider() {
 
   // Add a constant jittery movement effect
   useEffect(() => {
+    // Only start jittering if the user has interacted with the slider
+    if (!hasBeenClicked) return
+
     const startJitter = () => {
       if (jitterTimer.current) clearTimeout(jitterTimer.current)
 
@@ -124,10 +130,13 @@ export default function TheRebelliousSlider() {
     return () => {
       if (jitterTimer.current) clearTimeout(jitterTimer.current)
     }
-  }, [isHolding, value])
+  }, [hasBeenClicked, isHolding, value])
 
   // Randomly change slider value every few seconds when user is not interacting
   useEffect(() => {
+    // Only start auto-changing if the user has interacted with the slider
+    if (!hasBeenClicked) return
+
     if (isHolding) {
       clearAutoChangeTimer()
       return
@@ -143,7 +152,7 @@ export default function TheRebelliousSlider() {
     }, 800 + Math.random() * 1200) // change more frequently: 0.8-2 seconds
 
     return clearAutoChangeTimer
-  }, [value, isHolding])
+  }, [hasBeenClicked, value, isHolding])
 
   return (
     <div className="space-y-4 p-4 border rounded-lg bg-white shadow relative overflow-hidden">
@@ -171,7 +180,9 @@ export default function TheRebelliousSlider() {
         </div>
       )}
       <div className="text-center text-xs text-gray-500 mt-2">
-        Drag the slider—if you can control it!
+        {hasBeenClicked
+          ? 'Try to control me now!'
+          : 'Click or drag the slider to wake me up!'}
       </div>
     </div>
   )
