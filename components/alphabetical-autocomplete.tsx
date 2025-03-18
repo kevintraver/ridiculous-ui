@@ -122,6 +122,10 @@ export default function AlphabeticalAutocomplete() {
                   onChange={handleInputChange}
                   placeholder="Type letters or space to see suggestions..."
                   className="pr-10"
+                  autoComplete="off"
+                  autoCorrect="off"
+                  autoCapitalize="off"
+                  spellCheck="false"
                   onKeyDown={(e) => e.key === 'Escape' && setOpen(false)}
                 />
                 <Button
