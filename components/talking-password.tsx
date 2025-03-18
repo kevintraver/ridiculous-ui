@@ -160,14 +160,6 @@ export default function TalkingPasswordField() {
         </div>
       </div>
 
-      {isTyping && lastChar && !isMuted && (
-        <div className="flex items-center justify-center h-16 border rounded-md bg-background animate-pulse">
-          <p className="text-2xl font-bold">
-            Speaking: "{lastChar === ' ' ? 'SPACE' : lastChar}"
-          </p>
-        </div>
-      )}
-
       <div className="space-y-2">
         <Label htmlFor="volume-control">
           Speaker Volume: {Math.round(speakingVolume * 100)}%
