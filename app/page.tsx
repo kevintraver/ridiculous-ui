@@ -80,12 +80,9 @@ export default function RidiculousUIPage() {
         <section className="border rounded-lg p-6 bg-card">
           <h2 className="text-2xl font-bold mb-4">The Rebellious Slider</h2>
           <p className="mb-6 text-muted-foreground">
-            A slider that actively fights against your attempts to set a value.
-            When you drag it, it snaps to the opposite end of the spectrum and
-            taunts you with messages like, "Nope, I don’t feel like it!" It
-            randomly changes its own value every few seconds, muttering, "I’m in
-            charge here." If you hold it in place for more than 3 seconds, it
-            gives up and says, "FINE, have it your way… for now."
+            A slider that resists your input, snapping to opposite ends and
+            randomly changing values. It taunts you with messages and only
+            relents after being held for a few seconds.
           </p>
           <TheRebelliousSlider />
         </section>

@@ -19,19 +19,20 @@ export default function TheRebelliousSlider() {
   // Refs for timers
   const holdTimer = useRef<NodeJS.Timeout | null>(null)
   const autoChangeTimer = useRef<NodeJS.Timeout | null>(null)
+  const jitterTimer = useRef<NodeJS.Timeout | null>(null)
 
   // Taunting messages for user dragging
   const tauntMessages = [
-    'Nope, I don’t feel like it!',
-    'Not today, buddy!',
-    'You’re not the boss of me!'
+    `Nope, I don't feel like it!`,
+    `Not today, buddy!`,
+    `You're not the boss of me!`
   ]
 
   // Automatic messages when the slider takes charge
   const rebelMessages = [
-    'I’m in charge here.',
-    'Let’s do it my way.',
-    'Ha! I rule this slider!'
+    `I'm in charge here.`,
+    `Let's do it my way.`,
+    `Ha! I rule this slider!`
   ]
 
   // Clear any auto-change timer
@@ -48,7 +49,7 @@ export default function TheRebelliousSlider() {
     // Start hold timer: if held for 3 seconds, slider gives in
     holdTimer.current = setTimeout(() => {
       setIsHeld(true)
-      setMessage('FINE, have it your way… for now.')
+      setMessage(`FINE, have it your way… for now.`)
     }, 3000)
   }
 
@@ -75,9 +76,11 @@ export default function TheRebelliousSlider() {
       // snap to the opposite extreme
       const snappedValue = newVal < 50 ? 100 : 0
       setValue(snappedValue)
+
+      // Create smaller, more controlled movements
       setPosition({
-        x: (Math.random() - 0.5) * 100,
-        y: (Math.random() - 0.5) * 50
+        x: (Math.random() - 0.5) * 40,
+        y: (Math.random() - 0.5) * 20
       })
       setTimeout(() => setPosition({ x: 0, y: 0 }), 300)
       setMessage(
@@ -90,42 +93,64 @@ export default function TheRebelliousSlider() {
     }
   }
 
+  // Add a constant jittery movement effect
+  useEffect(() => {
+    const startJitter = () => {
+      if (jitterTimer.current) clearTimeout(jitterTimer.current)
+
+      // Only jitter if not being held
+      if (!isHolding) {
+        // Calculate how far the slider is from the middle (50)
+        const distanceFromMiddle = Math.abs(value - 50)
+        // Movement factor is higher in the middle, lower at extremes
+        const movementFactor = 1 - distanceFromMiddle / 50
+
+        // Random value changes - more aggressive now
+        if (Math.random() > 0.3) {
+          // Increased probability (70% chance)
+          // Base change amount - larger when closer to middle
+          const baseChange = 20 * movementFactor // Doubled the base change amount
+          const smallChange = Math.random() * baseChange - baseChange / 2
+          setValue((prev) => Math.max(0, Math.min(100, prev + smallChange)))
+        }
+      }
+
+      // Schedule next jitter in 50-300ms (even more frequent movement)
+      jitterTimer.current = setTimeout(startJitter, 50 + Math.random() * 250)
+    }
+
+    startJitter()
+
+    return () => {
+      if (jitterTimer.current) clearTimeout(jitterTimer.current)
+    }
+  }, [isHolding, value])
+
   // Randomly change slider value every few seconds when user is not interacting
   useEffect(() => {
     if (isHolding) {
       clearAutoChangeTimer()
       return
     }
+
     autoChangeTimer.current = setTimeout(() => {
-      // Pick a random extreme and update the slider
-      const rebelValue = Math.random() < 0.5 ? 0 : 100
+      // Pick a random value - more variation now
+      const rebelValue = Math.random() * 100 // Any value between 0-100
       setValue(rebelValue)
       setMessage(
         rebelMessages[Math.floor(Math.random() * rebelMessages.length)]
       )
-      // Trigger a random jump effect
-      setPosition({
-        x: (Math.random() - 0.5) * 200,
-        y: (Math.random() - 0.5) * 100
-      })
-      setTimeout(() => setPosition({ x: 0, y: 0 }), 500)
-    }, 2000 + Math.random() * 3000) // change every 2-5 seconds
+    }, 800 + Math.random() * 1200) // change more frequently: 0.8-2 seconds
 
     return clearAutoChangeTimer
   }, [value, isHolding])
 
   return (
-    <div className="space-y-4 p-4 border rounded-lg bg-white shadow">
+    <div className="space-y-4 p-4 border rounded-lg bg-white shadow relative overflow-hidden">
       <h2 className="text-lg font-bold text-center">
-        A slider that’s too independent for your control.
+        A slider that's too independent for your control.
       </h2>
-      <div
-        className="flex items-center space-x-4"
-        style={{
-          transform: `translate(${position.x}px, ${position.y}px)`,
-          transition: 'transform 0.3s ease-out'
-        }}
-      >
+      <div className="flex items-center space-x-4 relative">
         <Slider
           value={[value]}
           onValueChange={(vals) => handleValueChange(vals[0])}
@@ -133,6 +158,9 @@ export default function TheRebelliousSlider() {
           onMouseUp={handleMouseUp}
           className="w-full"
         />
+        <div className="w-12 text-center font-mono text-sm bg-gray-100 rounded px-2 py-1">
+          {Math.round(value)}
+        </div>
       </div>
       {message && (
         <div className="text-center text-sm italic text-gray-600">
@@ -142,7 +170,7 @@ export default function TheRebelliousSlider() {
           </span>
         </div>
       )}
-      <div className="text-center text-xs text-gray-500">
+      <div className="text-center text-xs text-gray-500 mt-2">
         Drag the slider—if you can control it!
       </div>
     </div>
