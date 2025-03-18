@@ -92,8 +92,8 @@ export default function RidiculousUIPage() {
         <section className="border rounded-lg p-6 bg-card">
           <h2 className="text-2xl font-bold mb-4">The Schrödinger Checkbox</h2>
           <p className="mb-6 text-muted-foreground">
-            A checkbox that exists in a superposition of states, neither checked
-            nor unchecked, until observed.
+            A checkbox that exists in a superposition of states, both checked
+            and unchecked, until observed.
           </p>
           <SchrodingerCheckbox />
         </section>
