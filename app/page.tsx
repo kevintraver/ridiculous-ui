@@ -6,6 +6,7 @@ import SelfDestructingTextField from '@/components/self-destructing-field'
 import DistractedProgressBar from '@/components/distracted-progress-bar'
 import TheRebelliousSlider from '@/components/the-rebellious-slider'
 import SchrodingerCheckbox from '@/components/schrodinger-checkbox'
+import WayTooLongBreadcrumbs from '@/components/way-too-long-breadcrumbs'
 
 export const metadata: Metadata = {
   title: 'Ridiculous UI Controls',
@@ -95,6 +96,14 @@ export default function RidiculousUIPage() {
             and unchecked, until observed.
           </p>
           <SchrodingerCheckbox />
+        </section>
+
+        <section className="border rounded-lg p-6 bg-card">
+          <h2 className="text-2xl font-bold mb-4">Way Too Long Breadcrumbs</h2>
+          <p className="mb-6 text-muted-foreground">
+            A breadcrumb trail that's way too long and detailed.
+          </p>
+          <WayTooLongBreadcrumbs />
         </section>
       </div>
     </div>
