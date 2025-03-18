@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { useState, useRef, useEffect } from "react"
-import { Button } from "@/components/ui/button"
+import { useState, useRef, useEffect } from 'react'
+import { Button } from '@/components/ui/button'
 
 export default function EscapingButton() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -24,7 +24,9 @@ export default function EscapingButton() {
     const buttonCenterY = button.top - container.top + button.height / 2
 
     // Calculate distance between mouse and button center
-    const distance = Math.sqrt(Math.pow(mouseX - buttonCenterX, 2) + Math.pow(mouseY - buttonCenterY, 2))
+    const distance = Math.sqrt(
+      Math.pow(mouseX - buttonCenterX, 2) + Math.pow(mouseY - buttonCenterY, 2)
+    )
 
     // If mouse is close enough, move the button
     if (distance < 100 && !isEscaping) {
@@ -62,16 +64,19 @@ export default function EscapingButton() {
   }, [clickCount])
 
   return (
-    <div ref={containerRef} className="relative h-[200px] border rounded-md p-4 bg-background">
+    <div
+      ref={containerRef}
+      className="relative h-[200px] border rounded-md p-4 bg-background"
+    >
       <div
         style={{
           transform: `translate(${position.x}px, ${position.y}px)`,
-          transition: isEscaping ? "transform 0.2s ease-out" : "none",
-          position: "absolute",
+          transition: isEscaping ? 'transform 0.2s ease-out' : 'none',
+          position: 'absolute'
         }}
       >
-        <Button onMouseMove={handleMouseMove} onClick={handleClick} variant="destructive">
-          {clickCount >= 5 ? "You caught me!" : "Try to click me!"}
+        <Button onMouseMove={handleMouseMove} onClick={handleClick}>
+          {clickCount >= 5 ? 'You caught me!' : 'Try to click me!'}
         </Button>
       </div>
 
@@ -81,8 +86,9 @@ export default function EscapingButton() {
         </div>
       )}
 
-      <div className="absolute bottom-4 left-4 text-xs text-muted-foreground">Click count: {clickCount}/5</div>
+      <div className="absolute bottom-4 left-4 text-xs text-muted-foreground">
+        Click count: {clickCount}/5
+      </div>
     </div>
   )
 }
-
