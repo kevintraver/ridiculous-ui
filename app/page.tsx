@@ -84,9 +84,7 @@ export default function RidiculousUIPage() {
         <section className="border rounded-lg p-6 bg-card">
           <h2 className="text-2xl font-bold mb-4">The Rebellious Slider</h2>
           <p className="mb-6 text-muted-foreground">
-            A slider that resists your input, snapping to opposite ends and
-            randomly changing values. It taunts you with messages and only
-            relents after being held for a few seconds.
+            A slider that resists your input and taunts you with messages
           </p>
           <TheRebelliousSlider />
         </section>
@@ -103,7 +101,7 @@ export default function RidiculousUIPage() {
         <section className="border rounded-lg p-6 bg-card">
           <h2 className="text-2xl font-bold mb-4">Way Too Long Breadcrumbs</h2>
           <p className="mb-6 text-muted-foreground">
-            A breadcrumb trail that's way too long and detailed.
+            A breadcrumb trail that's way too detailed
           </p>
           <WayTooLongBreadcrumbs />
         </section>
@@ -111,15 +109,15 @@ export default function RidiculousUIPage() {
         <section className="border rounded-lg p-6 bg-card">
           <h2 className="text-2xl font-bold mb-4">Alphabetical Autocomplete</h2>
           <p className="mb-6 text-muted-foreground">
-            An autocomplete field that provides a suggestion for the next
-            letters in the alphabet.
+            An autocomplete field that's alphabetically sorted, practically a
+            Sesame Street
           </p>
           <AlphabeticalAutocomplete />
         </section>
         <section className="border rounded-lg p-6 bg-card">
           <h2 className="text-2xl font-bold mb-4">Saturn Date Picker</h2>
           <p className="mb-6 text-muted-foreground">
-            A calendar picker for Saturn
+            A calendar picker for Saturn.
           </p>
           <SaturnCalendar />
         </section>
@@ -129,7 +127,8 @@ export default function RidiculousUIPage() {
             The Extremely Fast Carousel
           </h2>
           <p className="mb-6 text-muted-foreground">
-            A carousel that moves so fast it's practically unusable.
+            A carousel so fast it's practically a nausea generator on a
+            merry-go-round chassis.
           </p>
           <ExtremelyFastCarousel
             slides={Array.from({ length: 100 }, (_, i) => (
@@ -142,7 +141,8 @@ export default function RidiculousUIPage() {
         <section className="border rounded-lg p-6 bg-card">
           <h2 className="text-2xl font-bold mb-4">Random Dice Pagination</h2>
           <p className="mb-6 text-muted-foreground">
-            A pagination component that uses dice to navigate between pages.
+            A pagination component that uses dice to navigate, basically a Vegas
+            slot machine for your webpage.
           </p>
           <RandomDicePagination />
         </section>
@@ -150,7 +150,7 @@ export default function RidiculousUIPage() {
         <section className="border rounded-lg p-6 bg-card">
           <h2 className="text-2xl font-bold mb-4">Reverse Skeleton</h2>
           <p className="mb-6 text-muted-foreground">
-            Watch as the form slowly dissolves into a skeleton placeholder!
+            See the form dissolve into a skeleton placeholder.
           </p>
           <ReverseSkeleton />
         </section>
