@@ -13,8 +13,8 @@ export function RandomDicePagination() {
   const [currentPage, setCurrentPage] = useState(2)
   const [totalPages] = useState(100)
   const [isRolling, setIsRolling] = useState(false)
-  const [prevDice, setPrevDice] = useState(1)
-  const [nextDice, setNextDice] = useState(6)
+  const [prevDice, setPrevDice] = useState(3)
+  const [nextDice, setNextDice] = useState(5)
   // Instead of bouncing, we’ll toggle a small scale
   const [leftDiceAnimation, setLeftDiceAnimation] = useState(false)
   const [rightDiceAnimation, setRightDiceAnimation] = useState(false)
@@ -99,11 +99,11 @@ export function RandomDicePagination() {
             <button
               onClick={handlePrevious}
               disabled={isRolling}
-              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-12 px-4 py-3"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-12 w-12 p-0"
             >
               {/* Removed 'animate-bounce' and replaced with a scale toggle */}
               <PrevDiceIcon
-                className={`h-4 w-4 transform transition-transform duration-300 ${
+                className={`h-8 w-8 transform transition-transform duration-300 ${
                   leftDiceAnimation ? 'scale-125' : ''
                 }`}
               />
@@ -177,10 +177,10 @@ export function RandomDicePagination() {
             <button
               onClick={handleNext}
               disabled={isRolling}
-              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-12 px-4 py-3"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-12 w-12 p-0"
             >
               <NextDiceIcon
-                className={`h-4 w-4 transform transition-transform duration-300 ${
+                className={`h-8 w-8 transform transition-transform duration-300 ${
                   rightDiceAnimation ? 'scale-125' : ''
                 }`}
               />
