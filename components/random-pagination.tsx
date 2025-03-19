@@ -103,11 +103,10 @@ export function RandomDicePagination() {
             >
               {/* Removed 'animate-bounce' and replaced with a scale toggle */}
               <PrevDiceIcon
-                className={`mr-2 h-4 w-4 transform transition-transform duration-300 ${
+                className={`h-4 w-4 transform transition-transform duration-300 ${
                   leftDiceAnimation ? 'scale-125' : ''
                 }`}
               />
-              <span>Roll Back</span>
             </button>
           </PaginationItem>
 
@@ -180,9 +179,8 @@ export function RandomDicePagination() {
               disabled={isRolling}
               className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-12 px-4 py-3"
             >
-              <span>Roll Forward</span>
               <NextDiceIcon
-                className={`ml-2 h-4 w-4 transform transition-transform duration-300 ${
+                className={`h-4 w-4 transform transition-transform duration-300 ${
                   rightDiceAnimation ? 'scale-125' : ''
                 }`}
               />
@@ -191,17 +189,9 @@ export function RandomDicePagination() {
         </PaginationContent>
       </Pagination>
 
-      {/* Rolling message stays the same */}
-      {isRolling && (
-        <div className="my-2 text-center text-sm italic text-purple-600 animate-pulse">
-          Rolling the dice... hope you're feeling lucky!
-        </div>
-      )}
-
-      {/* 'Currently on page...' text */}
-      <p className="text-gray-600 mt-4">
-        Currently on page {currentPage} of {totalPages}. Try clicking the dice!
-      </p>
+      <div className="my-2 h-4 text-center text-sm italic text-purple-600 animate-pulse">
+        {isRolling && "Rolling the dice... hope you're feeling lucky!"}
+      </div>
     </div>
   )
 }
