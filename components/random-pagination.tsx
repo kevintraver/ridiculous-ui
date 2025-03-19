@@ -16,7 +16,8 @@ export function RandomDicePagination() {
   const [prevDice, setPrevDice] = useState(1)
   const [nextDice, setNextDice] = useState(6)
   // Instead of bouncing, we’ll toggle a small scale
-  const [diceAnimation, setDiceAnimation] = useState(false)
+  const [leftDiceAnimation, setLeftDiceAnimation] = useState(false)
+  const [rightDiceAnimation, setRightDiceAnimation] = useState(false)
 
   const getRandomPage = () => Math.floor(Math.random() * totalPages) + 1
   const getRandomDice = () => Math.floor(Math.random() * 6) + 1
@@ -42,7 +43,7 @@ export function RandomDicePagination() {
 
   const handlePrevious = () => {
     setIsRolling(true)
-    setDiceAnimation(true)
+    setLeftDiceAnimation(true)
 
     const diceInterval = setInterval(() => {
       setPrevDice(getRandomDice())
@@ -50,7 +51,7 @@ export function RandomDicePagination() {
 
     setTimeout(() => {
       clearInterval(diceInterval)
-      setDiceAnimation(false)
+      setLeftDiceAnimation(false)
       setCurrentPage(getRandomPage())
       setIsRolling(false)
     }, 500)
@@ -58,7 +59,7 @@ export function RandomDicePagination() {
 
   const handleNext = () => {
     setIsRolling(true)
-    setDiceAnimation(true)
+    setRightDiceAnimation(true)
 
     const diceInterval = setInterval(() => {
       setNextDice(getRandomDice())
@@ -66,7 +67,7 @@ export function RandomDicePagination() {
 
     setTimeout(() => {
       clearInterval(diceInterval)
-      setDiceAnimation(false)
+      setRightDiceAnimation(false)
       setCurrentPage(getRandomPage())
       setIsRolling(false)
     }, 500)
@@ -103,7 +104,7 @@ export function RandomDicePagination() {
               {/* Removed 'animate-bounce' and replaced with a scale toggle */}
               <PrevDiceIcon
                 className={`mr-2 h-4 w-4 transform transition-transform duration-300 ${
-                  diceAnimation ? 'scale-125' : ''
+                  leftDiceAnimation ? 'scale-125' : ''
                 }`}
               />
               <span>Roll Back</span>
@@ -182,7 +183,7 @@ export function RandomDicePagination() {
               <span>Roll Forward</span>
               <NextDiceIcon
                 className={`ml-2 h-4 w-4 transform transition-transform duration-300 ${
-                  diceAnimation ? 'scale-125' : ''
+                  rightDiceAnimation ? 'scale-125' : ''
                 }`}
               />
             </button>
