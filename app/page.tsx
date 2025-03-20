@@ -13,6 +13,7 @@ import ExtremelyFastCarousel from '@/components/extremely-fast-carousel'
 import ReverseSkeleton from '@/components/reverse-skeleton'
 import RandomDicePagination from '@/components/random-pagination'
 import BlackHoleSpinner from '@/components/blackhole-spinner'
+import DecreasingRandomnessGenerator from '@/components/not-so-random-number-generator'
 
 export const metadata: Metadata = {
   title: 'Ridiculous UI Controls',
@@ -163,6 +164,17 @@ export default function RidiculousUIPage() {
             another dimension.
           </p>
           <BlackHoleSpinner />
+        </section>
+
+        <section className="border rounded-lg p-6 bg-card">
+          <h2 className="text-2xl font-bold mb-4">
+            Not So Random Number Generator
+          </h2>
+          <p className="mb-6 text-muted-foreground">
+            A generator that starts with full randomness and decreases with each
+            click.
+          </p>
+          <DecreasingRandomnessGenerator />
         </section>
       </div>
     </div>
