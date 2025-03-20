@@ -12,7 +12,15 @@ type PropType = {
 }
 
 const ExtremelyFastCarousel: React.FC<PropType> = props => {
-  const { slides, options } = props
+  const { slides: providedSlides, options } = props
+  
+  // Create default slides if none provided
+  const slides = providedSlides?.length ? providedSlides : Array.from({ length: 100 }, (_, i) => (
+    <div className='slide-content' key={i}>
+      Slide {i + 1}
+    </div>
+  ))
+  
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
     Autoplay({ delay: 200, stopOnInteraction: false }) as any
   ])
