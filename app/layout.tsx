@@ -28,11 +28,6 @@ export default function RootLayout({
                   <SearchBar />
                 </li>
                 <li>
-                  <Link href='/' className='hover:text-primary'>
-                    Home
-                  </Link>
-                </li>
-                <li>
                   <Link href='/components' className='hover:text-primary'>
                     Components
                   </Link>
