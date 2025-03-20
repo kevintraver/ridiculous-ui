@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, Suspense } from 'react'
 import { Search as SearchIcon } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 import { componentsData } from '@/lib/components-data'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
-export function SearchBar() {
+function SearchContent() {
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [isExpanded, setIsExpanded] = useState(false)
@@ -29,16 +29,20 @@ export function SearchBar() {
   }, [searchQuery])
   
   useEffect(() => {
-    // Handle click outside to close the search
-    function handleClickOutside(event: MouseEvent) {
+    const handleClickOutside = (event: MouseEvent) => {
       if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
         setIsExpanded(false)
         setSearchQuery('')
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside)
+    // Add the event listener with a slight delay to prevent immediate triggering
+    const timeoutId = setTimeout(() => {
+      document.addEventListener('mousedown', handleClickOutside)
+    }, 100)
+
     return () => {
+      clearTimeout(timeoutId)
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [])
@@ -96,5 +100,13 @@ export function SearchBar() {
         </div>
       )}
     </div>
+  )
+}
+
+export function SearchBar() {
+  return (
+    <Suspense fallback={<div className='w-8'><SearchIcon className='h-5 w-5 text-muted-foreground' /></div>}>
+      <SearchContent />
+    </Suspense>
   )
 }
