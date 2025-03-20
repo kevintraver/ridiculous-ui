@@ -44,8 +44,14 @@ export default function AlphabeticalAutocomplete() {
       return letters
     }
 
-    const generateNumbers = () => {
-      return Array.from({ length: 9 }, (_, i) => String(i + 1))
+    const generateNumbers = (startNum: string = '0') => {
+      const startNumInt = parseInt(startNum, 10)
+      // Only include numbers that come after the current number
+      const numbers = []
+      for (let i = startNumInt + 1; i <= 9; i++) {
+        numbers.push(String(i))
+      }
+      return numbers
     }
 
     if (!inputValue) {
@@ -70,10 +76,10 @@ export default function AlphabeticalAutocomplete() {
       setSuggestions(newSuggestions)
       setOpen(newSuggestions.length > 0)
     } else if (/[0-9]/.test(lastChar)) {
-      // For numbers, show all numbers 1-9
-      const numberSuggestions = generateNumbers() 
+      // For numbers, show only numbers that come after the current number
+      const numberSuggestions = generateNumbers(lastChar) 
       setSuggestions(numberSuggestions)
-      setOpen(true)
+      setOpen(numberSuggestions.length > 0)
     } else {
       setSuggestions([])
       setOpen(false)
