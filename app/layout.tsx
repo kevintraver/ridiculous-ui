@@ -23,8 +23,8 @@ export default function RootLayout({
           <header className='border-b sticky top-0 bg-background z-10'>
             <div className='container mx-auto py-4 px-4 flex items-center justify-between'>
               <Link href='/' className='font-bold text-xl flex items-center'>
-                <Home className='w-5 h-5 sm:hidden' aria-label='Home' />
-                <span className='hidden sm:inline'>Ridiculous UI</span>
+                <Home className='block sm:hidden w-5 h-5' aria-label='Home' />
+                <span className='hidden sm:block'>Ridiculous UI</span>
               </Link>
               <nav>
                 <ul className='flex items-center gap-6'>
