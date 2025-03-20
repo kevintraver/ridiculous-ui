@@ -12,6 +12,7 @@ import SaturnCalendar from '@/components/saturn-datepicker'
 import ExtremelyFastCarousel from '@/components/extremely-fast-carousel'
 import ReverseSkeleton from '@/components/reverse-skeleton'
 import RandomDicePagination from '@/components/random-pagination'
+import BlackHoleSpinner from '@/components/blackhole-spinner'
 
 export const metadata: Metadata = {
   title: 'Ridiculous UI Controls',
@@ -153,6 +154,15 @@ export default function RidiculousUIPage() {
             See the form dissolve into a skeleton placeholder.
           </p>
           <ReverseSkeleton />
+        </section>
+
+        <section className="border rounded-lg p-6 bg-card">
+          <h2 className="text-2xl font-bold mb-4">Black Hole Spinner</h2>
+          <p className="mb-6 text-muted-foreground">
+            A spinner that transforms into a black hole and takes your form to
+            another dimension.
+          </p>
+          <BlackHoleSpinner />
         </section>
       </div>
     </div>
