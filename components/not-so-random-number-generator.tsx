@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { Card, CardContent } from '@/components/ui/card'
 
 const DecreasingRandomnessGenerator = () => {
   const [number, setNumber] = useState<number | null>(null)
@@ -128,71 +129,76 @@ const DecreasingRandomnessGenerator = () => {
   }
 
   return (
-    <div className='bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto'>
-      <p className='text-gray-600 mb-6 text-center'>
-        Generates a random number between {minRange} and {maxRange}
-      </p>
+    <Card>
+      <CardContent className='p-6'>
+        <div className='bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto'>
+          <p className='text-gray-600 mb-6 text-center'>
+            Generates a random number between {minRange} and {maxRange}
+          </p>
 
-      {/* Number display */}
-      <div className='bg-gray-100 rounded-xl h-32 mb-6 flex items-center justify-center'>
-        {number !== null ? (
-          <div
-            className={`text-5xl font-bold ${isGenerating ? 'animate-pulse' : ''}`}
-          >
-            {number}
+          {/* Number display */}
+          <div className='bg-gray-100 rounded-xl h-32 mb-6 flex items-center justify-center'>
+            {number !== null ? (
+              <div
+                className={`text-5xl font-bold ${isGenerating ? 'animate-pulse' : ''}`}
+              >
+                {number}
+              </div>
+            ) : (
+              <div className='text-xl text-gray-400'>
+                Click the button to generate
+              </div>
+            )}
           </div>
-        ) : (
-          <div className='text-xl text-gray-400'>
-            Click the button to generate
+
+          {/* Controls */}
+          <div className='flex gap-3 mb-6'>
+            <button
+              onClick={generateNumber}
+              disabled={isGenerating}
+              className='bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg flex-1 disabled:opacity-50 transition-colors'
+            >
+              {isGenerating ? 'Generating...' : 'Generate Number'}
+            </button>
+
+            <button
+              onClick={resetGenerator}
+              disabled={isGenerating || clickCount === 0}
+              className='bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg disabled:opacity-50 transition-colors'
+            >
+              Reset
+            </button>
           </div>
-        )}
-      </div>
 
-      {/* Controls */}
-      <div className='flex gap-3 mb-6'>
-        <button
-          onClick={generateNumber}
-          disabled={isGenerating}
-          className='bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg flex-1 disabled:opacity-50 transition-colors'
-        >
-          {isGenerating ? 'Generating...' : 'Generate Number'}
-        </button>
+          {/* Fixed-height container for all the varying content */}
+          <div className='border-t border-gray-200 pt-4'>
+            {/* Stats row - always visible */}
+            <div className='flex justify-between items-center mb-4'>
+              <span className='text-sm text-gray-600'>
+                Click count: {clickCount}
+              </span>
+              <span className='text-sm text-gray-600'>
+                Randomness:{' '}
+                {clickCount > 0 ? Math.round(getRandomnessFactor() * 100) : 100}
+                %
+              </span>
+            </div>
 
-        <button
-          onClick={resetGenerator}
-          disabled={isGenerating || clickCount === 0}
-          className='bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg disabled:opacity-50 transition-colors'
-        >
-          Reset
-        </button>
-      </div>
+            {/* Fixed height area for hint messages */}
 
-      {/* Fixed-height container for all the varying content */}
-      <div className='border-t border-gray-200 pt-4'>
-        {/* Stats row - always visible */}
-        <div className='flex justify-between items-center mb-4'>
-          <span className='text-sm text-gray-600'>
-            Click count: {clickCount}
-          </span>
-          <span className='text-sm text-gray-600'>
-            Randomness:{' '}
-            {clickCount > 0 ? Math.round(getRandomnessFactor() * 100) : 100}%
-          </span>
+            {/* History section - always visible with fixed height */}
+            <div className='mb-4'>
+              <h3 className='text-sm font-semibold mb-2'>History:</h3>
+              <div className='bg-gray-50 rounded p-2 h-[160px] overflow-y-auto'>
+                {renderHistoryContent()}
+              </div>
+            </div>
+
+            <div className='min-h-[48px] mb-4'>{hintMessage}</div>
+          </div>
         </div>
-
-        {/* Fixed height area for hint messages */}
-
-        {/* History section - always visible with fixed height */}
-        <div className='mb-4'>
-          <h3 className='text-sm font-semibold mb-2'>History:</h3>
-          <div className='bg-gray-50 rounded p-2 h-[160px] overflow-y-auto'>
-            {renderHistoryContent()}
-          </div>
-        </div>
-
-        <div className='min-h-[48px] mb-4'>{hintMessage}</div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
 

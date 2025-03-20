@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
+import { Card, CardContent } from '@/components/ui/card'
 import { Bomb, Sparkles, RotateCcw } from 'lucide-react'
 
 export default function SelfDestructingTextField() {
@@ -130,115 +131,120 @@ export default function SelfDestructingTextField() {
     (countdown / getDifficultySettings().interval) * 100
 
   return (
-    <div className='space-y-4' ref={containerRef}>
-      <div className='space-y-2'>
-        <div className='flex justify-between items-center'>
-          <Label htmlFor='self-destructing-field'>
-            Try to type something coherent:
-          </Label>
-          <div className='flex items-center gap-2'>
-            <Button
-              variant={isPaused ? 'default' : 'outline'}
-              size='sm'
-              onClick={togglePause}
-            >
-              {isPaused ? 'Resume Chaos' : 'Pause Chaos'}
-            </Button>
-            <Button variant='outline' size='sm' onClick={resetTextField}>
-              <RotateCcw className='h-4 w-4 mr-1' />
-              Reset
-            </Button>
-          </div>
-        </div>
-
-        <div className='relative'>
-          <Input
-            ref={inputRef}
-            id='self-destructing-field'
-            value={text}
-            onChange={handleTextChange}
-            placeholder='Type here... if you dare'
-            className='pr-10'
-          />
-
-          {/* Explosion animation */}
-          {isExploding && (
-            <div
-              className='absolute pointer-events-none'
-              style={{
-                left: `${Math.min(300, Math.max(20, text.length * 8))}px`,
-                top: '50%',
-                transform: 'translate(-50%, -50%)'
-              }}
-            >
-              <div className='animate-ping'>
-                <Sparkles className='h-6 w-6 text-red-500' />
+    <Card>
+      <CardContent className='p-6'>
+        <div className='space-y-4' ref={containerRef}>
+          <div className='space-y-2'>
+            <div className='flex justify-between items-center'>
+              <Label htmlFor='self-destructing-field'>
+                Try to type something coherent:
+              </Label>
+              <div className='flex items-center gap-2'>
+                <Button
+                  variant={isPaused ? 'default' : 'outline'}
+                  size='sm'
+                  onClick={togglePause}
+                >
+                  {isPaused ? 'Resume Chaos' : 'Pause Chaos'}
+                </Button>
+                <Button variant='outline' size='sm' onClick={resetTextField}>
+                  <RotateCcw className='h-4 w-4 mr-1' />
+                  Reset
+                </Button>
               </div>
             </div>
-          )}
 
-          {/* Self-destruct indicator */}
-          <div className='absolute right-3 top-1/2 transform -translate-y-1/2'>
-            <Bomb
-              className={`h-4 w-4 ${
-                countdown < 1
-                  ? 'text-red-500 animate-pulse'
-                  : 'text-muted-foreground'
-              }`}
-            />
+            <div className='relative'>
+              <Input
+                ref={inputRef}
+                id='self-destructing-field'
+                value={text}
+                onChange={handleTextChange}
+                placeholder='Type here... if you dare'
+                className='pr-10'
+              />
+
+              {/* Explosion animation */}
+              {isExploding && (
+                <div
+                  className='absolute pointer-events-none'
+                  style={{
+                    left: `${Math.min(300, Math.max(20, text.length * 8))}px`,
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)'
+                  }}
+                >
+                  <div className='animate-ping'>
+                    <Sparkles className='h-6 w-6 text-red-500' />
+                  </div>
+                </div>
+              )}
+
+              {/* Self-destruct indicator */}
+              <div className='absolute right-3 top-1/2 transform -translate-y-1/2'>
+                <Bomb
+                  className={`h-4 w-4 ${
+                    countdown < 1
+                      ? 'text-red-500 animate-pulse'
+                      : 'text-muted-foreground'
+                  }`}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Self-destruct timer */}
+          <div className='space-y-1'>
+            <div className='flex justify-between text-xs'>
+              <span>Backspace attack in: {countdown.toFixed(1)}s</span>
+              <span>
+                Difficulty:{' '}
+                {difficultyLevel === 1
+                  ? 'Easy'
+                  : difficultyLevel === 2
+                    ? 'Medium'
+                    : 'Hard'}
+              </span>
+            </div>
+            <Progress value={progressPercentage} className='h-2' />
+          </div>
+
+          {/* Difficulty selector */}
+          <div className='flex gap-2 justify-center pt-2'>
+            <Button
+              variant={difficultyLevel === 1 ? 'default' : 'outline'}
+              size='sm'
+              onClick={() => changeDifficulty(1)}
+            >
+              Easy (1 char)
+            </Button>
+            <Button
+              variant={difficultyLevel === 2 ? 'default' : 'outline'}
+              size='sm'
+              onClick={() => changeDifficulty(2)}
+            >
+              Medium (2 chars)
+            </Button>
+            <Button
+              variant={difficultyLevel === 3 ? 'default' : 'outline'}
+              size='sm'
+              onClick={() => changeDifficulty(3)}
+            >
+              Hard (3 chars)
+            </Button>
+          </div>
+
+          <div className='p-4 border rounded-md bg-yellow-50 dark:bg-yellow-950'>
+            <p className='text-sm text-yellow-800 dark:text-yellow-300'>
+              <strong>Warning:</strong> This text field is actively fighting
+              against you! It will continuously erase your text like an
+              aggressive backspace key, even while you're typing. The harder the
+              difficulty, the more characters it deletes and the faster it
+              strikes!
+            </p>
           </div>
         </div>
-      </div>
-
-      {/* Self-destruct timer */}
-      <div className='space-y-1'>
-        <div className='flex justify-between text-xs'>
-          <span>Backspace attack in: {countdown.toFixed(1)}s</span>
-          <span>
-            Difficulty:{' '}
-            {difficultyLevel === 1
-              ? 'Easy'
-              : difficultyLevel === 2
-                ? 'Medium'
-                : 'Hard'}
-          </span>
-        </div>
-        <Progress value={progressPercentage} className='h-2' />
-      </div>
-
-      {/* Difficulty selector */}
-      <div className='flex gap-2 justify-center pt-2'>
-        <Button
-          variant={difficultyLevel === 1 ? 'default' : 'outline'}
-          size='sm'
-          onClick={() => changeDifficulty(1)}
-        >
-          Easy (1 char)
-        </Button>
-        <Button
-          variant={difficultyLevel === 2 ? 'default' : 'outline'}
-          size='sm'
-          onClick={() => changeDifficulty(2)}
-        >
-          Medium (2 chars)
-        </Button>
-        <Button
-          variant={difficultyLevel === 3 ? 'default' : 'outline'}
-          size='sm'
-          onClick={() => changeDifficulty(3)}
-        >
-          Hard (3 chars)
-        </Button>
-      </div>
-
-      <div className='p-4 border rounded-md bg-yellow-50 dark:bg-yellow-950'>
-        <p className='text-sm text-yellow-800 dark:text-yellow-300'>
-          <strong>Warning:</strong> This text field is actively fighting against
-          you! It will continuously erase your text like an aggressive backspace
-          key, even while you're typing. The harder the difficulty, the more
-          characters it deletes and the faster it strikes!
-        </p>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

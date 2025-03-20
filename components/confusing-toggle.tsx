@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Switch } from '@/components/ui/switch'
 import { Label } from '@/components/ui/label'
+import { Card, CardContent } from '@/components/ui/card'
 
 export default function ConfusingToggle() {
   const [isChecked, setIsChecked] = useState(false)
@@ -39,24 +40,30 @@ export default function ConfusingToggle() {
   }, [visuallyChecked, isChecked])
 
   return (
-    <div className='space-y-4'>
-      <div className='flex items-center space-x-2'>
-        <Switch
-          id='confusing-toggle'
-          checked={visuallyChecked}
-          onCheckedChange={handleToggleChange}
-        />
-        <Label htmlFor='confusing-toggle'>
-          {isChecked ? 'ON' : 'OFF'} (Click count: {clickCount})
-        </Label>
-      </div>
+    <Card>
+      <CardContent className='p-6'>
+        <div className='space-y-4'>
+          <div className='flex items-center space-x-2'>
+            <Switch
+              id='confusing-toggle'
+              checked={visuallyChecked}
+              onCheckedChange={handleToggleChange}
+            />
+            <Label htmlFor='confusing-toggle'>
+              {isChecked ? 'ON' : 'OFF'} (Click count: {clickCount})
+            </Label>
+          </div>
 
-      {message && <p className='text-sm text-muted-foreground'>{message}</p>}
+          {message && (
+            <p className='text-sm text-muted-foreground'>{message}</p>
+          )}
 
-      <p className='text-xs text-muted-foreground italic'>
-        This toggle requires 3 clicks to actually change state. The visual
-        feedback is misleading.
-      </p>
-    </div>
+          <p className='text-xs text-muted-foreground italic'>
+            This toggle requires 3 clicks to actually change state. The visual
+            feedback is misleading.
+          </p>
+        </div>
+      </CardContent>
+    </Card>
   )
 }

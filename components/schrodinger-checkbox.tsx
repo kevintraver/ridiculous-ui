@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react'
+import { Card, CardContent } from '@/components/ui/card'
 
 export default function SchrodingersCheckbox() {
   const [isChecked, setIsChecked] = useState(false)
@@ -51,41 +52,45 @@ export default function SchrodingersCheckbox() {
   }
 
   return (
-    <div className='flex flex-col items-center p-6 max-w-md mx-auto bg-white rounded-lg shadow-sm border border-gray-200'>
-      <h2 className='text-2xl font-bold mb-6 text-gray-800'>
-        Schrödinger's Checkbox
-      </h2>
+    <Card>
+      <CardContent className='p-6'>
+        <div className='flex flex-col items-center p-6 max-w-md mx-auto bg-white rounded-lg shadow-sm border border-gray-200'>
+          <h2 className='text-2xl font-bold mb-6 text-gray-800'>
+            Schrödinger's Checkbox
+          </h2>
 
-      <div className='text-center mb-6'>
-        <p className='text-lg'>
-          I'm both checked and unchecked... until you look!
-        </p>
-      </div>
+          <div className='text-center mb-6'>
+            <p className='text-lg'>
+              I'm both checked and unchecked... until you look!
+            </p>
+          </div>
 
-      <div className='mb-6'>
-        <div className='flex items-center justify-center'>
-          <input
-            type='checkbox'
-            checked={isChecked}
-            className='h-12 w-12 rounded bg-gray-100 border-gray-300 text-gray-800 cursor-not-allowed'
-            onMouseEnter={handleObservation}
-            onMouseLeave={handleEndObservation}
-            onChange={() => {}} // Required to avoid React warning
-            onClick={handleClick}
-            readOnly
-          />
+          <div className='mb-6'>
+            <div className='flex items-center justify-center'>
+              <input
+                type='checkbox'
+                checked={isChecked}
+                className='h-12 w-12 rounded bg-gray-100 border-gray-300 text-gray-800 cursor-not-allowed'
+                onMouseEnter={handleObservation}
+                onMouseLeave={handleEndObservation}
+                onChange={() => {}} // Required to avoid React warning
+                onClick={handleClick}
+                readOnly
+              />
+            </div>
+          </div>
+
+          <div className='text-gray-500 text-sm text-center'>
+            Hover to observe (state freezes when observed)
+          </div>
+
+          <div className='mt-4 bg-gray-100 p-3 rounded-md text-sm font-mono text-center'>
+            {isObserved
+              ? `state = "${collapsedState ? 'checked' : 'unchecked'}";`
+              : 'state = "both checked and unchecked";'}
+          </div>
         </div>
-      </div>
-
-      <div className='text-gray-500 text-sm text-center'>
-        Hover to observe (state freezes when observed)
-      </div>
-
-      <div className='mt-4 bg-gray-100 p-3 rounded-md text-sm font-mono text-center'>
-        {isObserved
-          ? `state = "${collapsedState ? 'checked' : 'unchecked'}";`
-          : 'state = "both checked and unchecked";'}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

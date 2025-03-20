@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import { Eye, EyeOff, Volume2, VolumeX } from 'lucide-react'
 
 export default function TalkingPasswordField() {
@@ -115,73 +116,79 @@ export default function TalkingPasswordField() {
   }
 
   return (
-    <div className='space-y-4'>
-      <div className='space-y-2'>
-        <Label htmlFor='talking-password'>Enter your "secure" password:</Label>
-        <div className='relative'>
-          <Input
-            id='talking-password'
-            type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={handlePasswordChange}
-            placeholder='Type your password...'
-            className='pr-20'
-          />
-          <div className='absolute right-0 top-0 h-full flex'>
-            <Button
-              type='button'
-              variant='ghost'
-              size='icon'
-              className='h-full'
-              onClick={() => setShowPassword(!showPassword)}
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
-            >
-              {showPassword ? (
-                <EyeOff className='h-4 w-4' />
-              ) : (
-                <Eye className='h-4 w-4' />
-              )}
-            </Button>
-            <Button
-              type='button'
-              variant='ghost'
-              size='icon'
-              className='h-full'
-              onClick={toggleMute}
-              aria-label={isMuted ? 'Unmute' : 'Mute'}
-            >
-              {isMuted ? (
-                <VolumeX className='h-4 w-4' />
-              ) : (
-                <Volume2 className='h-4 w-4' />
-              )}
-            </Button>
+    <Card>
+      <CardContent className='p-6'>
+        <div className='space-y-4'>
+          <div className='space-y-2'>
+            <Label htmlFor='talking-password'>
+              Enter your "secure" password:
+            </Label>
+            <div className='relative'>
+              <Input
+                id='talking-password'
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={handlePasswordChange}
+                placeholder='Type your password...'
+                className='pr-20'
+              />
+              <div className='absolute right-0 top-0 h-full flex'>
+                <Button
+                  type='button'
+                  variant='ghost'
+                  size='icon'
+                  className='h-full'
+                  onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? 'Hide password' : 'Show password'}
+                >
+                  {showPassword ? (
+                    <EyeOff className='h-4 w-4' />
+                  ) : (
+                    <Eye className='h-4 w-4' />
+                  )}
+                </Button>
+                <Button
+                  type='button'
+                  variant='ghost'
+                  size='icon'
+                  className='h-full'
+                  onClick={toggleMute}
+                  aria-label={isMuted ? 'Unmute' : 'Mute'}
+                >
+                  {isMuted ? (
+                    <VolumeX className='h-4 w-4' />
+                  ) : (
+                    <Volume2 className='h-4 w-4' />
+                  )}
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <div className='space-y-2'>
+            <Label htmlFor='volume-control'>
+              Speaker Volume: {Math.round(speakingVolume * 100)}%
+            </Label>
+            <Input
+              id='volume-control'
+              type='range'
+              min='0'
+              max='1'
+              step='0.1'
+              value={speakingVolume}
+              onChange={handleVolumeChange}
+            />
+          </div>
+
+          <div className='p-4 border rounded-md bg-yellow-50 dark:bg-yellow-950'>
+            <p className='text-sm text-yellow-800 dark:text-yellow-300'>
+              <strong>Security Warning:</strong> This password field announces
+              each character you type out loud. Not recommended for use in
+              public places, or anywhere really.
+            </p>
           </div>
         </div>
-      </div>
-
-      <div className='space-y-2'>
-        <Label htmlFor='volume-control'>
-          Speaker Volume: {Math.round(speakingVolume * 100)}%
-        </Label>
-        <Input
-          id='volume-control'
-          type='range'
-          min='0'
-          max='1'
-          step='0.1'
-          value={speakingVolume}
-          onChange={handleVolumeChange}
-        />
-      </div>
-
-      <div className='p-4 border rounded-md bg-yellow-50 dark:bg-yellow-950'>
-        <p className='text-sm text-yellow-800 dark:text-yellow-300'>
-          <strong>Security Warning:</strong> This password field announces each
-          character you type out loud. Not recommended for use in public places,
-          or anywhere really.
-        </p>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

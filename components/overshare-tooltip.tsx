@@ -8,6 +8,7 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import { Settings, Info, Bell, User, Home, Mail } from 'lucide-react'
 
 export default function OvershareTooltip() {
@@ -159,40 +160,46 @@ Thank you for your interest in the Messages icon. We hope this unnecessarily det
   ]
 
   return (
-    <div className='flex flex-wrap gap-4 justify-center'>
-      <TooltipProvider>
-        {tooltips.map(tooltip => (
-          <Tooltip
-            key={tooltip.id}
-            open={openTooltip === tooltip.id}
-            onOpenChange={open => setOpenTooltip(open ? tooltip.id : null)}
-          >
-            <TooltipTrigger asChild>
-              <Button variant='outline' size='icon' className='h-10 w-10'>
-                {tooltip.icon}
-                <span className='sr-only'>{tooltip.title}</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent
-              side='bottom'
-              align='center'
-              className='w-[350px] max-h-[400px] overflow-y-auto p-4 text-sm'
-            >
-              <div className='space-y-2'>
-                <h3 className='font-bold text-lg'>{tooltip.title}</h3>
-                <div className='whitespace-pre-line'>{tooltip.content}</div>
-                <div className='pt-2 text-xs text-right text-muted-foreground'>
-                  {tooltip.content.length} characters of unnecessary information
-                </div>
-              </div>
-            </TooltipContent>
-          </Tooltip>
-        ))}
-      </TooltipProvider>
+    <Card>
+      <CardContent className='p-6'>
+        <div className='flex flex-wrap gap-4 justify-center'>
+          <TooltipProvider>
+            {tooltips.map(tooltip => (
+              <Tooltip
+                key={tooltip.id}
+                open={openTooltip === tooltip.id}
+                onOpenChange={open => setOpenTooltip(open ? tooltip.id : null)}
+              >
+                <TooltipTrigger asChild>
+                  <Button variant='outline' size='icon' className='h-10 w-10'>
+                    {tooltip.icon}
+                    <span className='sr-only'>{tooltip.title}</span>
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent
+                  side='bottom'
+                  align='center'
+                  className='w-[350px] max-h-[400px] overflow-y-auto p-4 text-sm'
+                >
+                  <div className='space-y-2'>
+                    <h3 className='font-bold text-lg'>{tooltip.title}</h3>
+                    <div className='whitespace-pre-line'>{tooltip.content}</div>
+                    <div className='pt-2 text-xs text-right text-muted-foreground'>
+                      {tooltip.content.length} characters of unnecessary
+                      information
+                    </div>
+                  </div>
+                </TooltipContent>
+              </Tooltip>
+            ))}
+          </TooltipProvider>
 
-      <div className='w-full mt-4 text-center text-sm text-muted-foreground'>
-        Hover over any icon above to reveal its unnecessarily detailed backstory
-      </div>
-    </div>
+          <div className='w-full mt-4 text-center text-sm text-muted-foreground'>
+            Hover over any icon above to reveal its unnecessarily detailed
+            backstory
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   )
 }

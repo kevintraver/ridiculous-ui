@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import {
   Command,
   CommandEmpty,
@@ -108,86 +109,90 @@ export default function AlphabeticalAutocomplete() {
   }
 
   return (
-    <div className='space-y-6'>
-      <div className='space-y-2'>
-        <div className='relative'>
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <div className='relative'>
-                <Input
-                  ref={inputRef}
-                  id='alphabetical-autocomplete'
-                  value={inputValue}
-                  onChange={handleInputChange}
-                  placeholder='Type letters or space to see suggestions...'
-                  className='pr-10'
-                  autoComplete='off'
-                  autoCorrect='off'
-                  autoCapitalize='off'
-                  spellCheck='false'
-                  onKeyDown={e => e.key === 'Escape' && setOpen(false)}
-                />
-                <Button
-                  variant='ghost'
-                  size='icon'
-                  className='absolute right-0 top-0 h-full'
-                  onClick={() => setOpen(!open)}
+    <Card>
+      <CardContent className='p-6'>
+        <div className='space-y-6'>
+          <div className='space-y-2'>
+            <div className='relative'>
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <div className='relative'>
+                    <Input
+                      ref={inputRef}
+                      id='alphabetical-autocomplete'
+                      value={inputValue}
+                      onChange={handleInputChange}
+                      placeholder='Type letters or space to see suggestions...'
+                      className='pr-10'
+                      autoComplete='off'
+                      autoCorrect='off'
+                      autoCapitalize='off'
+                      spellCheck='false'
+                      onKeyDown={e => e.key === 'Escape' && setOpen(false)}
+                    />
+                    <Button
+                      variant='ghost'
+                      size='icon'
+                      className='absolute right-0 top-0 h-full'
+                      onClick={() => setOpen(!open)}
+                    >
+                      <ChevronsUpDown className='h-4 w-4 opacity-50' />
+                    </Button>
+                  </div>
+                </PopoverTrigger>
+                <PopoverContent
+                  className='p-0 max-h-[300px] overflow-y-auto'
+                  align='start'
+                  sideOffset={5}
+                  onOpenAutoFocus={e => e.preventDefault()}
                 >
-                  <ChevronsUpDown className='h-4 w-4 opacity-50' />
-                </Button>
-              </div>
-            </PopoverTrigger>
-            <PopoverContent
-              className='p-0 max-h-[300px] overflow-y-auto'
-              align='start'
-              sideOffset={5}
-              onOpenAutoFocus={e => e.preventDefault()}
-            >
-              <Command shouldFilter={false}>
-                <CommandList>
-                  <CommandEmpty>No letters available</CommandEmpty>
-                  <CommandGroup heading='Alphabet suggestions'>
-                    {suggestions.map(suggestion => (
-                      <CommandItem
-                        key={suggestion}
-                        value={suggestion}
-                        onSelect={() => handleSelectSuggestion(suggestion)}
-                        onFocus={e => e.preventDefault()}
-                      >
-                        <div className='flex items-center'>
-                          <span className='font-mono'>{suggestion}</span>
-                          {selectedSuggestion === suggestion && (
-                            <Check className='ml-auto h-4 w-4' />
-                          )}
-                        </div>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
-        </div>
-      </div>
+                  <Command shouldFilter={false}>
+                    <CommandList>
+                      <CommandEmpty>No letters available</CommandEmpty>
+                      <CommandGroup heading='Alphabet suggestions'>
+                        {suggestions.map(suggestion => (
+                          <CommandItem
+                            key={suggestion}
+                            value={suggestion}
+                            onSelect={() => handleSelectSuggestion(suggestion)}
+                            onFocus={e => e.preventDefault()}
+                          >
+                            <div className='flex items-center'>
+                              <span className='font-mono'>{suggestion}</span>
+                              {selectedSuggestion === suggestion && (
+                                <Check className='ml-auto h-4 w-4' />
+                              )}
+                            </div>
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+            </div>
+          </div>
 
-      <div className='flex justify-between items-center'>
-        <div className='text-sm text-muted-foreground italic'>
-          {getSuggestionMessage()}
-        </div>
-        <Button variant='outline' size='sm' onClick={handleClear}>
-          Clear
-        </Button>
-      </div>
+          <div className='flex justify-between items-center'>
+            <div className='text-sm text-muted-foreground italic'>
+              {getSuggestionMessage()}
+            </div>
+            <Button variant='outline' size='sm' onClick={handleClear}>
+              Clear
+            </Button>
+          </div>
 
-      {suggestionCount > 5 && (
-        <div className='p-4 border rounded-md bg-yellow-50 dark:bg-yellow-950'>
-          <p className='text-sm text-yellow-800 dark:text-yellow-300'>
-            <strong>Efficiency Warning:</strong> You've selected{' '}
-            {suggestionCount} suggestions. At this point, it might be faster to
-            just type the letters yourself.
-          </p>
+          {suggestionCount > 5 && (
+            <div className='p-4 border rounded-md bg-yellow-50 dark:bg-yellow-950'>
+              <p className='text-sm text-yellow-800 dark:text-yellow-300'>
+                <strong>Efficiency Warning:</strong> You've selected{' '}
+                {suggestionCount} suggestions. At this point, it might be faster
+                to just type the letters yourself.
+              </p>
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </CardContent>
+    </Card>
   )
 }

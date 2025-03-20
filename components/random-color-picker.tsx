@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Label } from '@/components/ui/label'
 import { Input } from '@/components/ui/input'
+import { Card, CardContent } from '@/components/ui/card'
 
 export default function RandomColorPicker() {
   const [selectedColor, setSelectedColor] = useState('#ff0000')
@@ -37,45 +38,49 @@ export default function RandomColorPicker() {
   }, [selectedColor])
 
   return (
-    <div className='space-y-4'>
-      <div className='space-y-2'>
-        <Label htmlFor='color-picker'>Select a color:</Label>
-        <Input
-          id='color-picker'
-          type='color'
-          value={selectedColor}
-          onChange={e => setSelectedColor(e.target.value)}
-          className='h-10 w-full'
-        />
-      </div>
+    <Card>
+      <CardContent className='p-6'>
+        <div className='space-y-4'>
+          <div className='space-y-2'>
+            <Label htmlFor='color-picker'>Select a color:</Label>
+            <Input
+              id='color-picker'
+              type='color'
+              value={selectedColor}
+              onChange={e => setSelectedColor(e.target.value)}
+              className='h-10 w-full'
+            />
+          </div>
 
-      <div className='space-y-2'>
-        <Label>The color you selected:</Label>
-        <div className='flex items-center space-x-2'>
-          <div
-            className='h-10 w-10 rounded-md border'
-            style={{ backgroundColor: selectedColor }}
-          />
-          <span>{selectedColor}</span>
+          <div className='space-y-2'>
+            <Label>The color you selected:</Label>
+            <div className='flex items-center space-x-2'>
+              <div
+                className='h-10 w-10 rounded-md border'
+                style={{ backgroundColor: selectedColor }}
+              />
+              <span>{selectedColor}</span>
+            </div>
+          </div>
+
+          <div className='space-y-2'>
+            <Label>The color you actually get:</Label>
+            <div className='flex items-center space-x-2'>
+              <div
+                className='h-10 w-10 rounded-md border'
+                style={{ backgroundColor: displayedColor }}
+              />
+              <span>
+                {displayedColor} ({colorName})
+              </span>
+            </div>
+          </div>
+
+          <p className='text-xs text-muted-foreground italic'>
+            This color picker never gives you the color you actually selected!
+          </p>
         </div>
-      </div>
-
-      <div className='space-y-2'>
-        <Label>The color you actually get:</Label>
-        <div className='flex items-center space-x-2'>
-          <div
-            className='h-10 w-10 rounded-md border'
-            style={{ backgroundColor: displayedColor }}
-          />
-          <span>
-            {displayedColor} ({colorName})
-          </span>
-        </div>
-      </div>
-
-      <p className='text-xs text-muted-foreground italic'>
-        This color picker never gives you the color you actually selected!
-      </p>
-    </div>
+      </CardContent>
+    </Card>
   )
 }

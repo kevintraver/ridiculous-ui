@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { Dice1, Dice2, Dice3, Dice4, Dice5, Dice6 } from 'lucide-react'
+import { Card, CardContent } from '@/components/ui/card'
 import {
   Pagination,
   PaginationContent,

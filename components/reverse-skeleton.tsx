@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { Card, CardContent } from '@/components/ui/card'
 
 const ReverseSkeletonForm = () => {
   const [opacity, setOpacity] = useState(0)

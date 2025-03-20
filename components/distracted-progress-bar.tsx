@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Progress } from '@/components/ui/progress'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import { RotateCcw, Coffee, HelpCircle } from 'lucide-react'
 
 type DistractionType = 'vibrate' | 'coffee' | 'forget' | 'backtrack' | 'normal'
@@ -159,53 +160,57 @@ export default function DistractedProgressBar() {
   }, [])
 
   return (
-    <div className='space-y-6' ref={containerRef}>
-      <div className='flex justify-between items-center'>
-        <div className='text-sm font-medium'>
-          Progress: {Math.round(progress)}%
-        </div>
-        <Button
-          variant='outline'
-          size='sm'
-          onClick={startProgress}
-          disabled={isRunning}
-        >
-          <RotateCcw className='h-4 w-4 mr-1' />
-          {isRunning ? 'Restart' : 'Start'}
-        </Button>
-      </div>
-
-      <div
-        className='relative'
-        ref={progressBarRef}
-        style={{
-          transform: `translate(${position.x}px, ${position.y}px)`,
-          transition: 'transform 0.1s ease-out'
-        }}
-      >
-        <Progress
-          value={progress}
-          className={`${distraction === 'vibrate' ? '' : ''}`}
-        />
-
-        {distraction === 'coffee' && (
-          <div className='absolute -right-8 top-0'>
-            <Coffee className='h-5 w-5 text-muted-foreground animate-bounce' />
+    <Card>
+      <CardContent className='p-6'>
+        <div className='space-y-6' ref={containerRef}>
+          <div className='flex justify-between items-center'>
+            <div className='text-sm font-medium'>
+              Progress: {Math.round(progress)}%
+            </div>
+            <Button
+              variant='outline'
+              size='sm'
+              onClick={startProgress}
+              disabled={isRunning}
+            >
+              <RotateCcw className='h-4 w-4 mr-1' />
+              {isRunning ? 'Restart' : 'Start'}
+            </Button>
           </div>
-        )}
 
-        {distraction === 'forget' && (
-          <div className='absolute -right-8 top-0'>
-            <HelpCircle className='h-5 w-5 text-muted-foreground animate-pulse' />
+          <div
+            className='relative'
+            ref={progressBarRef}
+            style={{
+              transform: `translate(${position.x}px, ${position.y}px)`,
+              transition: 'transform 0.1s ease-out'
+            }}
+          >
+            <Progress
+              value={progress}
+              className={`${distraction === 'vibrate' ? '' : ''}`}
+            />
+
+            {distraction === 'coffee' && (
+              <div className='absolute -right-8 top-0'>
+                <Coffee className='h-5 w-5 text-muted-foreground animate-bounce' />
+              </div>
+            )}
+
+            {distraction === 'forget' && (
+              <div className='absolute -right-8 top-0'>
+                <HelpCircle className='h-5 w-5 text-muted-foreground animate-pulse' />
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
-      {message && (
-        <div className='text-center text-sm italic animate-fade-in'>
-          {message}
+          {message && (
+            <div className='text-center text-sm italic animate-fade-in'>
+              {message}
+            </div>
+          )}
         </div>
-      )}
-    </div>
+      </CardContent>
+    </Card>
   )
 }

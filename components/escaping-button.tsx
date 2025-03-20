@@ -4,6 +4,7 @@ import type React from 'react'
 
 import { useState, useRef, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 
 export default function EscapingButton() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -64,31 +65,36 @@ export default function EscapingButton() {
   }, [clickCount])
 
   return (
-    <div
-      ref={containerRef}
-      className='relative h-[200px] border rounded-md p-4 bg-background'
-    >
-      <div
-        style={{
-          transform: `translate(${position.x}px, ${position.y}px)`,
-          transition: isEscaping ? 'transform 0.2s ease-out' : 'none',
-          position: 'absolute'
-        }}
-      >
-        <Button onMouseMove={handleMouseMove} onClick={handleClick}>
-          {clickCount >= 5 ? 'You caught me!' : 'Try to click me!'}
-        </Button>
-      </div>
+    <Card>
+      <CardContent className='p-6'>
+        <div
+          ref={containerRef}
+          className='relative h-[200px] border rounded-md p-4 bg-background'
+        >
+          <div
+            style={{
+              transform: `translate(${position.x}px, ${position.y}px)`,
+              transition: isEscaping ? 'transform 0.2s ease-out' : 'none',
+              position: 'absolute'
+            }}
+          >
+            <Button onMouseMove={handleMouseMove} onClick={handleClick}>
+              {clickCount >= 5 ? 'You caught me!' : 'Try to click me!'}
+            </Button>
+          </div>
 
-      {clickCount >= 5 && (
-        <div className='absolute bottom-4 left-0 right-0 text-center text-sm text-green-500 font-medium'>
-          Congratulations! You've successfully clicked the uncatchable button!
+          {clickCount >= 5 && (
+            <div className='absolute bottom-4 left-0 right-0 text-center text-sm text-green-500 font-medium'>
+              Congratulations! You've successfully clicked the uncatchable
+              button!
+            </div>
+          )}
+
+          <div className='absolute bottom-4 left-4 text-xs text-muted-foreground'>
+            Click count: {clickCount}/5
+          </div>
         </div>
-      )}
-
-      <div className='absolute bottom-4 left-4 text-xs text-muted-foreground'>
-        Click count: {clickCount}/5
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   )
 }
