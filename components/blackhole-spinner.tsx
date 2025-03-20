@@ -16,7 +16,7 @@ export default function BlackHoleSpinner() {
   const [blackHoleGone, setBlackHoleGone] = useState(false)
   const formRef = useRef(null)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
@@ -40,9 +40,9 @@ export default function BlackHoleSpinner() {
   }
 
   return (
-    <div className="flex flex-col items-center w-full max-w-md mx-auto">
-      <div className="relative w-full rounded-lg overflow-hidden bg-white p-6 shadow-md">
-        <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+    <div className='flex flex-col items-center w-full max-w-md mx-auto'>
+      <div className='relative w-full rounded-lg overflow-hidden bg-white p-6 shadow-md'>
+        <form ref={formRef} onSubmit={handleSubmit} className='space-y-4'>
           <h2
             className={`text-xl font-bold mb-4 transition-all duration-1000 ${
               blackHoleShrinking ? 'opacity-0 scale-0 translate-y-24' : ''
@@ -65,16 +65,16 @@ export default function BlackHoleSpinner() {
             } ${blackHoleGone ? 'opacity-0' : ''}`}
           >
             <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor='name'
+              className='block text-sm font-medium text-gray-700 mb-1'
             >
               Full Name
             </label>
             <input
-              type="text"
-              id="name"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              placeholder="John Doe"
+              type='text'
+              id='name'
+              className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500'
+              placeholder='John Doe'
             />
           </div>
 
@@ -90,16 +90,16 @@ export default function BlackHoleSpinner() {
             } ${blackHoleGone ? 'opacity-0' : ''}`}
           >
             <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor='email'
+              className='block text-sm font-medium text-gray-700 mb-1'
             >
               Email Address
             </label>
             <input
-              type="email"
-              id="email"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              placeholder="john@example.com"
+              type='email'
+              id='email'
+              className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500'
+              placeholder='john@example.com'
             />
           </div>
 
@@ -115,16 +115,16 @@ export default function BlackHoleSpinner() {
             } ${blackHoleGone ? 'opacity-0' : ''}`}
           >
             <label
-              htmlFor="message"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              htmlFor='message'
+              className='block text-sm font-medium text-gray-700 mb-1'
             >
               Message
             </label>
             <textarea
-              id="message"
+              id='message'
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              placeholder="Type your message here..."
+              className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500'
+              placeholder='Type your message here...'
             ></textarea>
           </div>
 
@@ -138,9 +138,9 @@ export default function BlackHoleSpinner() {
             }`}
           >
             <button
-              type="submit"
+              type='submit'
               disabled={isSubmitting}
-              className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className='w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500'
             >
               {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
@@ -148,7 +148,7 @@ export default function BlackHoleSpinner() {
 
           {/* Black Hole Spinner */}
           {isSubmitting && !blackHoleGone && (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+            <div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10'>
               <div
                 className={`
                   rounded-full 
@@ -165,7 +165,7 @@ export default function BlackHoleSpinner() {
               >
                 {!blackHoleActive && (
                   <div
-                    className="w-full h-full border-t-4 border-white rounded-full animate-spin"
+                    className='w-full h-full border-t-4 border-white rounded-full animate-spin'
                     style={{
                       animationDuration: `${1 / spinnerSpeed}s`,
                       transition: 'animation-duration 0.5s ease'
@@ -180,7 +180,7 @@ export default function BlackHoleSpinner() {
 
       <button
         onClick={resetForm}
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+        className='mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors'
       >
         Restart Animation
       </button>

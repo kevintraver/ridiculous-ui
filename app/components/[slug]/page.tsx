@@ -1,0 +1,90 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { notFound, useParams } from 'next/navigation'
+import Link from 'next/link'
+import { ArrowLeft } from 'lucide-react'
+import { componentsData, categoryIcons } from '@/lib/components-data'
+import { Skeleton } from '@/components/ui/skeleton'
+
+export default function ComponentPage() {
+  const params = useParams()
+  const slug = params?.slug as string
+  const [Component, setComponent] = useState<React.ComponentType | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  const componentData = componentsData.find(c => c.slug === slug)
+
+  useEffect(() => {
+    if (!componentData) {
+      notFound()
+      return
+    }
+
+    const loadComponent = async () => {
+      setIsLoading(true)
+      try {
+        const Component = await componentData.component()
+        setComponent(() => Component)
+      } catch (error) {
+        console.error('Failed to load component:', error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadComponent()
+  }, [componentData, slug])
+
+  if (!componentData) {
+    notFound()
+  }
+
+  return (
+    <div className='container mx-auto py-10 px-4'>
+      <div className='flex items-center mb-6'>
+        <Link
+          href='/components'
+          className='flex items-center text-muted-foreground hover:text-primary transition-colors mr-4'
+        >
+          <ArrowLeft className='h-5 w-5 mr-1' />
+          <span>Back to Components</span>
+        </Link>
+      </div>
+
+      <h1 className='text-4xl font-extrabold mb-4'>{componentData.name}</h1>
+
+      <div className='flex gap-2 mb-4'>
+        {componentData.categories.map(category => {
+          const Icon = categoryIcons[category]
+          return (
+            <Link
+              href={`/components?category=${category}`}
+              key={category}
+              className='px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm hover:bg-primary/20 transition-colors flex items-center gap-1.5'
+            >
+              <Icon className='h-3.5 w-3.5' />
+              {category.replace('-', ' ')}
+            </Link>
+          )
+        })}
+      </div>
+
+      <p className='text-lg text-muted-foreground mb-8'>
+        {componentData.description}
+      </p>
+
+      {isLoading ? (
+        <div className='min-h-[200px] flex items-center justify-center'>
+          <Skeleton className='h-[200px] w-full' />
+        </div>
+      ) : Component ? (
+        <Component />
+      ) : (
+        <div className='text-center text-muted-foreground'>
+          Component not found
+        </div>
+      )}
+    </div>
+  )
+}

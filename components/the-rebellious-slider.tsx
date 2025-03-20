@@ -24,16 +24,16 @@ export default function TheRebelliousSlider() {
 
   // Taunting messages for user dragging
   const tauntMessages = [
-    `Nope, I don't feel like it!`,
-    `Not today, buddy!`,
-    `You're not the boss of me!`
+    "Nope, I don't feel like it!",
+    'Not today, buddy!',
+    "You're not the boss of me!"
   ]
 
   // Automatic messages when the slider takes charge
   const rebelMessages = [
-    `I'm in charge here.`,
-    `Let's do it my way.`,
-    `Ha! I rule this slider!`
+    "I'm in charge here.",
+    "Let's do it my way.",
+    'Ha! I rule this slider!'
   ]
 
   // Clear any auto-change timer
@@ -51,7 +51,7 @@ export default function TheRebelliousSlider() {
     // Start hold timer: if held for 3 seconds, slider gives in
     holdTimer.current = setTimeout(() => {
       setIsHeld(true)
-      setMessage(`FINE, have it your way… for now.`)
+      setMessage('FINE, have it your way… for now.')
     }, 3000)
   }
 
@@ -117,7 +117,7 @@ export default function TheRebelliousSlider() {
           // Base change amount - larger when closer to middle
           const baseChange = 20 * movementFactor // Doubled the base change amount
           const smallChange = Math.random() * baseChange - baseChange / 2
-          setValue((prev) => Math.max(0, Math.min(100, prev + smallChange)))
+          setValue(prev => Math.max(0, Math.min(100, prev + smallChange)))
         }
       }
 
@@ -142,44 +142,47 @@ export default function TheRebelliousSlider() {
       return
     }
 
-    autoChangeTimer.current = setTimeout(() => {
-      // Pick a random value - more variation now
-      const rebelValue = Math.random() * 100 // Any value between 0-100
-      setValue(rebelValue)
-      setMessage(
-        rebelMessages[Math.floor(Math.random() * rebelMessages.length)]
-      )
-    }, 800 + Math.random() * 1200) // change more frequently: 0.8-2 seconds
+    autoChangeTimer.current = setTimeout(
+      () => {
+        // Pick a random value - more variation now
+        const rebelValue = Math.random() * 100 // Any value between 0-100
+        setValue(rebelValue)
+        setMessage(
+          rebelMessages[Math.floor(Math.random() * rebelMessages.length)]
+        )
+      },
+      800 + Math.random() * 1200
+    ) // change more frequently: 0.8-2 seconds
 
     return clearAutoChangeTimer
   }, [hasBeenClicked, value, isHolding])
 
   return (
-    <div className="space-y-4 p-4 border rounded-lg bg-white shadow relative overflow-hidden">
-      <h2 className="text-lg font-bold text-center">
+    <div className='space-y-4 p-4 border rounded-lg bg-white shadow relative overflow-hidden'>
+      <h2 className='text-lg font-bold text-center'>
         A slider that's too independent for your control.
       </h2>
-      <div className="flex items-center space-x-4 relative">
+      <div className='flex items-center space-x-4 relative'>
         <Slider
           value={[value]}
-          onValueChange={(vals) => handleValueChange(vals[0])}
+          onValueChange={vals => handleValueChange(vals[0])}
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
-          className="w-full"
+          className='w-full'
         />
-        <div className="w-12 text-center font-mono text-sm bg-gray-100 rounded px-2 py-1">
+        <div className='w-12 text-center font-mono text-sm bg-gray-100 rounded px-2 py-1'>
           {Math.round(value)}
         </div>
       </div>
       {message && (
-        <div className="text-center text-sm italic text-gray-600">
+        <div className='text-center text-sm italic text-gray-600'>
           {message}{' '}
-          <span role="img" aria-label="mischievous grin">
+          <span role='img' aria-label='mischievous grin'>
             😏
           </span>
         </div>
       )}
-      <div className="text-center text-xs text-gray-500 mt-2">
+      <div className='text-center text-xs text-gray-500 mt-2'>
         {hasBeenClicked
           ? 'Try to control me now!'
           : 'Click or drag the slider to wake me up!'}

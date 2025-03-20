@@ -54,7 +54,7 @@ export default function EscapingButton() {
   }
 
   const handleClick = () => {
-    setClickCount((prev) => prev + 1)
+    setClickCount(prev => prev + 1)
   }
 
   useEffect(() => {
@@ -66,7 +66,7 @@ export default function EscapingButton() {
   return (
     <div
       ref={containerRef}
-      className="relative h-[200px] border rounded-md p-4 bg-background"
+      className='relative h-[200px] border rounded-md p-4 bg-background'
     >
       <div
         style={{
@@ -81,12 +81,12 @@ export default function EscapingButton() {
       </div>
 
       {clickCount >= 5 && (
-        <div className="absolute bottom-4 left-0 right-0 text-center text-sm text-green-500 font-medium">
+        <div className='absolute bottom-4 left-0 right-0 text-center text-sm text-green-500 font-medium'>
           Congratulations! You've successfully clicked the uncatchable button!
         </div>
       )}
 
-      <div className="absolute bottom-4 left-4 text-xs text-muted-foreground">
+      <div className='absolute bottom-4 left-4 text-xs text-muted-foreground'>
         Click count: {clickCount}/5
       </div>
     </div>

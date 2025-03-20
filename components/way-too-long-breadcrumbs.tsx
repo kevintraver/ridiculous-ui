@@ -29,8 +29,8 @@ export default function OversharingBreadcrumbs() {
     {
       id: 'home',
       content: (
-        <div className="flex items-center gap-1">
-          <Home className="h-4 w-4" />
+        <div className='flex items-center gap-1'>
+          <Home className='h-4 w-4' />
           <span>Home</span>
         </div>
       )
@@ -62,63 +62,63 @@ export default function OversharingBreadcrumbs() {
   const folderStructure = [
     {
       name: 'Documents',
-      icon: <Folder className="h-4 w-4" />,
+      icon: <Folder className='h-4 w-4' />,
       detail: 'Created 3 years ago'
     },
     {
       name: 'Work Projects',
-      icon: <Folder className="h-4 w-4" />,
+      icon: <Folder className='h-4 w-4' />,
       detail: 'Last modified while I was supposed to be on vacation'
     },
     {
       name: 'Project Roadmap',
-      icon: <File className="h-4 w-4" />,
+      icon: <File className='h-4 w-4' />,
       detail: 'These deadlines are completely unrealistic'
     },
     {
       name: 'Q3 Reports',
-      icon: <Folder className="h-4 w-4" />,
+      icon: <Folder className='h-4 w-4' />,
       detail: 'The numbers are slightly fudged'
     },
     {
       name: 'Marketing Strategy',
-      icon: <Folder className="h-4 w-4" />,
+      icon: <Folder className='h-4 w-4' />,
       detail: "Copied from a competitor, if I'm being honest"
     },
     {
       name: 'Client Presentations',
-      icon: <Folder className="h-4 w-4" />,
+      icon: <Folder className='h-4 w-4' />,
       detail: 'Most of these were made the night before'
     },
     {
       name: 'Budget Forecasts',
-      icon: <File className="h-4 w-4" />,
+      icon: <File className='h-4 w-4' />,
       detail: 'I made these up during a boring meeting'
     },
     {
       name: 'Meeting Notes',
-      icon: <File className="h-4 w-4" />,
+      icon: <File className='h-4 w-4' />,
       detail: 'I was actually playing Candy Crush during this meeting'
     },
     {
       name: 'Team Performance Reviews',
-      icon: <File className="h-4 w-4" />,
+      icon: <File className='h-4 w-4' />,
       detail: 'I wrote these after having three glasses of wine'
     },
     {
       name: 'Confidential Assets',
-      icon: <Folder className="h-4 w-4" />,
+      icon: <Folder className='h-4 w-4' />,
       detail: 'Not actually confidential, I just like feeling important'
     }
   ]
 
   // Random icons to make the breadcrumbs more visually chaotic as they grow
   const randomIcons = [
-    <Coffee key="coffee" className="h-4 w-4" />,
-    <Clock key="clock" className="h-4 w-4" />,
-    <Heart key="heart" className="h-4 w-4" />,
-    <Star key="star" className="h-4 w-4" />,
-    <User key="user" className="h-4 w-4" />
+    <Coffee key='coffee' className='h-4 w-4' />,
+    <Clock key='clock' className='h-4 w-4' />,
+    <Heart key='heart' className='h-4 w-4' />,
+    <Star key='star' className='h-4 w-4' />,
+    <User key='user' className='h-4 w-4' />
   ]
 
   // Navigate to the next level
@@ -143,7 +143,7 @@ export default function OversharingBreadcrumbs() {
       newBreadcrumb = {
         id: `level-${newLevel}`,
         content: (
-          <div className="flex items-center gap-1">
+          <div className='flex items-center gap-1'>
             {nextItem.icon}
             <span>{nextItem.name}</span>
           </div>
@@ -154,10 +154,10 @@ export default function OversharingBreadcrumbs() {
       newBreadcrumb = {
         id: `level-${newLevel}`,
         content: (
-          <div className="flex items-center gap-1">
+          <div className='flex items-center gap-1'>
             {nextItem.icon}
             <span>{nextItem.name}</span>
-            <span className="text-xs text-muted-foreground">
+            <span className='text-xs text-muted-foreground'>
               ({nextItem.detail})
             </span>
           </div>
@@ -173,11 +173,11 @@ export default function OversharingBreadcrumbs() {
       newBreadcrumb = {
         id: `level-${newLevel}`,
         content: (
-          <div className="flex items-center gap-1">
+          <div className='flex items-center gap-1'>
             {nextItem.icon}
             <span>{nextItem.name}</span>
             {randomIcon}
-            <span className="text-xs text-muted-foreground hidden md:inline">
+            <span className='text-xs text-muted-foreground hidden md:inline'>
               ({nextItem.detail})
             </span>
           </div>
@@ -206,8 +206,8 @@ export default function OversharingBreadcrumbs() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap gap-2">
+    <div className='space-y-6'>
+      <div className='flex flex-wrap gap-2'>
         <Button
           onClick={navigateDeeper}
           disabled={navigationLevel >= folderStructure.length}
@@ -215,41 +215,41 @@ export default function OversharingBreadcrumbs() {
           Navigate Deeper
         </Button>
         <Button
-          variant="outline"
+          variant='outline'
           onClick={goBack}
           disabled={breadcrumbs.length <= 1}
         >
           Go Back
         </Button>
         <Button
-          variant="secondary"
+          variant='secondary'
           onClick={resetNavigation}
           disabled={breadcrumbs.length <= 1}
         >
           Reset
         </Button>
       </div>
-      <div className="flex flex-wrap items-center gap-2 p-4 border rounded-md bg-background overflow-x-auto max-w-full">
+      <div className='flex flex-wrap items-center gap-2 p-4 border rounded-md bg-background overflow-x-auto max-w-full'>
         <TooltipProvider>
           {breadcrumbs.map((crumb, index) => (
-            <div key={crumb.id} className="flex items-center">
+            <div key={crumb.id} className='flex items-center'>
               {index > 0 && (
-                <ChevronRight className="h-4 w-4 mx-1 flex-shrink-0 text-muted-foreground" />
+                <ChevronRight className='h-4 w-4 mx-1 flex-shrink-0 text-muted-foreground' />
               )}
 
               {crumb.tooltip ? (
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <div className="flex-shrink-0 whitespace-nowrap hover:bg-accent hover:text-accent-foreground rounded px-2 py-1 text-sm">
+                    <div className='flex-shrink-0 whitespace-nowrap hover:bg-accent hover:text-accent-foreground rounded px-2 py-1 text-sm'>
                       {crumb.content}
                     </div>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p className="max-w-xs">{crumb.tooltip}</p>
+                    <p className='max-w-xs'>{crumb.tooltip}</p>
                   </TooltipContent>
                 </Tooltip>
               ) : (
-                <div className="flex-shrink-0 whitespace-nowrap hover:bg-accent hover:text-accent-foreground rounded px-2 py-1 text-sm">
+                <div className='flex-shrink-0 whitespace-nowrap hover:bg-accent hover:text-accent-foreground rounded px-2 py-1 text-sm'>
                   {crumb.content}
                 </div>
               )}
@@ -259,15 +259,15 @@ export default function OversharingBreadcrumbs() {
       </div>
 
       {navigationLevel > 5 && (
-        <div className="text-sm italic text-muted-foreground">
+        <div className='text-sm italic text-muted-foreground'>
           Your breadcrumbs are getting rather... personal. Maybe keep some
           things to yourself?
         </div>
       )}
 
       {navigationLevel > 8 && (
-        <div className="p-4 border rounded-md bg-yellow-50 dark:bg-yellow-950">
-          <p className="text-sm text-yellow-800 dark:text-yellow-300">
+        <div className='p-4 border rounded-md bg-yellow-50 dark:bg-yellow-950'>
+          <p className='text-sm text-yellow-800 dark:text-yellow-300'>
             <strong>Privacy Warning:</strong> Your breadcrumb navigation is
             oversharing. It's telling everyone about your personal life and
             questionable work habits. Consider therapy for your navigation

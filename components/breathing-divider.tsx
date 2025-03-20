@@ -4,9 +4,9 @@ import React from 'react'
 
 export default function StretchingDivider() {
   return (
-    <div className="w-full flex justify-center my-8">
+    <div className='w-full flex justify-center my-8'>
       {/* The divider element with a breathing animation */}
-      <div className="h-1 bg-gray-500 transform origin-center animate-breathe w-full max-w-md"></div>
+      <div className='h-1 bg-gray-500 transform origin-center animate-breathe w-full max-w-md'></div>
       <style jsx>{`
         @keyframes breathe {
           0%,

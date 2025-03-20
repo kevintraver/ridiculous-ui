@@ -83,23 +83,23 @@ export function RandomDicePagination() {
   const NextDiceIcon = DiceComponents[nextDice]
 
   return (
-    <div className="flex flex-col items-center">
+    <div className='flex flex-col items-center'>
       {/* 'Page X Content' block */}
-      <div className="mt-6 mb-6 p-4 bg-gray-100 rounded-md max-w-lg">
-        <h3 className="font-bold mb-2">Page {currentPage} Content</h3>
-        <p className="text-gray-700">
+      <div className='mt-6 mb-6 p-4 bg-gray-100 rounded-md max-w-lg'>
+        <h3 className='font-bold mb-2'>Page {currentPage} Content</h3>
+        <p className='text-gray-700'>
           This is completely random content for page {currentPage}. You never
           know where the dice will take you next!
         </p>
       </div>
 
-      <Pagination className="py-4">
-        <PaginationContent className="gap-4">
+      <Pagination className='py-4'>
+        <PaginationContent className='gap-4'>
           <PaginationItem>
             <button
               onClick={handlePrevious}
               disabled={isRolling}
-              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-12 w-12 p-0"
+              className='inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-12 w-12 p-0'
             >
               {/* Removed 'animate-bounce' and replaced with a scale toggle */}
               <PrevDiceIcon
@@ -114,7 +114,7 @@ export function RandomDicePagination() {
           {currentPage > 2 && (
             <PaginationItem>
               <button
-                type="button"
+                type='button'
                 onClick={() => handlePageClick(1)}
                 className={`py-3 h-12 w-12 flex items-center justify-center rounded ${
                   currentPage === 1
@@ -129,15 +129,15 @@ export function RandomDicePagination() {
 
           {currentPage > 3 && (
             <PaginationItem>
-              <PaginationEllipsis className="h-12 flex items-center" />
+              <PaginationEllipsis className='h-12 flex items-center' />
             </PaginationItem>
           )}
 
           {/* MAPPED PAGES */}
-          {getPageLinks().map((page) => (
+          {getPageLinks().map(page => (
             <PaginationItem key={page}>
               <button
-                type="button"
+                type='button'
                 onClick={() => handlePageClick(page)}
                 className={`py-3 h-12 w-12 flex items-center justify-center rounded ${
                   page === currentPage
@@ -152,7 +152,7 @@ export function RandomDicePagination() {
 
           {currentPage < totalPages - 2 && (
             <PaginationItem>
-              <PaginationEllipsis className="h-12 flex items-center" />
+              <PaginationEllipsis className='h-12 flex items-center' />
             </PaginationItem>
           )}
 
@@ -160,7 +160,7 @@ export function RandomDicePagination() {
           {currentPage < totalPages - 1 && (
             <PaginationItem>
               <button
-                type="button"
+                type='button'
                 onClick={() => handlePageClick(totalPages)}
                 className={`py-3 h-12 w-12 flex items-center justify-center rounded ${
                   currentPage === totalPages
@@ -177,7 +177,7 @@ export function RandomDicePagination() {
             <button
               onClick={handleNext}
               disabled={isRolling}
-              className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-12 w-12 p-0"
+              className='inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-12 w-12 p-0'
             >
               <NextDiceIcon
                 className={`h-8 w-8 transform transition-transform duration-300 ${
@@ -189,7 +189,7 @@ export function RandomDicePagination() {
         </PaginationContent>
       </Pagination>
 
-      <div className="my-2 h-4 text-center text-sm italic text-purple-600 animate-pulse">
+      <div className='my-2 h-4 text-center text-sm italic text-purple-600 animate-pulse'>
         {isRolling && "Rolling the dice... hope you're feeling lucky!"}
       </div>
     </div>

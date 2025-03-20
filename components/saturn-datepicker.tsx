@@ -45,7 +45,7 @@ export default function SaturnCalendar() {
 
   // Navigation functions
   const previousMonth = () => {
-    setViewState((prev) => {
+    setViewState(prev => {
       if (prev.moonCycle > 0) {
         return { ...prev, moonCycle: prev.moonCycle - 1 }
       } else {
@@ -58,7 +58,7 @@ export default function SaturnCalendar() {
   }
 
   const nextMonth = () => {
-    setViewState((prev) => {
+    setViewState(prev => {
       if (prev.moonCycle < majorMoons.length - 1) {
         return { ...prev, moonCycle: prev.moonCycle + 1 }
       } else {
@@ -122,60 +122,60 @@ export default function SaturnCalendar() {
   }
 
   return (
-    <div className="p-3 w-[400px] rounded-md border shadow space-y-4">
-      <div className="flex justify-between items-center">
+    <div className='p-3 w-[400px] rounded-md border shadow space-y-4'>
+      <div className='flex justify-between items-center'>
         <div
           onClick={previousMonth}
-          className="p-1 rounded-md text-sm font-medium hover:bg-accent hover:text-accent-foreground cursor-pointer"
-          role="button"
-          aria-label="Previous month"
+          className='p-1 rounded-md text-sm font-medium hover:bg-accent hover:text-accent-foreground cursor-pointer'
+          role='button'
+          aria-label='Previous month'
         >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-4 w-4"
+            xmlns='http://www.w3.org/2000/svg'
+            width='16'
+            height='16'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            className='h-4 w-4'
           >
-            <path d="m15 18-6-6 6-6" />
+            <path d='m15 18-6-6 6-6' />
           </svg>
         </div>
-        <h2 className="text-sm font-medium flex items-center gap-1">
+        <h2 className='text-sm font-medium flex items-center gap-1'>
           {majorMoons[viewState.moonCycle]} Cycle · Saturn Year {viewState.year}
-          <span className="text-xs text-muted-foreground font-normal">
+          <span className='text-xs text-muted-foreground font-normal'>
             ({getEarthYear(selected)} E)
           </span>
         </h2>
         <div
           onClick={nextMonth}
-          className="p-1 rounded-md text-sm font-medium hover:bg-accent hover:text-accent-foreground cursor-pointer"
-          role="button"
-          aria-label="Next month"
+          className='p-1 rounded-md text-sm font-medium hover:bg-accent hover:text-accent-foreground cursor-pointer'
+          role='button'
+          aria-label='Next month'
         >
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-4 w-4"
+            xmlns='http://www.w3.org/2000/svg'
+            width='16'
+            height='16'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+            className='h-4 w-4'
           >
-            <path d="m9 18 6-6-6-6" />
+            <path d='m9 18 6-6-6-6' />
           </svg>
         </div>
       </div>
 
       {/* Day names header */}
-      <div className="grid grid-cols-7 text-center text-xs leading-6 text-muted-foreground">
+      <div className='grid grid-cols-7 text-center text-xs leading-6 text-muted-foreground'>
         <div>S</div>
         <div>M</div>
         <div>T</div>
@@ -186,7 +186,7 @@ export default function SaturnCalendar() {
       </div>
 
       {/* Calendar grid */}
-      <div className="grid grid-cols-7 text-sm">
+      <div className='grid grid-cols-7 text-sm'>
         {days.map((day, i) => (
           <div
             key={i}
@@ -209,14 +209,14 @@ export default function SaturnCalendar() {
                   })
                 }
               >
-                <div className="relative flex flex-col items-center">
+                <div className='relative flex flex-col items-center'>
                   {/* Indicators above the date */}
-                  <div className="flex gap-0.5 h-1.5 mb-0.5">
+                  <div className='flex gap-0.5 h-1.5 mb-0.5'>
                     {day.isRingShadowDay && (
-                      <span className="h-1.5 w-1.5 rounded-full bg-yellow-400"></span>
+                      <span className='h-1.5 w-1.5 rounded-full bg-yellow-400'></span>
                     )}
                     {day.isStormDay && (
-                      <span className="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
+                      <span className='h-1.5 w-1.5 rounded-full bg-blue-500'></span>
                     )}
                   </div>
                   {day.day}
@@ -228,14 +228,14 @@ export default function SaturnCalendar() {
       </div>
 
       {/* Saturn info footer */}
-      <div className="mt-2 pt-2 border-t text-xs text-center text-muted-foreground">
-        <div className="flex justify-center gap-3 mb-1">
-          <div className="flex items-center gap-1">
-            <span className="h-1.5 w-1.5 rounded-full bg-yellow-400"></span>
+      <div className='mt-2 pt-2 border-t text-xs text-center text-muted-foreground'>
+        <div className='flex justify-center gap-3 mb-1'>
+          <div className='flex items-center gap-1'>
+            <span className='h-1.5 w-1.5 rounded-full bg-yellow-400'></span>
             <span>Ring Shadow</span>
           </div>
-          <div className="flex items-center gap-1">
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
+          <div className='flex items-center gap-1'>
+            <span className='h-1.5 w-1.5 rounded-full bg-blue-500'></span>
             <span>Hexagon Storm</span>
           </div>
         </div>

@@ -12,16 +12,16 @@ export default function RidiculousSlider() {
   useEffect(() => {
     if (value[0] !== lastValue.current) {
       const difference = value[0] - lastValue.current
-      setDisplayValue((prev) => Math.max(0, Math.min(100, prev - difference)))
+      setDisplayValue(prev => Math.max(0, Math.min(100, prev - difference)))
       lastValue.current = value[0]
     }
   }, [value])
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <span className="text-sm font-medium">Value: {displayValue}</span>
-        <span className="text-sm font-medium">
+    <div className='space-y-6'>
+      <div className='flex justify-between items-center'>
+        <span className='text-sm font-medium'>Value: {displayValue}</span>
+        <span className='text-sm font-medium'>
           Actual Slider Value: {value[0]}
         </span>
       </div>
@@ -31,10 +31,10 @@ export default function RidiculousSlider() {
         onValueChange={setValue}
         max={100}
         step={1}
-        className="cursor-pointer"
+        className='cursor-pointer'
       />
 
-      <div className="text-sm text-muted-foreground italic">
+      <div className='text-sm text-muted-foreground italic'>
         Try dragging the slider and watch the displayed value move in the
         opposite direction!
       </div>

@@ -67,11 +67,14 @@ export default function DistractedProgressBar() {
           })
         }, 50)
 
-        setTimeout(() => {
-          clearInterval(shakeInterval)
-          setPosition({ x: 0, y: 0 })
-          resetDistraction()
-        }, 2000 + Math.random() * 2000)
+        setTimeout(
+          () => {
+            clearInterval(shakeInterval)
+            setPosition({ x: 0, y: 0 })
+            resetDistraction()
+          },
+          2000 + Math.random() * 2000
+        )
         break
 
       case 'coffee':
@@ -79,11 +82,14 @@ export default function DistractedProgressBar() {
         let moveX = Math.random() > 0.5 ? 150 : -150
         setPosition({ x: moveX, y: (Math.random() - 0.5) * 50 })
 
-        setTimeout(() => {
-          setPosition({ x: 0, y: 0 })
-          setMessage('Okay, back!')
-          setTimeout(() => resetDistraction(), 1000)
-        }, 3000 + Math.random() * 2000)
+        setTimeout(
+          () => {
+            setPosition({ x: 0, y: 0 })
+            setMessage('Okay, back!')
+            setTimeout(() => resetDistraction(), 1000)
+          },
+          3000 + Math.random() * 2000
+        )
         break
 
       case 'forget':
@@ -94,7 +100,7 @@ export default function DistractedProgressBar() {
         })
 
         setTimeout(() => {
-          setProgress((prev) => Math.max(0, prev - Math.random() * 40))
+          setProgress(prev => Math.max(0, prev - Math.random() * 40))
           setMessage('Oh, right...')
           setPosition({ x: 0, y: 0 })
           setTimeout(() => resetDistraction(), 1500)
@@ -109,7 +115,7 @@ export default function DistractedProgressBar() {
         })
 
         setTimeout(() => {
-          setProgress((prev) => Math.max(0, prev - Math.random() * 30))
+          setProgress(prev => Math.max(0, prev - Math.random() * 30))
           setPosition({ x: 0, y: 0 })
           resetDistraction()
         }, 1500)
@@ -136,7 +142,7 @@ export default function DistractedProgressBar() {
       const elapsed = now - lastUpdateTime.current
       lastUpdateTime.current = now
 
-      setProgress((prev) => {
+      setProgress(prev => {
         if (prev >= 99) return prev
         const increment = distraction === 'normal' ? (elapsed / 1000) * 10 : 0
         return Math.min(99, prev + increment)
@@ -153,24 +159,24 @@ export default function DistractedProgressBar() {
   }, [])
 
   return (
-    <div className="space-y-6" ref={containerRef}>
-      <div className="flex justify-between items-center">
-        <div className="text-sm font-medium">
+    <div className='space-y-6' ref={containerRef}>
+      <div className='flex justify-between items-center'>
+        <div className='text-sm font-medium'>
           Progress: {Math.round(progress)}%
         </div>
         <Button
-          variant="outline"
-          size="sm"
+          variant='outline'
+          size='sm'
           onClick={startProgress}
           disabled={isRunning}
         >
-          <RotateCcw className="h-4 w-4 mr-1" />
+          <RotateCcw className='h-4 w-4 mr-1' />
           {isRunning ? 'Restart' : 'Start'}
         </Button>
       </div>
 
       <div
-        className="relative"
+        className='relative'
         ref={progressBarRef}
         style={{
           transform: `translate(${position.x}px, ${position.y}px)`,
@@ -183,20 +189,20 @@ export default function DistractedProgressBar() {
         />
 
         {distraction === 'coffee' && (
-          <div className="absolute -right-8 top-0">
-            <Coffee className="h-5 w-5 text-muted-foreground animate-bounce" />
+          <div className='absolute -right-8 top-0'>
+            <Coffee className='h-5 w-5 text-muted-foreground animate-bounce' />
           </div>
         )}
 
         {distraction === 'forget' && (
-          <div className="absolute -right-8 top-0">
-            <HelpCircle className="h-5 w-5 text-muted-foreground animate-pulse" />
+          <div className='absolute -right-8 top-0'>
+            <HelpCircle className='h-5 w-5 text-muted-foreground animate-pulse' />
           </div>
         )}
       </div>
 
       {message && (
-        <div className="text-center text-sm italic animate-fade-in">
+        <div className='text-center text-sm italic animate-fade-in'>
           {message}
         </div>
       )}
