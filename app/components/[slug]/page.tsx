@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { componentsData, categoryIcons } from '@/lib/components-data'
 import { Skeleton } from '@/components/ui/skeleton'
+import Head from 'next/head'
 
 export default function ComponentPage() {
   const params = useParams()
@@ -14,6 +15,13 @@ export default function ComponentPage() {
   const [isLoading, setIsLoading] = useState(true)
 
   const componentData = componentsData.find(c => c.slug === slug)
+  
+  // Set page title
+  useEffect(() => {
+    if (componentData) {
+      document.title = `${componentData.name} | Ridiculous UI`
+    }
+  }, [componentData])
 
   useEffect(() => {
     if (!componentData) {
@@ -39,6 +47,12 @@ export default function ComponentPage() {
   if (!componentData) {
     notFound()
   }
+
+  useEffect(() => {
+    if (componentData) {
+      document.title = `${componentData.name} | Ridiculous UI`
+    }
+  }, [componentData])
 
   return (
     <div className='container mx-auto py-10 px-4'>

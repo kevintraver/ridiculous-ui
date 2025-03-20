@@ -18,6 +18,11 @@ function ComponentsContent() {
   >('all')
   const [searchQuery, setSearchQuery] = useState('')
 
+  // Set page title
+  useEffect(() => {
+    document.title = 'Components | Ridiculous UI'
+  }, [])
+
   const uniqueCategories = useMemo(() => getUniqueCategories(), [])
 
   // Set initial category from URL parameters
@@ -64,6 +69,10 @@ function ComponentsContent() {
       return categoryMatch && searchMatch
     })
   }, [selectedCategory, searchQuery])
+
+  useEffect(() => {
+    document.title = 'Components | Ridiculous UI'
+  }, [])
 
   return (
     <div className='container mx-auto py-10 px-4'>

@@ -20,6 +20,11 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true)
   const uniqueCategories = getUniqueCategories()
 
+  // Set page title
+  useEffect(() => {
+    document.title = 'Ridiculous UI'
+  }, [])
+
   // Get the featured component data
   const featuredComponentData = componentsData.find(c => c.featured === true)
 
