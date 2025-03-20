@@ -3,6 +3,7 @@ import './globals.css'
 import Link from 'next/link'
 import { SearchBar } from '@/lib/search-bar'
 import { CategoryProvider } from '@/lib/category-context'
+import { Home } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Ridiculous UI',
@@ -21,8 +22,9 @@ export default function RootLayout({
         <CategoryProvider>
           <header className='border-b sticky top-0 bg-background z-10'>
             <div className='container mx-auto py-4 px-4 flex items-center justify-between'>
-              <Link href='/' className='font-bold text-xl'>
-                Ridiculous UI
+              <Link href='/' className='font-bold text-xl flex items-center'>
+                <Home className='w-5 h-5 sm:hidden' aria-label='Home' />
+                <span className='hidden sm:inline'>Ridiculous UI</span>
               </Link>
               <nav>
                 <ul className='flex items-center gap-6'>
