@@ -14,6 +14,7 @@ import ReverseSkeleton from '@/components/reverse-skeleton'
 import RandomDicePagination from '@/components/random-pagination'
 import BlackHoleSpinner from '@/components/blackhole-spinner'
 import DecreasingRandomnessGenerator from '@/components/not-so-random-number-generator'
+import BreathingDivider from '@/components/breathing-divider'
 
 export const metadata: Metadata = {
   title: 'Ridiculous UI Controls',
@@ -175,6 +176,14 @@ export default function RidiculousUIPage() {
             click.
           </p>
           <DecreasingRandomnessGenerator />
+        </section>
+
+        <section className="border rounded-lg p-6 bg-card">
+          <h2 className="text-2xl font-bold mb-4">Breathing Divider</h2>
+          <p className="mb-6 text-muted-foreground">
+            A divider that breathes and moves.
+          </p>
+          <BreathingDivider />
         </section>
       </div>
     </div>
