@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Link from 'next/link'
+import { SearchBar } from '@/components/search-bar'
 
 export const metadata: Metadata = {
   title: 'Ridiculous UI',
@@ -22,7 +23,7 @@ export default function RootLayout({
               Ridiculous UI
             </Link>
             <nav>
-              <ul className='flex gap-6'>
+              <ul className='flex items-center gap-6'>
                 <li>
                   <Link href='/' className='hover:text-primary'>
                     Home
@@ -32,6 +33,9 @@ export default function RootLayout({
                   <Link href='/components' className='hover:text-primary'>
                     Components
                   </Link>
+                </li>
+                <li>
+                  <SearchBar />
                 </li>
               </ul>
             </nav>
