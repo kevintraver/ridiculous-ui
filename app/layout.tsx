@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Link from 'next/link'
-import { SearchBar } from '@/components/search-bar'
+import { SearchBar } from '@/lib/search-bar'
 import { CategoryProvider } from '@/lib/category-context'
 
 export const metadata: Metadata = {
