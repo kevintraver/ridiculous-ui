@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useEffect, Suspense } from 'react'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
 import {
   componentsData,
   ComponentCategory,
@@ -11,31 +10,17 @@ import {
 } from '@/lib/components-data'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
+import { useCategory } from '@/lib/category-context'
 
 function ComponentsContent() {
-  const searchParams = useSearchParams()
-  const [selectedCategory, setSelectedCategory] = useState<
-    ComponentCategory | 'all'
-  >('all')
+  const { selectedCategory, setCategory } = useCategory()
   const [searchQuery, setSearchQuery] = useState('')
+  const uniqueCategories = useMemo(() => getUniqueCategories(), [])
 
   // Set page title
   useEffect(() => {
     document.title = 'Components | Ridiculous UI'
   }, [])
-
-  const uniqueCategories = useMemo(() => getUniqueCategories(), [])
-
-  // Set initial category from URL parameters
-  useEffect(() => {
-    const categoryParam = searchParams.get('category')
-    if (
-      categoryParam &&
-      uniqueCategories.includes(categoryParam as ComponentCategory)
-    ) {
-      setSelectedCategory(categoryParam as ComponentCategory)
-    }
-  }, [searchParams, uniqueCategories])
 
   // Group components by category for the categorized view
   const componentsByCategory = useMemo(() => {
@@ -74,6 +59,7 @@ function ComponentsContent() {
   useEffect(() => {
     document.title = 'Components | Ridiculous UI'
   }, [])
+
 
   return (
     <div className='container mx-auto py-10 px-4'>
@@ -124,7 +110,7 @@ function ComponentsContent() {
                 ? 'bg-primary text-primary-foreground'
                 : 'bg-muted hover:bg-muted/80'
             }`}
-            onClick={() => setSelectedCategory('all')}
+            onClick={() => setCategory('all')}
           >
             All
           </button>
@@ -137,7 +123,7 @@ function ComponentsContent() {
                   ? 'bg-primary text-primary-foreground'
                   : 'bg-muted hover:bg-muted/80'
               }`}
-              onClick={() => setSelectedCategory(category)}
+              onClick={() => setCategory(category)}
             >
               {(() => {
                 const Icon = categoryIcons[category]

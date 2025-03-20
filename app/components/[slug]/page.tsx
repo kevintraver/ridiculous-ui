@@ -1,15 +1,17 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { notFound, useParams } from 'next/navigation'
+import { notFound, useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
 import { componentsData, categoryIcons } from '@/lib/components-data'
 import { Skeleton } from '@/components/ui/skeleton'
 import Head from 'next/head'
+import { useCategory } from '@/lib/category-context'
 
 export default function ComponentPage() {
   const params = useParams()
+  const router = useRouter()
   const slug = params?.slug as string
   const [Component, setComponent] = useState<React.ComponentType | null>(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -60,6 +62,11 @@ export default function ComponentPage() {
         <Link
           href='/components'
           className='flex items-center text-muted-foreground hover:text-primary transition-colors mr-4'
+          onClick={(e) => {
+            // Use browser back button to preserve URL state
+            e.preventDefault()
+            window.history.back()
+          }}
         >
           <ArrowLeft className='h-5 w-5 mr-1' />
           <span>Back to Components</span>
@@ -76,6 +83,11 @@ export default function ComponentPage() {
               href={`/components?category=${category}`}
               key={category}
               className='px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm hover:bg-primary/20 transition-colors flex items-center gap-1.5'
+              onClick={(e) => {
+                // Use direct navigation with query parameter
+                e.preventDefault()
+                router.push(`/components?category=${category}`)
+              }}
             >
               <Icon className='h-3.5 w-3.5' />
               {category.replace('-', ' ')}
