@@ -44,6 +44,10 @@ export default function AlphabeticalAutocomplete() {
       return letters
     }
 
+    const generateNumbers = () => {
+      return Array.from({ length: 9 }, (_, i) => String(i + 1))
+    }
+
     if (!inputValue) {
       setSuggestions([])
       setOpen(false)
@@ -53,15 +57,23 @@ export default function AlphabeticalAutocomplete() {
     const lastChar = inputValue.slice(-1)
 
     if (lastChar === ' ') {
-      // Show full alphabet when space is typed
-      setSuggestions(
-        Array.from({ length: 26 }, (_, i) => String.fromCharCode(97 + i))
+      // Show full alphabet and numbers when space is typed
+      const alphabetSuggestions = Array.from(
+        { length: 26 },
+        (_, i) => String.fromCharCode(97 + i)
       )
+      const numberSuggestions = generateNumbers()
+      setSuggestions([...numberSuggestions, ...alphabetSuggestions])
       setOpen(true)
     } else if (/[a-z]/i.test(lastChar)) {
       const newSuggestions = generateLetters(lastChar)
       setSuggestions(newSuggestions)
       setOpen(newSuggestions.length > 0)
+    } else if (/[0-9]/.test(lastChar)) {
+      // For numbers, show all numbers 1-9
+      const numberSuggestions = generateNumbers() 
+      setSuggestions(numberSuggestions)
+      setOpen(true)
     } else {
       setSuggestions([])
       setOpen(false)
@@ -122,7 +134,7 @@ export default function AlphabeticalAutocomplete() {
                       id='alphabetical-autocomplete'
                       value={inputValue}
                       onChange={handleInputChange}
-                      placeholder='Type letters or space to see suggestions...'
+                      placeholder='Type letters, numbers, or space to see suggestions...'
                       className='pr-10'
                       autoComplete='off'
                       autoCorrect='off'
@@ -148,8 +160,8 @@ export default function AlphabeticalAutocomplete() {
                 >
                   <Command shouldFilter={false}>
                     <CommandList>
-                      <CommandEmpty>No letters available</CommandEmpty>
-                      <CommandGroup heading='Alphabet suggestions'>
+                      <CommandEmpty>No suggestions available</CommandEmpty>
+                      <CommandGroup heading='Suggestions'>
                         {suggestions.map(suggestion => (
                           <CommandItem
                             key={suggestion}
