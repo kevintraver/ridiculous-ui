@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useCallback, useMemo } from 'react'
+import React, { createContext, useContext, useCallback, useMemo, Suspense } from 'react'
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { ComponentCategory, getUniqueCategories } from '@/lib/components-data'
 
@@ -11,7 +11,7 @@ type CategoryContextType = {
 
 const CategoryContext = createContext<CategoryContextType | undefined>(undefined)
 
-export function CategoryProvider({ children }: { children: React.ReactNode }) {
+function CategoryContent({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -51,6 +51,14 @@ export function CategoryProvider({ children }: { children: React.ReactNode }) {
     <CategoryContext.Provider value={{ selectedCategory, setCategory }}>
       {children}
     </CategoryContext.Provider>
+  )
+}
+
+export function CategoryProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={<div>Loading categories...</div>}>
+      <CategoryContent>{children}</CategoryContent>
+    </Suspense>
   )
 }
 
