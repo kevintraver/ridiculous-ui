@@ -3,8 +3,8 @@ import './globals.css'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Ridiculous UI Controls',
-  description: 'A showcase of the most absurd UI controls ever created',
+  title: 'Ridiculous UI',
+  description: 'A showcase of the most absurd UI components ever created',
   generator: 'v0.dev'
 }
 

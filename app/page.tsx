@@ -78,7 +78,7 @@ export default function HomePage() {
   return (
     <div className='container mx-auto py-10 px-4'>
       <section className='text-center mb-16'>
-        <h1 className='text-5xl font-extrabold mb-6'>Ridiculous UI Controls</h1>
+        <h1 className='text-5xl font-extrabold mb-6'>Ridiculous UI</h1>
         <p className='text-xl text-muted-foreground max-w-3xl mx-auto mb-10'>
           A collection of the most absurd, frustrating, and hilarious UI
           controls ever designed. They all work... technically.
