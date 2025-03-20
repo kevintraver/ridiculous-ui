@@ -4,7 +4,6 @@ import {
   CheckSquare,
   Calendar,
   SplitSquareVertical,
-  FormInput,
   KeyRound,
   Sliders,
   Loader,
@@ -16,7 +15,8 @@ import {
   RectangleEllipsis,
   ChevronsRight,
   Keyboard,
-  GalleryHorizontal
+  GalleryHorizontal,
+  AlignLeft
 } from 'lucide-react'
 
 export type ComponentCategory =
@@ -24,7 +24,7 @@ export type ComponentCategory =
   | 'checkbox'
   | 'date-picker'
   | 'divider'
-  | 'form-field'
+  | 'skeleton'
   | 'password'
   | 'progress'
   | 'slider'
@@ -44,7 +44,7 @@ export const categoryIcons: Record<ComponentCategory, React.ElementType> = {
   checkbox: CheckSquare,
   'date-picker': Calendar,
   divider: SplitSquareVertical,
-  'form-field': FormInput,
+  skeleton: AlignLeft,
   password: KeyRound,
   progress: RectangleEllipsis,
   slider: Sliders,
@@ -195,7 +195,7 @@ export const componentsData: ComponentData[] = [
     description: 'See the form dissolve into a skeleton placeholder.',
     component: () =>
       import('@/components/reverse-skeleton').then(mod => mod.default),
-    categories: ['form-field'],
+    categories: ['skeleton'],
     createdAt: '2024-01-13'
   },
   {
