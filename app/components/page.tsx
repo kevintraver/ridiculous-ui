@@ -75,7 +75,13 @@ function ComponentsContent() {
             placeholder='Search components...'
             className='pr-12 py-6 text-lg'
             value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
+            onChange={e => {
+              setSearchQuery(e.target.value)
+              // Reset to all categories when searching
+              if (e.target.value && selectedCategory !== 'all') {
+                setCategory('all')
+              }
+            }}
           />
           <Search className='absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-6 w-6' />
 

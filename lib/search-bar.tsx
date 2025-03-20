@@ -5,8 +5,10 @@ import { Search as SearchIcon } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import Link from 'next/link'
 import { componentsData } from '@/lib/components-data'
+import { useRouter } from 'next/navigation'
 
 export function SearchBar() {
+  const router = useRouter()
   const [searchQuery, setSearchQuery] = useState('')
   const [isExpanded, setIsExpanded] = useState(false)
   const [filteredComponents, setFilteredComponents] = useState<typeof componentsData>([])
@@ -77,6 +79,8 @@ export function SearchBar() {
                     onClick={() => {
                       setIsExpanded(false)
                       setSearchQuery('')
+                      // Reset any category filters by navigating to the component directly
+                      router.push(`/components/${component.slug}`)
                     }}
                   >
                     {component.name}
