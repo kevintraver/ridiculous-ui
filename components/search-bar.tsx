@@ -49,7 +49,7 @@ export function SearchBar() {
     >
       <div className="flex items-center">
         {isExpanded ? (
-          <div className="w-full relative">
+          <div className="w-full relative origin-right">
             <Input
               type="text"
               placeholder="Search components..."
@@ -61,12 +61,12 @@ export function SearchBar() {
             <SearchIcon className="absolute right-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           </div>
         ) : (
-          <SearchIcon className="h-5 w-5 text-muted-foreground hover:text-primary cursor-pointer" />
+          <SearchIcon className="h-5 w-5 text-muted-foreground hover:text-primary cursor-pointer ml-auto" />
         )}
       </div>
       
       {searchQuery && isExpanded && (
-        <div className="absolute z-20 mt-1 w-full bg-background border rounded-md shadow-md">
+        <div className="absolute z-20 mt-1 w-full left-0 bg-background border rounded-md shadow-md">
           {filteredComponents.length > 0 ? (
             <ul className="py-2">
               {filteredComponents.map(component => (

@@ -25,6 +25,9 @@ export default function RootLayout({
             <nav>
               <ul className='flex items-center gap-6'>
                 <li>
+                  <SearchBar />
+                </li>
+                <li>
                   <Link href='/' className='hover:text-primary'>
                     Home
                   </Link>
@@ -33,9 +36,6 @@ export default function RootLayout({
                   <Link href='/components' className='hover:text-primary'>
                     Components
                   </Link>
-                </li>
-                <li>
-                  <SearchBar />
                 </li>
               </ul>
             </nav>
