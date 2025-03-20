@@ -16,7 +16,9 @@ import {
   ChevronsRight,
   Keyboard,
   GalleryHorizontal,
-  AlignLeft
+  AlignLeft,
+  Square,
+  SquareEqual
 } from 'lucide-react'
 
 export type ComponentCategory =
@@ -37,6 +39,7 @@ export type ComponentCategory =
   | 'breadcrumb'
   | 'carousel'
   | 'random'
+  | 'card'
 
 // Category icon mapping
 export const categoryIcons: Record<ComponentCategory, React.ElementType> = {
@@ -56,7 +59,8 @@ export const categoryIcons: Record<ComponentCategory, React.ElementType> = {
   pagination: BookOpen,
   breadcrumb: ChevronsRight,
   carousel: GalleryHorizontal,
-  random: Dices
+  random: Dices,
+  card: SquareEqual
 }
 
 export type ComponentData = {
@@ -228,6 +232,15 @@ export const componentsData: ComponentData[] = [
       import('@/components/breathing-divider').then(mod => mod.default),
     categories: ['divider'],
     createdAt: '2024-01-16'
+  },
+  {
+    slug: 'drunk-card',
+    name: 'The Drunk Card',
+    description:
+      'A card component that wobbles and staggers like it had one too many drinks.',
+    component: () => import('@/components/drunk-card').then(mod => mod.default),
+    categories: ['card'],
+    createdAt: '2024-03-20'
   }
 ]
 
