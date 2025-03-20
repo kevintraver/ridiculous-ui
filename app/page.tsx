@@ -134,7 +134,7 @@ export default function HomePage() {
           <div className='bg-gradient-to-br from-primary/5 via-primary/10 to-background rounded-xl p-8 md:p-12 shadow-lg border border-primary/20'>
             <div className='flex flex-col lg:flex-row items-start gap-12'>
               {/* Left side - Component showcase */}
-              <div className='w-full lg:w-3/5 bg-background rounded-lg shadow-md p-6 border'>
+              <div className='w-full lg:w-3/5'>
                 {isLoading ? (
                   <Skeleton className='h-[300px] w-full' />
                 ) : FeaturedComponent ? (
