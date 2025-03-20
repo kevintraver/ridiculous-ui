@@ -10,6 +10,7 @@ import {
   categoryIcons
 } from '@/lib/components-data'
 import { Input } from '@/components/ui/input'
+import { Search } from 'lucide-react'
 
 function ComponentsContent() {
   const searchParams = useSearchParams()
@@ -82,14 +83,38 @@ function ComponentsContent() {
 
       {/* Search and Filter */}
       <div className='mb-12 space-y-6'>
-        <div className='max-w-2xl mx-auto'>
+        <div className='max-w-2xl mx-auto relative'>
           <Input
             type='text'
             placeholder='Search components...'
-            className='w-full py-6 text-lg'
+            className='pr-12 py-6 text-lg'
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
           />
+          <Search className='absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-6 w-6' />
+
+          {searchQuery && (
+            <div className='absolute z-10 mt-1 w-full bg-background border rounded-md shadow-md'>
+              {filteredComponents.length > 0 ? (
+                <ul className='py-2'>
+                  {filteredComponents.map(component => (
+                    <li key={component.slug}>
+                      <Link
+                        href={`/components/${component.slug}`}
+                        className='block px-4 py-2 hover:bg-muted text-left'
+                      >
+                        {component.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className='px-4 py-2 text-sm text-muted-foreground'>
+                  No components found
+                </p>
+              )}
+            </div>
+          )}
         </div>
 
         <div className='flex flex-wrap justify-center gap-3 pt-2'>
