@@ -92,9 +92,18 @@ export function RandomDicePagination() {
 
   return (
     <div className='flex flex-col items-center'>
-      <div className='mt-6 mb-6 p-4 bg-gray-100 rounded-md max-w-lg'>
-        <h3 className='font-bold mb-2'>Page {currentPage} Content</h3>
-        <p className='text-gray-700'>{pageContent}</p>
+      <div className='mt-6 mb-6 max-w-lg'>
+        <div className='bg-gray-100 rounded-md w-full h-64 flex flex-col p-4'>
+          {/* Minimal margin on heading */}
+          <h3 className='font-bold mb-2 flex-none'>
+            Page {currentPage} Content
+          </h3>
+
+          {/* The scrollable area: */}
+          <div className='flex-1 overflow-y-auto'>
+            <p className='text-gray-700'>{pageContent}</p>
+          </div>
+        </div>
       </div>
 
       <Pagination className='py-4'>
