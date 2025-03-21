@@ -75,7 +75,7 @@ export default function SlotMachineOTP() {
       setSpinning(Array(6).fill(true))
       setComplete(false)
       setLeverPulled(false)
-      
+
       // Start spinning all digits again
       startSpinningAll()
     }, 150) // Small delay for lever animation to complete
@@ -133,7 +133,7 @@ export default function SlotMachineOTP() {
       setShowOTP(false)
     }
   }, [complete])
-  
+
   // Update lever state when all digits are stopped
   useEffect(() => {
     if (spinning.every(s => !s) && !leverPulled) {
@@ -141,17 +141,7 @@ export default function SlotMachineOTP() {
     }
   }, [spinning, leverPulled])
 
-  // Auto reset after winning animation completes
-  useEffect(() => {
-    if (complete) {
-      const autoResetTimer = setTimeout(() => {
-        // Wait for 3 seconds before auto-resetting
-        reset()
-      }, 3000)
-
-      return () => clearTimeout(autoResetTimer)
-    }
-  }, [complete])
+  // Auto-restart has been disabled as requested
 
   return (
     <div className='flex flex-col items-center gap-4'>
@@ -222,17 +212,6 @@ export default function SlotMachineOTP() {
       </div>
 
       <div className='flex flex-col items-center gap-2'>
-        {showOTP && (
-          <motion.p
-            className='text-lg font-medium text-black'
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            OTP: {digits.join('')}
-          </motion.p>
-        )}
-
         <motion.button
           onClick={reset}
           className='px-3 py-1 text-xs font-medium rounded bg-primary text-primary-foreground flex items-center gap-1'
