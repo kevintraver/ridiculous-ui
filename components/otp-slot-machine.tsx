@@ -3,12 +3,14 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
+import { RefreshCw } from 'lucide-react'
 
 export default function SlotMachineOTP() {
   const [digits, setDigits] = useState<number[]>(Array(6).fill(0))
   const [spinning, setSpinning] = useState<boolean[]>(Array(6).fill(true))
   const [complete, setComplete] = useState(false)
   const [showOTP, setShowOTP] = useState(false)
+  const [leverPulled, setLeverPulled] = useState(false)
 
   // References to each digit's interval
   const intervals = useRef<(NodeJS.Timeout | null)[]>(Array(6).fill(null))
@@ -34,23 +36,28 @@ export default function SlotMachineOTP() {
     // Check if all digits are stopped
     if (newSpinning.every(s => !s)) {
       setComplete(true)
+      setLeverPulled(true)
     }
   }
 
   // Stop all digits from spinning simultaneously
   const stopAllDigits = () => {
-    // Clear all intervals
-    intervals.current.forEach((interval, i) => {
-      if (interval) {
-        clearInterval(interval)
-        intervals.current[i] = null
-      }
-    })
-    // Update the spinning state for all digits at once
-    const newSpinning = Array(6).fill(false)
-    setSpinning(newSpinning)
-    // Mark the slot machine as complete if all digits are stopped
-    setComplete(true)
+    if (!leverPulled) {
+      setLeverPulled(true)
+
+      // Clear all intervals
+      intervals.current.forEach((interval, i) => {
+        if (interval) {
+          clearInterval(interval)
+          intervals.current[i] = null
+        }
+      })
+      // Update the spinning state for all digits at once
+      const newSpinning = Array(6).fill(false)
+      setSpinning(newSpinning)
+      // Mark the slot machine as complete if all digits are stopped
+      setComplete(true)
+    }
   }
 
   // Reset the entire machine
@@ -63,12 +70,15 @@ export default function SlotMachineOTP() {
       }
     })
 
-    // Reset state
-    setSpinning(Array(6).fill(true))
-    setComplete(false)
-
-    // Start spinning all digits again
-    startSpinningAll()
+    // Reset state with a small delay for the lever animation
+    setTimeout(() => {
+      setSpinning(Array(6).fill(true))
+      setComplete(false)
+      setLeverPulled(false)
+      
+      // Start spinning all digits again
+      startSpinningAll()
+    }, 150) // Small delay for lever animation to complete
   }
 
   // Start spinning all digits
@@ -123,6 +133,25 @@ export default function SlotMachineOTP() {
       setShowOTP(false)
     }
   }, [complete])
+  
+  // Update lever state when all digits are stopped
+  useEffect(() => {
+    if (spinning.every(s => !s) && !leverPulled) {
+      setLeverPulled(true)
+    }
+  }, [spinning, leverPulled])
+
+  // Auto reset after winning animation completes
+  useEffect(() => {
+    if (complete) {
+      const autoResetTimer = setTimeout(() => {
+        // Wait for 3 seconds before auto-resetting
+        reset()
+      }, 3000)
+
+      return () => clearTimeout(autoResetTimer)
+    }
+  }, [complete])
 
   return (
     <div className='flex flex-col items-center gap-4'>
@@ -159,38 +188,69 @@ export default function SlotMachineOTP() {
             ))}
           </div>
 
-          {/* Slot machine lever - shown in different states */}
-          <div
+          {/* Animated slot machine lever */}
+          <motion.div
             className='absolute -right-4 top-1/2 -translate-y-1/2 flex flex-col items-center cursor-pointer'
-            onClick={stopAllDigits}
+            onClick={spinning.some(s => s) ? stopAllDigits : reset}
+            title={
+              spinning.some(s => s) ? 'Pull lever to stop' : 'Reset machine'
+            }
           >
-            <div
-              className={`w-1.5 h-8 bg-red-500 rounded-t-full transition-transform duration-300 ${
-                complete ? 'transform rotate-12 origin-bottom' : ''
-              }`}
-            ></div>
-            <div className='w-3 h-3 bg-red-600 rounded-full'></div>
-          </div>
+            <motion.div
+              className='w-1.5 h-8 ml-4 bg-red-500 rounded-t-full'
+              animate={{
+                rotateZ: leverPulled ? 35 : 0
+              }}
+              transition={{
+                type: 'spring',
+                stiffness: 300,
+                damping: 20
+              }}
+              style={{ originY: 1 }}
+            ></motion.div>
+            <motion.div
+              className='w-3 h-3 bg-gradient-to-b from-red-500 to-red-600 rounded-full shadow-md border border-red-700'
+              animate={{
+                scale: leverPulled ? [1, 1.2, 1] : 1
+              }}
+              transition={{
+                duration: 0.3
+              }}
+            ></motion.div>
+          </motion.div>
         </div>
       </div>
 
       <div className='flex flex-col items-center gap-2'>
         {showOTP && (
-          <p className='text-lg font-medium text-black'>
+          <motion.p
+            className='text-lg font-medium text-black'
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
             OTP: {digits.join('')}
-          </p>
+          </motion.p>
         )}
 
-        <button
+        <motion.button
           onClick={reset}
-          className='px-3 py-1 text-xs font-medium rounded bg-primary text-primary-foreground'
+          className='px-3 py-1 text-xs font-medium rounded bg-primary text-primary-foreground flex items-center gap-1'
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
+          <RefreshCw className='w-3 h-3' />
           {complete ? 'Spin Again' : 'Reset'}
-        </button>
+        </motion.button>
       </div>
-      <p className='text-xs text-center text-muted-foreground'>
+      <motion.p
+        className='text-xs text-center text-muted-foreground max-w-xs'
+        initial={{ opacity: 0.8 }}
+        animate={{ opacity: [0.8, 1, 0.8] }}
+        transition={{ duration: 4, repeat: Infinity }}
+      >
         Click on an individual reel or pull the lever to stop them all.
-      </p>
+      </motion.p>
     </div>
   )
 }
