@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
-import { RefreshCw } from 'lucide-react'
+import { RefreshCw, Copy } from 'lucide-react'
 
 export default function SlotMachineOTP() {
   const [digits, setDigits] = useState<number[]>(Array(6).fill(0))
@@ -145,6 +145,25 @@ export default function SlotMachineOTP() {
 
   return (
     <div className='flex flex-col items-center gap-4'>
+      <motion.p
+        className='text-xs text-center text-muted-foreground max-w-xs'
+        initial={{ opacity: 0.8 }}
+        animate={{ opacity: [0.8, 1, 0.8] }}
+        transition={{ duration: 4, repeat: Infinity }}
+      >
+        Click on an individual reel or pull the lever to stop them all.
+      </motion.p>
+      <div className='flex flex-col items-center gap-2'>
+        <motion.button
+          onClick={reset}
+          className='px-3 py-1 text-xs font-medium rounded bg-primary text-primary-foreground flex items-center gap-1'
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <RefreshCw className='w-3 h-3' />
+          {complete ? 'Spin Again' : 'Reset'}
+        </motion.button>
+      </div>
       <div className='relative rounded-lg border border-input bg-muted/20 p-3 shadow-sm'>
         <div className='flex gap-2 items-center'>
           {/* First group of 3 digits */}
@@ -212,24 +231,19 @@ export default function SlotMachineOTP() {
       </div>
 
       <div className='flex flex-col items-center gap-2'>
-        <motion.button
-          onClick={reset}
-          className='px-3 py-1 text-xs font-medium rounded bg-primary text-primary-foreground flex items-center gap-1'
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <RefreshCw className='w-3 h-3' />
-          {complete ? 'Spin Again' : 'Reset'}
-        </motion.button>
+        {showOTP && (
+          <div className='flex items-center gap-2'>
+            <p className='text-lg font-medium text-black'>{digits.join('')}</p>
+            <button
+              onClick={() => navigator.clipboard.writeText(digits.join(''))}
+              className='p-1 rounded hover:bg-gray-200'
+              title='Copy OTP to clipboard'
+            >
+              <Copy className='w-5 h-5' />
+            </button>
+          </div>
+        )}
       </div>
-      <motion.p
-        className='text-xs text-center text-muted-foreground max-w-xs'
-        initial={{ opacity: 0.8 }}
-        animate={{ opacity: [0.8, 1, 0.8] }}
-        transition={{ duration: 4, repeat: Infinity }}
-      >
-        Click on an individual reel or pull the lever to stop them all.
-      </motion.p>
     </div>
   )
 }
