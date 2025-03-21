@@ -84,8 +84,7 @@ export const componentsData: ComponentData[] = [
     component: () =>
       import('@/components/escaping-button').then(mod => mod.default),
     categories: ['button'],
-    createdAt: '2024-01-01',
-    featured: true
+    createdAt: '2024-01-01'
   },
   {
     slug: 'talking-password',
@@ -212,7 +211,8 @@ export const componentsData: ComponentData[] = [
     component: () =>
       import('@/components/blackhole-spinner').then(mod => mod.default),
     categories: ['spinner'],
-    createdAt: '2024-01-14'
+    createdAt: '2024-01-14',
+    featured: true
   },
   {
     slug: 'not-so-random-number-generator',
@@ -269,7 +269,8 @@ export const componentsData: ComponentData[] = [
     component: () =>
       import('@/components/otp-slot-machine').then(mod => mod.default),
     categories: ['random', 'password'],
-    createdAt: '2024-03-23'
+    createdAt: '2024-03-23',
+    featured: true
   }
 ]
 
