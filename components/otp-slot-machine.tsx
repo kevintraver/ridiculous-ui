@@ -37,6 +37,22 @@ export default function SlotMachineOTP() {
     }
   }
 
+  // Stop all digits from spinning simultaneously
+  const stopAllDigits = () => {
+    // Clear all intervals
+    intervals.current.forEach((interval, i) => {
+      if (interval) {
+        clearInterval(interval)
+        intervals.current[i] = null
+      }
+    })
+    // Update the spinning state for all digits at once
+    const newSpinning = Array(6).fill(false)
+    setSpinning(newSpinning)
+    // Mark the slot machine as complete if all digits are stopped
+    setComplete(true)
+  }
+
   // Reset the entire machine
   const reset = () => {
     // Stop all intervals
@@ -144,7 +160,7 @@ export default function SlotMachineOTP() {
           {/* Slot machine lever - shown in different states */}
           <div
             className='absolute -right-4 top-1/2 -translate-y-1/2 flex flex-col items-center cursor-pointer'
-            onClick={reset}
+            onClick={stopAllDigits}
           >
             <div
               className={`w-1.5 h-8 bg-red-500 rounded-t-full transition-transform duration-300 ${
@@ -170,6 +186,9 @@ export default function SlotMachineOTP() {
           {complete ? 'Spin Again' : 'Reset'}
         </button>
       </div>
+      <p className='text-xs text-center text-muted-foreground'>
+        Click on an individual reel or pull the lever to stop them all.
+      </p>
     </div>
   )
 }
