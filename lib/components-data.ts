@@ -264,11 +264,11 @@ export const componentsData: ComponentData[] = [
     createdAt: '2024-01-11'
   },
   {
-    slug: 'random-pagination',
-    name: 'Random Dice Pagination',
+    slug: 'dice-pagination',
+    name: 'Dice Pagination',
     description: 'A pagination component that uses dice to navigate.',
     component: () =>
-      import('@/components/random-pagination').then(mod => mod.default),
+      import('@/components/dice-pagination').then(mod => mod.default),
     categories: ['pagination', 'random'],
     createdAt: '2024-01-12'
   },

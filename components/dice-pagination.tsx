@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/pagination'
 import { faker } from '@faker-js/faker'
 
-export function RandomDicePagination() {
+export function DicePagination() {
   const [currentPage, setCurrentPage] = useState(42)
   const [totalPages] = useState(100)
   const [isRolling, setIsRolling] = useState(false)
@@ -205,4 +205,4 @@ export function RandomDicePagination() {
   )
 }
 
-export default RandomDicePagination
+export default DicePagination
