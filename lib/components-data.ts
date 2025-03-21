@@ -158,8 +158,7 @@ export const componentsData: ComponentData[] = [
   {
     slug: 'alphabetical-autocomplete',
     name: 'Alphabetical Autocomplete',
-    description:
-      "An autocomplete field that's alphabetically sorted, practically a Sesame Street.",
+    description: "An autocomplete field that's alphabetically sorted.",
     component: () =>
       import('@/components/alphabetical-autocomplete').then(mod => mod.default),
     categories: ['autocomplete'],
