@@ -50,6 +50,8 @@ export function DicePagination() {
   }
 
   const handlePrevious = () => {
+    if (currentPage <= 1) return // Don't go below page 1
+
     setIsRolling(true)
     setLeftDiceAnimation(true)
 
@@ -60,12 +62,16 @@ export function DicePagination() {
     setTimeout(() => {
       clearInterval(diceInterval)
       setLeftDiceAnimation(false)
-      setCurrentPage(getRandomPage())
+      // Get a random previous page between 1 and current page - 1
+      const randomPrevPage = Math.floor(Math.random() * (currentPage - 1)) + 1
+      setCurrentPage(randomPrevPage)
       setIsRolling(false)
     }, 500)
   }
 
   const handleNext = () => {
+    if (currentPage >= totalPages) return // Don't go beyond total pages
+
     setIsRolling(true)
     setRightDiceAnimation(true)
 
@@ -76,7 +82,10 @@ export function DicePagination() {
     setTimeout(() => {
       clearInterval(diceInterval)
       setRightDiceAnimation(false)
-      setCurrentPage(getRandomPage())
+      // Get a random next page between current page + 1 and total pages
+      const randomNextPage =
+        Math.floor(Math.random() * (totalPages - currentPage)) + currentPage + 1
+      setCurrentPage(randomNextPage)
       setIsRolling(false)
     }, 500)
   }
@@ -111,7 +120,7 @@ export function DicePagination() {
           <PaginationItem>
             <button
               onClick={handlePrevious}
-              disabled={isRolling}
+              disabled={isRolling || currentPage <= 1}
               className='inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-12 w-12 p-0'
             >
               <PrevDiceIcon
@@ -185,7 +194,7 @@ export function DicePagination() {
           <PaginationItem>
             <button
               onClick={handleNext}
-              disabled={isRolling}
+              disabled={isRolling || currentPage >= totalPages}
               className='inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-12 w-12 p-0'
             >
               <NextDiceIcon
