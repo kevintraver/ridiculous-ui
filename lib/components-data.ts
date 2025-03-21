@@ -252,6 +252,15 @@ export const componentsData: ComponentData[] = [
       import('@/components/ghost-alert').then(mod => mod.default),
     categories: ['alert'],
     createdAt: '2024-03-21'
+  },
+  {
+    slug: 'molasses-slider',
+    name: 'Molasses Slider',
+    description: 'Watch the slider struggle to keep up.',
+    component: () =>
+      import('@/components/molasses-slider').then(mod => mod.default),
+    categories: ['slider'],
+    createdAt: '2024-03-22'
   }
 ]
 
