@@ -4,7 +4,11 @@ import { useEffect, useState } from 'react'
 import { notFound, useParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
-import { componentsData, categoryIcons } from '@/lib/components-data'
+import {
+  componentsData,
+  categoryIcons,
+  categoryDisplayNames
+} from '@/lib/components-data'
 import { Skeleton } from '@/components/ui/skeleton'
 import Head from 'next/head'
 import { useCategory } from '@/lib/category-context'
@@ -94,7 +98,7 @@ export default function ComponentPage() {
               }}
             >
               <Icon className='h-3.5 w-3.5' />
-              {category.replace('-', ' ')}
+              {categoryDisplayNames[category]}
             </Link>
           )
         })}

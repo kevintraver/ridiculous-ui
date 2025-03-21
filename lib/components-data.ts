@@ -17,53 +17,128 @@ import {
   Keyboard,
   GalleryHorizontal,
   AlignLeft,
-  Square,
-  SquareEqual
+  SquareEqual,
+  SquareDashedMousePointerIcon
 } from 'lucide-react'
 
-export type ComponentCategory =
-  | 'button'
-  | 'checkbox'
-  | 'date-picker'
-  | 'divider'
-  | 'skeleton'
-  | 'password'
-  | 'progress'
-  | 'slider'
-  | 'spinner'
-  | 'loading'
-  | 'text-input'
-  | 'tooltip'
-  | 'autocomplete'
-  | 'pagination'
-  | 'breadcrumb'
-  | 'carousel'
-  | 'random'
-  | 'card'
-  | 'alert'
+// Define the central category configuration
+export const categoryConfig = {
+  button: {
+    id: 'button',
+    displayName: 'button',
+    icon: SquareMousePointer
+  },
+  checkbox: {
+    id: 'checkbox',
+    displayName: 'checkbox',
+    icon: CheckSquare
+  },
+  'date-picker': {
+    id: 'date-picker',
+    displayName: 'date picker',
+    icon: Calendar
+  },
+  divider: {
+    id: 'divider',
+    displayName: 'divider',
+    icon: SplitSquareVertical
+  },
+  skeleton: {
+    id: 'skeleton',
+    displayName: 'skeleton',
+    icon: AlignLeft
+  },
+  password: {
+    id: 'password',
+    displayName: 'password',
+    icon: KeyRound
+  },
+  progress: {
+    id: 'progress',
+    displayName: 'progress',
+    icon: RectangleEllipsis
+  },
+  slider: {
+    id: 'slider',
+    displayName: 'slider',
+    icon: Sliders
+  },
+  spinner: {
+    id: 'spinner',
+    displayName: 'spinner',
+    icon: Loader
+  },
+  loading: {
+    id: 'loading',
+    displayName: 'loading',
+    icon: Loader
+  },
+  'text-input': {
+    id: 'text-input',
+    displayName: 'text input',
+    icon: TextCursor
+  },
+  tooltip: {
+    id: 'tooltip',
+    displayName: 'tooltip',
+    icon: MessageSquare
+  },
+  autocomplete: {
+    id: 'autocomplete',
+    displayName: 'autocomplete',
+    icon: Keyboard
+  },
+  pagination: {
+    id: 'pagination',
+    displayName: 'pagination',
+    icon: BookOpen
+  },
+  breadcrumb: {
+    id: 'breadcrumb',
+    displayName: 'breadcrumb',
+    icon: ChevronsRight
+  },
+  carousel: {
+    id: 'carousel',
+    displayName: 'carousel',
+    icon: GalleryHorizontal
+  },
+  random: {
+    id: 'random',
+    displayName: 'random',
+    icon: Dices
+  },
+  card: {
+    id: 'card',
+    displayName: 'card',
+    icon: SquareEqual
+  },
+  alert: {
+    id: 'alert',
+    displayName: 'alert',
+    icon: MessageSquare
+  }
+} as const
 
-// Category icon mapping
-export const categoryIcons: Record<ComponentCategory, React.ElementType> = {
-  button: SquareMousePointer,
-  checkbox: CheckSquare,
-  'date-picker': Calendar,
-  divider: SplitSquareVertical,
-  skeleton: AlignLeft,
-  password: KeyRound,
-  progress: RectangleEllipsis,
-  slider: Sliders,
-  spinner: Loader,
-  loading: Loader,
-  'text-input': TextCursor,
-  tooltip: MessageSquare,
-  autocomplete: Keyboard,
-  pagination: BookOpen,
-  breadcrumb: ChevronsRight,
-  carousel: GalleryHorizontal,
-  random: Dices,
-  card: SquareEqual,
-  alert: MessageSquare
-}
+// Generate component category type from the config
+export type ComponentCategory = keyof typeof categoryConfig
+
+// Create derived mappings for backward compatibility
+export const categoryDisplayNames = Object.entries(categoryConfig).reduce(
+  (acc, [key, config]) => {
+    acc[key as ComponentCategory] = config.displayName
+    return acc
+  },
+  {} as Record<ComponentCategory, string>
+)
+
+export const categoryIcons = Object.entries(categoryConfig).reduce(
+  (acc, [key, config]) => {
+    acc[key as ComponentCategory] = config.icon
+    return acc
+  },
+  {} as Record<ComponentCategory, React.ElementType>
+)
 
 export type ComponentData = {
   slug: string

@@ -6,7 +6,8 @@ import {
   componentsData,
   ComponentCategory,
   getUniqueCategories,
-  categoryIcons
+  categoryIcons,
+  categoryDisplayNames
 } from '@/lib/components-data'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
@@ -134,7 +135,7 @@ function ComponentsContent() {
                 const Icon = categoryIcons[category]
                 return <Icon className='h-3.5 w-3.5' />
               })()}
-              {category.replace('-', ' ')}
+              {categoryDisplayNames[category]}
             </button>
           ))}
         </div>

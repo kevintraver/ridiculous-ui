@@ -6,7 +6,9 @@ import {
   ComponentCategory,
   componentsData,
   getUniqueCategories,
-  categoryIcons
+  categoryIcons,
+  categoryDisplayNames,
+  categoryConfig
 } from '@/lib/components-data'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -228,7 +230,7 @@ export default function HomePage() {
                       key={category}
                       className='px-2 py-0.5 bg-primary/10 text-primary rounded-full text-xs'
                     >
-                      {category.replace('-', ' ')}
+                      {categoryDisplayNames[category]}
                     </span>
                   ))}
                 </div>
@@ -269,7 +271,7 @@ export default function HomePage() {
                       })()}
                     </div>
                     <h3 className='text-lg font-bold capitalize group-hover:text-primary pr-8'>
-                      {category.replace('-', ' ')}
+                      {categoryConfig[category].displayName}
                     </h3>
                   </div>
                   {sample && (
