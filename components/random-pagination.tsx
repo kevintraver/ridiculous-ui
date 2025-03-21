@@ -12,7 +12,7 @@ import {
 import { faker } from '@faker-js/faker'
 
 export function RandomDicePagination() {
-  const [currentPage, setCurrentPage] = useState(2)
+  const [currentPage, setCurrentPage] = useState(42)
   const [totalPages] = useState(100)
   const [isRolling, setIsRolling] = useState(false)
   const [prevDice, setPrevDice] = useState(3)
