@@ -136,6 +136,7 @@ export default function SlotMachineOTP() {
                 digit={digits[i]}
                 spinning={spinning[i]}
                 onClick={() => stopDigit(i)}
+                speed={speeds[i]}
               />
             ))}
           </div>
@@ -153,6 +154,7 @@ export default function SlotMachineOTP() {
                 digit={digits[i]}
                 spinning={spinning[i]}
                 onClick={() => stopDigit(i)}
+                speed={speeds[i]}
               />
             ))}
           </div>
@@ -197,11 +199,13 @@ export default function SlotMachineOTP() {
 function AnimatedDigitBox({
   digit,
   spinning,
-  onClick
+  onClick,
+  speed
 }: {
   digit: number
   spinning: boolean
   onClick: () => void
+  speed: number
 }) {
   const digitHeight = 48
   const reelDigits = Array.from({ length: 20 }, (_, i) => i % 10)
@@ -230,7 +234,11 @@ function AnimatedDigitBox({
         {spinning ? (
           <motion.div
             animate={{ y: ['0%', '-100%'] }}
-            transition={{ duration: 1, ease: 'linear', repeat: Infinity }}
+            transition={{
+              duration: speed / 125,
+              ease: 'linear',
+              repeat: Infinity
+            }}
             className='flex flex-col'
           >
             {reelDigits.map((d, i) => (
