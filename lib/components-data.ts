@@ -261,6 +261,15 @@ export const componentsData: ComponentData[] = [
       import('@/components/molasses-slider').then(mod => mod.default),
     categories: ['slider'],
     createdAt: '2024-03-22'
+  },
+  {
+    slug: 'otp-slot-machine',
+    name: 'OTP Slot Machine',
+    description: 'A slot machine for filling out your One Time Passwords.',
+    component: () =>
+      import('@/components/otp-slot-machine').then(mod => mod.default),
+    categories: ['random'],
+    createdAt: '2024-03-23'
   }
 ]
 
