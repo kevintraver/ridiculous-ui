@@ -147,8 +147,13 @@ export default function SelfDestructingTextField() {
                 >
                   {isPaused ? 'Resume Chaos' : 'Pause Chaos'}
                 </Button>
-                <Button variant='outline' size='sm' onClick={resetTextField}>
-                  <RotateCcw className='h-4 w-4 mr-1' />
+                <Button 
+                  variant='outline' 
+                  size='sm' 
+                  onClick={resetTextField}
+                  className='px-3 py-1 text-sm bg-primary/10 text-primary rounded-md hover:bg-primary/20 transition-colors flex items-center gap-1.5'
+                >
+                  <span className="mr-1">↺</span>
                   Reset
                 </Button>
               </div>

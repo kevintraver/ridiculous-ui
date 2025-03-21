@@ -164,8 +164,9 @@ const DecreasingRandomnessGenerator = () => {
             <button
               onClick={resetGenerator}
               disabled={isGenerating || clickCount === 0}
-              className='bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg disabled:opacity-50 transition-colors'
+              className='px-3 py-1 text-sm bg-primary/10 text-primary rounded-md hover:bg-primary/20 transition-colors flex items-center gap-1.5'
             >
+              <span className="mr-1">↺</span>
               Reset
             </button>
           </div>
