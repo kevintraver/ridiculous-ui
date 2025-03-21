@@ -147,7 +147,7 @@ export default function SelfDestructingTextField() {
           <div className='space-y-2'>
             <div className='flex justify-between items-center'>
               <Label htmlFor='self-destructing-field'>
-                Try to type something coherent:
+                Enter your message:
               </Label>
               <div className='flex items-center gap-2'>
                 <Button
@@ -156,7 +156,7 @@ export default function SelfDestructingTextField() {
                   onClick={togglePause}
                   disabled={!hasStartedTyping}
                 >
-                  {isPaused ? 'Resume Chaos' : 'Pause Chaos'}
+                  {isPaused ? 'Resume Countdown' : 'Pause Countdown'}
                 </Button>
                 <Button
                   variant='outline'
@@ -176,7 +176,7 @@ export default function SelfDestructingTextField() {
                 id='self-destructing-field'
                 value={text}
                 onChange={handleTextChange}
-                placeholder='Type here... if you dare'
+                placeholder='Enter your message before detonation...'
                 className='pr-10'
               />
 
@@ -214,16 +214,16 @@ export default function SelfDestructingTextField() {
             <div className='flex justify-between text-xs'>
               <span>
                 {hasStartedTyping
-                  ? `Backspace attack in: ${countdown.toFixed(1)}s`
-                  : 'Ready to attack when you start typing'}
+                  ? `Self-destruct in: ${countdown.toFixed(1)}s`
+                  : 'Awaiting message input to begin countdown'}
               </span>
               <span>
-                Difficulty:{' '}
+                Destruction rate:{' '}
                 {difficultyLevel === 1
-                  ? 'Easy'
+                  ? 'Slow'
                   : difficultyLevel === 2
-                    ? 'Medium'
-                    : 'Hard'}
+                    ? 'Rapid'
+                    : 'Critical'}
               </span>
             </div>
             <Progress value={progressPercentage} className='h-2' />
@@ -236,31 +236,30 @@ export default function SelfDestructingTextField() {
               size='sm'
               onClick={() => changeDifficulty(1)}
             >
-              Easy (1 char)
+              Slow (1 char)
             </Button>
             <Button
               variant={difficultyLevel === 2 ? 'default' : 'outline'}
               size='sm'
               onClick={() => changeDifficulty(2)}
             >
-              Medium (2 chars)
+              Rapid (2 chars)
             </Button>
             <Button
               variant={difficultyLevel === 3 ? 'default' : 'outline'}
               size='sm'
               onClick={() => changeDifficulty(3)}
             >
-              Hard (3 chars)
+              Critical (3 chars)
             </Button>
           </div>
 
           <div className='p-4 border rounded-md bg-yellow-50 dark:bg-yellow-950'>
             <p className='text-sm text-yellow-800 dark:text-yellow-300'>
-              <strong>Warning:</strong> This text field is actively fighting
-              against you! It will continuously erase your text like an
-              aggressive backspace key, but only after you start typing. The
-              harder the difficulty, the more characters it deletes and the
-              faster it strikes!
+              <strong>WARNING:</strong> This message will self-destruct!
+              Characters will be progressively eliminated once you begin typing.
+              Higher difficulty levels increase both destruction rate and number
+              of characters eliminated per detonation cycle.
             </p>
           </div>
         </div>
