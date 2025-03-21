@@ -9,6 +9,7 @@ import {
   PaginationEllipsis,
   PaginationItem
 } from '@/components/ui/pagination'
+import { faker } from '@faker-js/faker'
 
 export function RandomDicePagination() {
   const [currentPage, setCurrentPage] = useState(2)
@@ -16,9 +17,15 @@ export function RandomDicePagination() {
   const [isRolling, setIsRolling] = useState(false)
   const [prevDice, setPrevDice] = useState(3)
   const [nextDice, setNextDice] = useState(5)
-  // Instead of bouncing, we’ll toggle a small scale
   const [leftDiceAnimation, setLeftDiceAnimation] = useState(false)
   const [rightDiceAnimation, setRightDiceAnimation] = useState(false)
+  const [pageContent, setPageContent] = useState(() =>
+    faker.lorem.paragraphs(2)
+  )
+
+  useEffect(() => {
+    setPageContent(faker.lorem.paragraphs(2))
+  }, [currentPage])
 
   const getRandomPage = () => Math.floor(Math.random() * totalPages) + 1
   const getRandomDice = () => Math.floor(Math.random() * 6) + 1
@@ -85,13 +92,9 @@ export function RandomDicePagination() {
 
   return (
     <div className='flex flex-col items-center'>
-      {/* 'Page X Content' block */}
       <div className='mt-6 mb-6 p-4 bg-gray-100 rounded-md max-w-lg'>
         <h3 className='font-bold mb-2'>Page {currentPage} Content</h3>
-        <p className='text-gray-700'>
-          This is completely random content for page {currentPage}. You never
-          know where the dice will take you next!
-        </p>
+        <p className='text-gray-700'>{pageContent}</p>
       </div>
 
       <Pagination className='py-4'>
@@ -102,7 +105,6 @@ export function RandomDicePagination() {
               disabled={isRolling}
               className='inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-12 w-12 p-0'
             >
-              {/* Removed 'animate-bounce' and replaced with a scale toggle */}
               <PrevDiceIcon
                 className={`h-8 w-8 transform transition-transform duration-300 ${
                   leftDiceAnimation ? 'scale-125' : ''
@@ -111,7 +113,6 @@ export function RandomDicePagination() {
             </button>
           </PaginationItem>
 
-          {/* FIRST PAGE */}
           {currentPage > 2 && (
             <PaginationItem>
               <button
@@ -134,7 +135,6 @@ export function RandomDicePagination() {
             </PaginationItem>
           )}
 
-          {/* MAPPED PAGES */}
           {getPageLinks().map(page => (
             <PaginationItem key={page}>
               <button
@@ -157,7 +157,6 @@ export function RandomDicePagination() {
             </PaginationItem>
           )}
 
-          {/* LAST PAGE */}
           {currentPage < totalPages - 1 && (
             <PaginationItem>
               <button

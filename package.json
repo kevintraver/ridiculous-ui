@@ -11,6 +11,7 @@
     "format:check": "prettier --check './**/*.{js,jsx,ts,tsx,json,md}'"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.6.0",
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "^1.2.3",
     "@radix-ui/react-alert-dialog": "^1.1.6",
@@ -47,6 +48,7 @@
     "embla-carousel": "^8.5.2",
     "embla-carousel-autoplay": "^8.5.2",
     "embla-carousel-react": "8.5.2",
+    "faker-js": "^1.0.0",
     "framer-motion": "^12.5.0",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
