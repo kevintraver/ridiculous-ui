@@ -60,7 +60,6 @@ function ComponentsContent() {
     document.title = 'Components | Ridiculous UI'
   }, [])
 
-
   return (
     <div className='container mx-auto py-10 px-4'>
       <h1 className='text-4xl font-extrabold mb-8 text-center'>

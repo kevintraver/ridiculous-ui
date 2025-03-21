@@ -64,9 +64,8 @@ export default function AlphabeticalAutocomplete() {
 
     if (lastChar === ' ') {
       // Show full alphabet and numbers when space is typed
-      const alphabetSuggestions = Array.from(
-        { length: 26 },
-        (_, i) => String.fromCharCode(97 + i)
+      const alphabetSuggestions = Array.from({ length: 26 }, (_, i) =>
+        String.fromCharCode(97 + i)
       )
       const numberSuggestions = generateNumbers()
       setSuggestions([...numberSuggestions, ...alphabetSuggestions])
@@ -77,7 +76,7 @@ export default function AlphabeticalAutocomplete() {
       setOpen(newSuggestions.length > 0)
     } else if (/[0-9]/.test(lastChar)) {
       // For numbers, show only numbers that come after the current number
-      const numberSuggestions = generateNumbers(lastChar) 
+      const numberSuggestions = generateNumbers(lastChar)
       setSuggestions(numberSuggestions)
       setOpen(numberSuggestions.length > 0)
     } else {

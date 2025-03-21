@@ -172,7 +172,11 @@ export default function DistractedProgressBar() {
               size='sm'
               onClick={startProgress}
               disabled={isRunning}
-              className={isRunning ? 'px-3 py-1 text-sm bg-primary/10 text-primary rounded-md hover:bg-primary/20 transition-colors flex items-center gap-1.5' : ''}
+              className={
+                isRunning
+                  ? 'px-3 py-1 text-sm bg-primary/10 text-primary rounded-md hover:bg-primary/20 transition-colors flex items-center gap-1.5'
+                  : ''
+              }
             >
               <span className={isRunning ? 'mr-1' : 'hidden'}>↺</span>
               <RotateCcw className={isRunning ? 'hidden' : 'h-4 w-4 mr-1'} />

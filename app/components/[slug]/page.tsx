@@ -17,7 +17,7 @@ export default function ComponentPage() {
   const [isLoading, setIsLoading] = useState(true)
 
   const componentData = componentsData.find(c => c.slug === slug)
-  
+
   // Set page title
   useEffect(() => {
     if (componentData) {
@@ -62,7 +62,7 @@ export default function ComponentPage() {
         <Link
           href='/components'
           className='flex items-center text-muted-foreground hover:text-primary transition-colors mr-4'
-          onClick={(e) => {
+          onClick={e => {
             e.preventDefault()
             // Use the category from the component to navigate back if available
             if (componentData.categories.length > 0) {
@@ -87,7 +87,7 @@ export default function ComponentPage() {
               href={`/components?category=${category}`}
               key={category}
               className='px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm hover:bg-primary/20 transition-colors flex items-center gap-1.5'
-              onClick={(e) => {
+              onClick={e => {
                 // Use direct navigation with query parameter
                 e.preventDefault()
                 router.push(`/components?category=${category}`)
