@@ -268,7 +268,7 @@ export const componentsData: ComponentData[] = [
     description: 'A slot machine for filling out your One Time Passwords.',
     component: () =>
       import('@/components/otp-slot-machine').then(mod => mod.default),
-    categories: ['random'],
+    categories: ['random', 'password'],
     createdAt: '2024-03-23'
   }
 ]
