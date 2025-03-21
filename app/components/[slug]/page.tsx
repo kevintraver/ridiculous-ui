@@ -63,9 +63,13 @@ export default function ComponentPage() {
           href='/components'
           className='flex items-center text-muted-foreground hover:text-primary transition-colors mr-4'
           onClick={(e) => {
-            // Use browser back button to preserve URL state
             e.preventDefault()
-            window.history.back()
+            // Use the category from the component to navigate back if available
+            if (componentData.categories.length > 0) {
+              router.push(`/components?category=${componentData.categories[0]}`)
+            } else {
+              router.push('/components')
+            }
           }}
         >
           <ArrowLeft className='h-5 w-5 mr-1' />
