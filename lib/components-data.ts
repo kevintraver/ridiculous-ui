@@ -266,8 +266,7 @@ export const componentsData: ComponentData[] = [
   {
     slug: 'random-pagination',
     name: 'Random Dice Pagination',
-    description:
-      'A pagination component that uses dice to navigate, basically a Vegas slot machine for your webpage.',
+    description: 'A pagination component that uses dice to navigate.',
     component: () =>
       import('@/components/random-pagination').then(mod => mod.default),
     categories: ['pagination', 'random'],
