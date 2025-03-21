@@ -174,7 +174,7 @@ export default function SlotMachineOTP() {
 
       <div className='flex flex-col items-center gap-2'>
         {showOTP && (
-          <p className='text-sm font-medium text-green-600 dark:text-green-500'>
+          <p className='text-lg font-medium text-black'>
             OTP: {digits.join('')}
           </p>
         )}
