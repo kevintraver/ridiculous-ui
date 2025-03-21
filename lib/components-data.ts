@@ -117,6 +117,11 @@ export const categoryConfig = {
     id: 'alert',
     displayName: 'alert',
     icon: MessageSquare
+  },
+  'drag-and-drop': {
+    id: 'drag-and-drop',
+    displayName: 'drag and drop',
+    icon: SquareDashedMousePointerIcon
   }
 } as const
 
@@ -344,6 +349,17 @@ export const componentsData: ComponentData[] = [
       import('@/components/otp-slot-machine').then(mod => mod.default),
     categories: ['random', 'password'],
     createdAt: '2024-03-23',
+    featured: true
+  },
+  {
+    slug: 'overly-attached-drag-item',
+    name: 'Overly Attached Drag Item',
+    description:
+      'Drag items that cling to your cursor anywhere on the page and desperately beg not to be deleted.',
+    component: () =>
+      import('@/components/overly-attached-drag-item').then(mod => mod.default),
+    categories: ['drag-and-drop'],
+    createdAt: '2025-03-21',
     featured: true
   }
 ]
