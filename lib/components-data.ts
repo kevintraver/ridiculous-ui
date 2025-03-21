@@ -40,6 +40,7 @@ export type ComponentCategory =
   | 'carousel'
   | 'random'
   | 'card'
+  | 'alert'
 
 // Category icon mapping
 export const categoryIcons: Record<ComponentCategory, React.ElementType> = {
@@ -60,7 +61,8 @@ export const categoryIcons: Record<ComponentCategory, React.ElementType> = {
   breadcrumb: ChevronsRight,
   carousel: GalleryHorizontal,
   random: Dices,
-  card: SquareEqual
+  card: SquareEqual,
+  alert: MessageSquare
 }
 
 export type ComponentData = {
@@ -241,6 +243,15 @@ export const componentsData: ComponentData[] = [
     component: () => import('@/components/drunk-card').then(mod => mod.default),
     categories: ['card'],
     createdAt: '2024-03-20'
+  },
+  {
+    slug: 'ghost-alert',
+    name: 'Ghost Alert',
+    description: 'A floating ghost alert that disappears after a while.',
+    component: () =>
+      import('@/components/ghost-alert').then(mod => mod.default),
+    categories: ['alert'],
+    createdAt: '2024-03-21'
   }
 ]
 
