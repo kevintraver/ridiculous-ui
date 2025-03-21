@@ -67,7 +67,7 @@ export type ComponentData = {
   slug: string
   name: string
   description: string
-  component: () => Promise<any> // Using any to accommodate various component types
+  component: () => Promise<React.ComponentType<any>> // Using any to accommodate various component types
   categories: ComponentCategory[]
   createdAt: string
   featured?: boolean
