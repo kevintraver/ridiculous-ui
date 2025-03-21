@@ -18,7 +18,8 @@ import {
   GalleryHorizontal,
   AlignLeft,
   SquareEqual,
-  SquareDashedMousePointerIcon
+  SquareDashedMousePointerIcon,
+  CreditCard
 } from 'lucide-react'
 
 // Define the central category configuration
@@ -32,6 +33,16 @@ export const categoryConfig = {
     id: 'checkbox',
     displayName: 'checkbox',
     icon: CheckSquare
+  },
+  form: {
+    id: 'form',
+    displayName: 'form',
+    icon: CreditCard
+  },
+  payment: {
+    id: 'payment',
+    displayName: 'payment',
+    icon: CreditCard
   },
   'date-picker': {
     id: 'date-picker',
@@ -358,6 +369,17 @@ export const componentsData: ComponentData[] = [
     component: () =>
       import('@/components/overly-attached-drag-item').then(mod => mod.default),
     categories: ['drag-and-drop'],
+    createdAt: '2025-03-21',
+    featured: true
+  },
+  {
+    slug: 'historical-payment',
+    name: 'Historical Payment Form',
+    description:
+      'A payment form that only accepts ancient forms of currency like shells, livestock, and spices.',
+    component: () =>
+      import('@/components/historical-payment').then(mod => mod.default),
+    categories: ['form', 'payment'],
     createdAt: '2025-03-21',
     featured: true
   }
