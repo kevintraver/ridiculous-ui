@@ -206,9 +206,11 @@ export default function SlotMachineOTP() {
             }
           >
             <motion.div
-              className='w-1.5 h-8 ml-4 bg-red-500 rounded-t-full'
+              className='w-1.5 h-10 bg-red-500 rounded-t-full translate-y-3'
               animate={{
-                rotateZ: leverPulled ? 35 : 0
+                rotateZ: leverPulled ? 35 : 0,
+                x: leverPulled ? 3 : 0,
+                y: leverPulled ? 1 : 0
               }}
               transition={{
                 type: 'spring',
@@ -219,9 +221,6 @@ export default function SlotMachineOTP() {
             ></motion.div>
             <motion.div
               className='w-3 h-3 bg-gradient-to-b from-red-500 to-red-600 rounded-full shadow-md border border-red-700'
-              animate={{
-                scale: leverPulled ? [1, 1.2, 1] : 1
-              }}
               transition={{
                 duration: 0.3
               }}
