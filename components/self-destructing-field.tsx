@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
 import { Progress } from '@/components/ui/progress'
 import { Card, CardContent } from '@/components/ui/card'
-import { Bomb, Sparkles, RotateCcw } from 'lucide-react'
+import { Bomb, Sparkles } from 'lucide-react'
 
 export default function SelfDestructingTextField() {
   const [text, setText] = useState('')
@@ -16,6 +16,7 @@ export default function SelfDestructingTextField() {
   const [isExploding, setIsExploding] = useState(false)
   const [difficultyLevel, setDifficultyLevel] = useState(1)
   const [isPaused, setIsPaused] = useState(false)
+  const [hasStartedTyping, setHasStartedTyping] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const lastDeleteTime = useRef(Date.now())
@@ -48,7 +49,8 @@ export default function SelfDestructingTextField() {
 
   // Handle the countdown and text deletion
   useEffect(() => {
-    if (isPaused) return
+    // Don't start the countdown until the user has typed something
+    if (isPaused || !hasStartedTyping) return
 
     const settings = getDifficultySettings()
     const timer = setInterval(() => {
@@ -71,7 +73,7 @@ export default function SelfDestructingTextField() {
     }, 100)
 
     return () => clearInterval(timer)
-  }, [isPaused, difficultyLevel, text])
+  }, [isPaused, difficultyLevel, text, hasStartedTyping])
 
   // Function to delete characters from the end of the text
   const deleteCharacters = () => {
@@ -92,8 +94,6 @@ export default function SelfDestructingTextField() {
   const showExplosion = () => {
     if (!inputRef.current || !containerRef.current) return
 
-    const inputRect = inputRef.current.getBoundingClientRect()
-
     // Position the explosion near the end of the text
     setIsExploding(true)
     setTimeout(() => setIsExploding(false), 500)
@@ -101,8 +101,15 @@ export default function SelfDestructingTextField() {
 
   // Handle text change
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value)
-    // Don't reset the timer when typing - let it continue to delete
+    const newValue = e.target.value
+    setText(newValue)
+
+    // Set has started typing to true when user types their first character
+    if (!hasStartedTyping && newValue.length > 0) {
+      setHasStartedTyping(true)
+      // Initialize lastDeleteTime when typing starts
+      lastDeleteTime.current = Date.now()
+    }
   }
 
   // Toggle pause state
@@ -123,12 +130,15 @@ export default function SelfDestructingTextField() {
   // Reset the text field
   const resetTextField = () => {
     setText('')
+    // Reset typing state
+    setHasStartedTyping(false)
     lastDeleteTime.current = Date.now()
   }
 
   // Calculate progress percentage
-  const progressPercentage =
-    (countdown / getDifficultySettings().interval) * 100
+  const progressPercentage = hasStartedTyping
+    ? (countdown / getDifficultySettings().interval) * 100
+    : 100
 
   return (
     <Card>
@@ -144,16 +154,17 @@ export default function SelfDestructingTextField() {
                   variant={isPaused ? 'default' : 'outline'}
                   size='sm'
                   onClick={togglePause}
+                  disabled={!hasStartedTyping}
                 >
                   {isPaused ? 'Resume Chaos' : 'Pause Chaos'}
                 </Button>
-                <Button 
-                  variant='outline' 
-                  size='sm' 
+                <Button
+                  variant='outline'
+                  size='sm'
                   onClick={resetTextField}
                   className='px-3 py-1 text-sm bg-primary/10 text-primary rounded-md hover:bg-primary/20 transition-colors flex items-center gap-1.5'
                 >
-                  <span className="mr-1">↺</span>
+                  <span className='mr-1'>↺</span>
                   Reset
                 </Button>
               </div>
@@ -189,7 +200,7 @@ export default function SelfDestructingTextField() {
               <div className='absolute right-3 top-1/2 transform -translate-y-1/2'>
                 <Bomb
                   className={`h-4 w-4 ${
-                    countdown < 1
+                    hasStartedTyping && countdown < 1
                       ? 'text-red-500 animate-pulse'
                       : 'text-muted-foreground'
                   }`}
@@ -201,7 +212,11 @@ export default function SelfDestructingTextField() {
           {/* Self-destruct timer */}
           <div className='space-y-1'>
             <div className='flex justify-between text-xs'>
-              <span>Backspace attack in: {countdown.toFixed(1)}s</span>
+              <span>
+                {hasStartedTyping
+                  ? `Backspace attack in: ${countdown.toFixed(1)}s`
+                  : 'Ready to attack when you start typing'}
+              </span>
               <span>
                 Difficulty:{' '}
                 {difficultyLevel === 1
@@ -243,9 +258,9 @@ export default function SelfDestructingTextField() {
             <p className='text-sm text-yellow-800 dark:text-yellow-300'>
               <strong>Warning:</strong> This text field is actively fighting
               against you! It will continuously erase your text like an
-              aggressive backspace key, even while you're typing. The harder the
-              difficulty, the more characters it deletes and the faster it
-              strikes!
+              aggressive backspace key, but only after you start typing. The
+              harder the difficulty, the more characters it deletes and the
+              faster it strikes!
             </p>
           </div>
         </div>
