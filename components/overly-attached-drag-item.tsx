@@ -237,9 +237,17 @@ export default function OverlyAttachedDragItem() {
   }, [])
 
   // Start dragging a todo
-  const handleDragStart = (id: string) => {
+  const handleDragStart = (id: string, event: React.PointerEvent) => {
     const message =
       attachmentMessages[Math.floor(Math.random() * attachmentMessages.length)]
+    
+    // Get the item dimensions (approximate)
+    const itemWidth = 250
+    const itemHeight = 70
+    
+    // Calculate initial position centered on cursor
+    const initialX = event.clientX - itemWidth / 2
+    const initialY = event.clientY - itemHeight / 2
 
     setTodos(prevTodos => {
       return prevTodos.map(todo => {
@@ -248,7 +256,8 @@ export default function OverlyAttachedDragItem() {
             ...todo,
             isDragging: true,
             isAttached: true,
-            message
+            message,
+            position: { x: initialX, y: initialY }
           }
         }
         return todo
@@ -345,7 +354,7 @@ export default function OverlyAttachedDragItem() {
                   } border border-gray-200 dark:border-gray-700`}
                   onPointerDown={e => {
                     e.preventDefault() // Prevent text selection
-                    handleDragStart(todo.id)
+                    handleDragStart(todo.id, e)
                   }}
                 >
                   <button
