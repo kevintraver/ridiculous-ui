@@ -10,11 +10,111 @@ export default function EscapingButton() {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const [isEscaping, setIsEscaping] = useState(false)
   const [clickCount, setClickCount] = useState(0)
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
+  const animationRef = useRef<number | null>(null)
+  const speedRef = useRef({ x: 3, y: 2 })
 
-  // Move the button when mouse gets close
+  // Detect if device has touch capability
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0)
+  }, [])
+
+  // Move the button autonomously on touch devices
+  useEffect(() => {
+    if (!isTouchDevice || clickCount >= 5 || !containerRef.current) return
+
+    let lastTime = 0
+
+    const moveButton = (timestamp: number) => {
+      if (!containerRef.current || clickCount >= 5) return
+      
+      // Update position only every ~16ms for smoother animation
+      if (timestamp - lastTime < 16) {
+        animationRef.current = requestAnimationFrame(moveButton)
+        return
+      }
+      
+      lastTime = timestamp
+      
+      const container = containerRef.current.getBoundingClientRect()
+      const buttonEl = containerRef.current.querySelector('button')
+      if (!buttonEl) return
+      
+      const button = buttonEl.getBoundingClientRect()
+      const containerWidth = container.width - button.width
+      const containerHeight = container.height - button.height
+
+      let newX = position.x + speedRef.current.x
+      let newY = position.y + speedRef.current.y
+
+      // Bounce off walls by reversing direction with a bit of randomness
+      if (newX <= 0 || newX >= containerWidth) {
+        // Add slight variation to prevent getting stuck in patterns
+        speedRef.current.x = -speedRef.current.x * (0.9 + Math.random() * 0.2)
+        // Make sure we're actually moving away from the wall
+        if (newX <= 0) {
+          newX = 1
+          speedRef.current.x = Math.abs(speedRef.current.x)
+        } else {
+          newX = containerWidth - 1
+          speedRef.current.x = -Math.abs(speedRef.current.x)
+        }
+      }
+      
+      if (newY <= 0 || newY >= containerHeight) {
+        // Add slight variation to prevent getting stuck in patterns
+        speedRef.current.y = -speedRef.current.y * (0.9 + Math.random() * 0.2)
+        // Make sure we're actually moving away from the wall
+        if (newY <= 0) {
+          newY = 1
+          speedRef.current.y = Math.abs(speedRef.current.y)
+        } else {
+          newY = containerHeight - 1
+          speedRef.current.y = -Math.abs(speedRef.current.y)
+        }
+      }
+
+      // Occasionally change direction randomly to make movement more unpredictable
+      if (Math.random() < 0.01) {
+        speedRef.current.x = speedRef.current.x * (0.8 + Math.random() * 0.4)
+        speedRef.current.y = speedRef.current.y * (0.8 + Math.random() * 0.4)
+      }
+
+      // Ensure minimum speed
+      const minSpeed = 1
+      if (Math.abs(speedRef.current.x) < minSpeed) {
+        speedRef.current.x = minSpeed * Math.sign(speedRef.current.x)
+      }
+      if (Math.abs(speedRef.current.y) < minSpeed) {
+        speedRef.current.y = minSpeed * Math.sign(speedRef.current.y)
+      }
+
+      // Cap maximum speed
+      const maxSpeed = 5
+      speedRef.current.x = Math.max(-maxSpeed, Math.min(maxSpeed, speedRef.current.x))
+      speedRef.current.y = Math.max(-maxSpeed, Math.min(maxSpeed, speedRef.current.y))
+
+      setPosition({ 
+        x: Math.max(0, Math.min(containerWidth, newX)), 
+        y: Math.max(0, Math.min(containerHeight, newY)) 
+      })
+      
+      animationRef.current = requestAnimationFrame(moveButton)
+    }
+
+    animationRef.current = requestAnimationFrame(moveButton)
+
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
+    }
+  }, [isTouchDevice, clickCount, position])
+
+  // Move the button when mouse gets close (only for non-touch devices)
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!containerRef.current || clickCount >= 5) return
+    if (isTouchDevice || !containerRef.current || clickCount >= 5) return
 
     const container = containerRef.current.getBoundingClientRect()
     const button = e.currentTarget.getBoundingClientRect()
@@ -61,6 +161,9 @@ export default function EscapingButton() {
   useEffect(() => {
     if (clickCount >= 5) {
       setPosition({ x: 0, y: 0 })
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
     }
   }, [clickCount])
 
