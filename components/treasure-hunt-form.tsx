@@ -30,7 +30,9 @@ export default function TreasureHuntForm() {
 
   // Check if user is on mobile
   useEffect(() => {
-    setIsMobile('ontouchstart' in window || navigator.maxTouchPoints > 0)
+    const hasTouch = navigator.maxTouchPoints > 0
+    const hasMouse = window.matchMedia('(pointer: fine)').matches
+    setIsMobile(hasTouch && !hasMouse)
   }, [])
 
   // Set random position for the button when component mounts

@@ -15,9 +15,11 @@ export default function EscapingButton() {
   const animationRef = useRef<number | null>(null)
   const speedRef = useRef({ x: 3, y: 2 })
 
-  // Detect if device has touch capability
+  // Detect if device has touch capability using refined logic
   useEffect(() => {
-    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0)
+    const hasTouch = navigator.maxTouchPoints > 0
+    const hasMouse = window.matchMedia('(pointer: fine)').matches
+    setIsTouchDevice(hasTouch && !hasMouse)
   }, [])
 
   // Move the button autonomously on touch devices
