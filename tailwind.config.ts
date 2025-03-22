@@ -84,7 +84,7 @@ const config: Config = {
             height: '0'
           }
         },
-        'shake': {
+        shake: {
           '0%, 100%': {
             transform: 'translateX(0)'
           },
@@ -102,7 +102,7 @@ const config: Config = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'shake': 'shake 0.4s ease-in-out'
+        shake: 'shake 0.4s ease-in-out'
       }
     }
   },

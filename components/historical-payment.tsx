@@ -422,8 +422,13 @@ export default function HistoricalPayment() {
                   Payment Accepted!
                 </h3>
                 <p className='text-center'>
-                  Your payment method: <strong>{paymentMethods.find(m => m.value === form.getValues('paymentMethod'))?.label || form.getValues('paymentMethod')}</strong> has been
-                  recorded in our ledger.
+                  Your payment method:{' '}
+                  <strong>
+                    {paymentMethods.find(
+                      m => m.value === form.getValues('paymentMethod')
+                    )?.label || form.getValues('paymentMethod')}
+                  </strong>{' '}
+                  has been recorded in our ledger.
                 </p>
                 <p className='text-center'>
                   <strong>Amount paid:</strong> {form.getValues('quantity')}
