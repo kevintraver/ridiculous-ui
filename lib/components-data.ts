@@ -405,6 +405,16 @@ export const componentsData: ComponentData[] = [
     createdAt: '2024-03-20'
   },
   {
+    slug: 'treasure-hunt-form',
+    name: 'Treasure Hunt Form',
+    description:
+      'A form that hides the submit button and tracks your progress.',
+    component: () =>
+      import('@/components/treasure-hunt-form').then(mod => mod.default),
+    categories: ['form'],
+    createdAt: '2025-03-21'
+  },
+  {
     slug: 'ghost-alert',
     name: 'Ghost Alert',
     description: 'A floating ghost alert that disappears after a while.',
