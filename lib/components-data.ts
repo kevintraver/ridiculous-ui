@@ -252,7 +252,7 @@ export const componentsData: ComponentData[] = [
     description: "An autocomplete field that's alphabetically sorted.",
     component: () =>
       import('@/components/alphabetical-autocomplete').then(mod => mod.default),
-    categories: ['autocomplete'],
+    categories: ['autocomplete', 'text-input'],
     createdAt: '2024-01-09'
   },
   {
