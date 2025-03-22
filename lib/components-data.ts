@@ -19,7 +19,8 @@ import {
   AlignLeft,
   SquareEqual,
   SquareDashedMousePointerIcon,
-  CreditCard
+  CreditCard,
+  Moon
 } from 'lucide-react'
 
 // Define the central category configuration
@@ -133,6 +134,11 @@ export const categoryConfig = {
     id: 'drag-and-drop',
     displayName: 'drag and drop',
     icon: SquareDashedMousePointerIcon
+  },
+  'dark-mode': {
+    id: 'darkmode',
+    displayName: 'dark mode',
+    icon: Moon
   }
 } as const
 
@@ -340,6 +346,15 @@ export const componentsData: ComponentData[] = [
     component: () =>
       import('@/components/ghost-alert').then(mod => mod.default),
     categories: ['alert'],
+    createdAt: '2024-03-21'
+  },
+  {
+    slug: 'scary-dark-mode',
+    name: 'Scary Dark Mode',
+    description: 'A dark mode that will make you want to run away.',
+    component: () =>
+      import('@/components/scary-dark-mode').then(mod => mod.default),
+    categories: ['dark-mode'],
     createdAt: '2024-03-21'
   },
   {
