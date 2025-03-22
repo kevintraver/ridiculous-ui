@@ -240,11 +240,11 @@ export default function OverlyAttachedDragItem() {
   const handleDragStart = (id: string, event: React.PointerEvent) => {
     const message =
       attachmentMessages[Math.floor(Math.random() * attachmentMessages.length)]
-    
+
     // Get the item dimensions (approximate)
     const itemWidth = 250
     const itemHeight = 70
-    
+
     // Calculate initial position centered on cursor
     const initialX = event.clientX - itemWidth / 2
     const initialY = event.clientY - itemHeight / 2

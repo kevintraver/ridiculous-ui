@@ -30,19 +30,19 @@ export default function EscapingButton() {
 
     const moveButton = (timestamp: number) => {
       if (!containerRef.current || clickCount >= 5) return
-      
+
       // Update position only every ~16ms for smoother animation
       if (timestamp - lastTime < 16) {
         animationRef.current = requestAnimationFrame(moveButton)
         return
       }
-      
+
       lastTime = timestamp
-      
+
       const container = containerRef.current.getBoundingClientRect()
       const buttonEl = containerRef.current.querySelector('button')
       if (!buttonEl) return
-      
+
       const button = buttonEl.getBoundingClientRect()
       const containerWidth = container.width - button.width
       const containerHeight = container.height - button.height
@@ -63,7 +63,7 @@ export default function EscapingButton() {
           speedRef.current.x = -Math.abs(speedRef.current.x)
         }
       }
-      
+
       if (newY <= 0 || newY >= containerHeight) {
         // Add slight variation to prevent getting stuck in patterns
         speedRef.current.y = -speedRef.current.y * (0.9 + Math.random() * 0.2)
@@ -94,14 +94,20 @@ export default function EscapingButton() {
 
       // Cap maximum speed
       const maxSpeed = 5
-      speedRef.current.x = Math.max(-maxSpeed, Math.min(maxSpeed, speedRef.current.x))
-      speedRef.current.y = Math.max(-maxSpeed, Math.min(maxSpeed, speedRef.current.y))
+      speedRef.current.x = Math.max(
+        -maxSpeed,
+        Math.min(maxSpeed, speedRef.current.x)
+      )
+      speedRef.current.y = Math.max(
+        -maxSpeed,
+        Math.min(maxSpeed, speedRef.current.y)
+      )
 
-      setPosition({ 
-        x: Math.max(0, Math.min(containerWidth, newX)), 
-        y: Math.max(0, Math.min(containerHeight, newY)) 
+      setPosition({
+        x: Math.max(0, Math.min(containerWidth, newX)),
+        y: Math.max(0, Math.min(containerHeight, newY))
       })
-      
+
       animationRef.current = requestAnimationFrame(moveButton)
     }
 
