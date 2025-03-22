@@ -407,7 +407,11 @@ export default function OverlyAttachedDragItem() {
                     top: todo.position.y,
                     touchAction: 'none',
                     cursor: todo.isDragging ? 'grabbing' : 'grab',
-                    pointerEvents: 'auto'
+                    pointerEvents: 'auto',
+                    userSelect: 'none',
+                    WebkitUserSelect: 'none',
+                    MozUserSelect: 'none',
+                    msUserSelect: 'none'
                   }}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{
