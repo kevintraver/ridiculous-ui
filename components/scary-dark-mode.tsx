@@ -67,7 +67,9 @@ export default function ScaryDarkMode() {
   const forestBackgrounds = [
     'https://i.imgur.com/AgI1efo.jpeg',
     'https://i.imgur.com/qydhk56.jpeg',
-    'https://i.imgur.com/rrNTpkg.jpeg'
+    'https://i.imgur.com/rrNTpkg.jpeg',
+    'https://i.imgur.com/sQXYhHe.jpeg',
+    'https://i.imgur.com/VZ8YXZC.jpeg'
   ]
 
   // ============ HELPER FUNCTIONS ============
