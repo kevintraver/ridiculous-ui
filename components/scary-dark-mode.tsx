@@ -1040,8 +1040,12 @@ export default function ScaryDarkMode() {
   return (
     <Card className='p-6'>
       {/* Normal Mode Content */}
-      <div className='flex items-center justify-between mb-6'>
-        <h2 className='text-2xl font-bold'>Dark Forest Mode</h2>
+      <div className='flex items-center justify-between mb-2'>
+        <div className='text-lg mb-2'>
+          <strong className='text-amber-700 dark:text-amber-400'>
+            Best experienced in full screen mode!
+          </strong>
+        </div>
         <div className='flex items-center space-x-2'>
           <Sun className='h-5 w-5 text-black dark:text-white' />
           <Switch
@@ -1057,25 +1061,8 @@ export default function ScaryDarkMode() {
       </div>
 
       <div className='prose dark:prose-invert'>
-        <div className='text-lg mb-4'>
-          <p className='mb-1'>
-            Toggle the switch above to enter the dark forest mode.
-            <strong className='text-amber-700 dark:text-amber-400'>
-              {' '}
-              Best experienced in full screen mode!
-            </strong>
-          </p>
-          <p className='text-sm italic'>
-            For the most immersive experience, press{' '}
-            <kbd className='px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded border border-gray-300 dark:border-gray-600 font-mono text-xs'>
-              F11
-            </kbd>{' '}
-            to enter full screen mode before toggling the switch.
-          </p>
-        </div>
-
         <h3 className='text-md font-bold mb-2'>How it works:</h3>
-        <ul className='list-disc pl-5 space-y-2 mb-4'>
+        <ul className='list-disc pl-5 space-y-2 mb-3'>
           <li>
             Your cursor becomes a flashlight that reveals what's hidden in the
             darkness
@@ -1099,7 +1086,7 @@ export default function ScaryDarkMode() {
         </ul>
 
         <h3 className='text-md font-bold mb-2'>Mobile Controls:</h3>
-        <ul className='list-disc pl-5 space-y-1 mb-3'>
+        <ul className='list-disc pl-5 space-y-2 mb-3'>
           <li>
             Drag your finger to move the flashlight (stays on while dragging)
           </li>

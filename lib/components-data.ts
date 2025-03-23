@@ -351,7 +351,7 @@ export const componentsData: ComponentData[] = [
   {
     slug: 'scary-dark-mode',
     name: 'Scary Dark Mode',
-    description: 'A dark mode that will make you want to run away.',
+    description: 'A dark mode that will keep you up at night.',
     component: () =>
       import('@/components/scary-dark-mode').then(mod => mod.default),
     categories: ['dark-mode'],
