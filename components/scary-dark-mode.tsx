@@ -1184,9 +1184,29 @@ export default function ScaryDarkMode() {
               pointerEvents: 'none'
             }}
           >
-            {eyes.map(
-              eye =>
-                eye.visible && (
+            {eyes.map(eye => {
+              // Calculate distance from eye position to flashlight cursor
+              const eyeXPercent = eye.x
+              const eyeYPercent = eye.y
+              const cursorXPercent =
+                (cursorPosition.x / window.innerWidth) * 100
+              const cursorYPercent =
+                (cursorPosition.y / window.innerHeight) * 100
+
+              // Calculate direct distance using Pythagorean theorem
+              const distanceToFlashlight = Math.sqrt(
+                Math.pow(eyeXPercent - cursorXPercent, 2) +
+                  Math.pow(eyeYPercent - cursorYPercent, 2)
+              )
+
+              // Hide eyes when flashlight is too close (smaller threshold on mobile)
+              const isTooCloseToFlashlight =
+                isFlashlightOn &&
+                distanceToFlashlight < (deviceType === 'mobile' ? 15 : 20)
+
+              return (
+                eye.visible &&
+                !isTooCloseToFlashlight && (
                   <div
                     key={`eye-${eye.id}`}
                     className='eye-pair'
@@ -1337,7 +1357,8 @@ export default function ScaryDarkMode() {
                     </div>
                   </div>
                 )
-            )}
+              )
+            })}
           </div>
 
           {/* Exit Button */}
