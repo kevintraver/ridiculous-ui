@@ -1160,7 +1160,7 @@ export default function ScaryDarkMode() {
               height: '100%',
               backgroundColor: 'black',
               zIndex: 102,
-              opacity: 0.9,
+              opacity: 0.94,
               maskImage: isFlashlightOn
                 ? isSputtering
                   ? 'none'
