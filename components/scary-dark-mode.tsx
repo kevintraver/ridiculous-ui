@@ -1153,12 +1153,12 @@ export default function ScaryDarkMode() {
               maskImage: isFlashlightOn
                 ? isSputtering
                   ? 'none'
-                  : `radial-gradient(circle at ${cursorPosition.x}px ${cursorPosition.y}px, transparent 0%, transparent 150px, rgba(0, 0, 0, 0.8) 200px, black 250px)`
+                  : `radial-gradient(circle at ${cursorPosition.x}px ${cursorPosition.y}px, transparent 0%, transparent 50px, rgba(0, 0, 0, 0.1) 100px, rgba(0, 0, 0, 0.4) 150px, rgba(0, 0, 0, 0.7) 200px, black 250px)`
                 : 'none',
               WebkitMaskImage: isFlashlightOn
                 ? isSputtering
                   ? 'none'
-                  : `radial-gradient(circle at ${cursorPosition.x}px ${cursorPosition.y}px, transparent 0%, transparent 150px, rgba(0, 0, 0, 0.8) 200px, black 250px)`
+                  : `radial-gradient(circle at ${cursorPosition.x}px ${cursorPosition.y}px, transparent 0%, transparent 50px, rgba(0, 0, 0, 0.1) 100px, rgba(0, 0, 0, 0.4) 150px, rgba(0, 0, 0, 0.7) 200px, black 250px)`
                 : 'none',
               maskSize: '100% 100%',
               WebkitMaskSize: '100% 100%',
