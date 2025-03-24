@@ -35,12 +35,13 @@ export default function ScaryDarkMode() {
   // ============ STATE ============
   const [isDarkMode, setIsDarkMode] = useState(false)
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 })
-  const [backgroundIndex, setBackgroundIndex] = useState(0)
-  const [backgroundImage, setBackgroundImage] = useState(
-    'https://i.imgur.com/AgI1efo.jpeg'
-  )
   const [isFlashlightOn, setIsFlashlightOn] = useState(true)
   const [isSputtering, setIsSputtering] = useState(false)
+  const [cursorZone, setCursorZone] = useState<'left' | 'center' | 'right'>(
+    'center'
+  )
+  const [leftFigureRevealed, setLeftFigureRevealed] = useState(false)
+  const [rightFigureRevealed, setRightFigureRevealed] = useState(false)
   const [eyes, setEyes] = useState<EyePair[]>([])
   const [deviceType, setDeviceType] = useState<'mobile' | 'tablet' | 'desktop'>(
     'desktop'
@@ -64,13 +65,9 @@ export default function ScaryDarkMode() {
   const overlayRef = useRef<HTMLDivElement>(null)
 
   // ============ CONSTANTS ============
-  const forestBackgrounds = [
-    'https://i.imgur.com/AgI1efo.jpeg',
-    'https://i.imgur.com/qydhk56.jpeg',
-    'https://i.imgur.com/rrNTpkg.jpeg',
-    'https://i.imgur.com/sQXYhHe.jpeg',
-    'https://i.imgur.com/VZ8YXZC.jpeg'
-  ]
+  const leftFigureImage = 'https://i.imgur.com/PR9rb3k.png'
+  const rightFigureImage = 'https://i.imgur.com/SVq6Vpk.png'
+  const emptyBackgroundImage = 'https://i.imgur.com/5AWs963.png'
 
   // ============ HELPER FUNCTIONS ============
 
@@ -157,12 +154,20 @@ export default function ScaryDarkMode() {
     )
   }, [isFlashlightOn, cursorPosition.x, cursorPosition.y, hasUserMoved])
 
-  // Cycle to next background image
-  const cycleBackgroundImage = useCallback(() => {
-    const newIndex = (backgroundIndex + 1) % forestBackgrounds.length
-    setBackgroundIndex(newIndex)
-    return forestBackgrounds[newIndex]
-  }, [backgroundIndex, forestBackgrounds])
+  // Check which zone the cursor is in (left, center, or right)
+  const updateCursorZone = useCallback((x: number) => {
+    const screenWidth = window.innerWidth
+    const leftThreshold = screenWidth * 0.4 // 40% from the left
+    const rightThreshold = screenWidth * 0.6 // 60% from the left (40% from the right)
+
+    if (x < leftThreshold) {
+      setCursorZone('left')
+    } else if (x > rightThreshold) {
+      setCursorZone('right')
+    } else {
+      setCursorZone('center')
+    }
+  }, [])
 
   // Create a new eye pair with appropriate properties
   const createEyePair = useCallback(
@@ -475,10 +480,10 @@ export default function ScaryDarkMode() {
       setIsFlashlightOn(true)
 
       // Enter dark mode
-      const newBackground = cycleBackgroundImage()
-      setBackgroundImage(newBackground)
       setIsSputtering(false)
       setHasUserMoved(false)
+      setLeftFigureRevealed(false)
+      setRightFigureRevealed(false)
 
       // Start first flicker sooner (after 2-3 seconds)
       setTimeout(
@@ -507,9 +512,15 @@ export default function ScaryDarkMode() {
         y: mouseY
       })
 
-      // Preload image
-      const img = new Image()
-      img.src = newBackground
+      // Initialize which zone the cursor is in
+      updateCursorZone(mouseX)
+
+      // Preload images
+      const leftImg = new Image()
+      leftImg.src = leftFigureImage
+
+      const rightImg = new Image()
+      rightImg.src = rightFigureImage
 
       // Hide cursor
       document.body.style.cursor = 'none'
@@ -536,13 +547,41 @@ export default function ScaryDarkMode() {
     }
   }, [
     isDarkMode,
-    cycleBackgroundImage,
     exitDarkMode,
     cursorPosition.x,
-    cursorPosition.y
+    cursorPosition.y,
+    updateCursorZone
   ])
 
   // ============ EFFECTS ============
+
+  // Track which figures have been revealed
+  useEffect(() => {
+    if (!isDarkMode || !isFlashlightOn) return
+
+    let leftTimer: NodeJS.Timeout | null = null
+    let rightTimer: NodeJS.Timeout | null = null
+
+    // When cursor enters left zone, mark left figure as revealed (it will disappear after this)
+    if (cursorZone === 'left') {
+      leftTimer = setTimeout(() => {
+        setLeftFigureRevealed(true)
+      }, 1000) // Short delay before revealing figure
+    }
+
+    // When cursor enters right zone, mark right figure as revealed (it will disappear after this)
+    if (cursorZone === 'right') {
+      rightTimer = setTimeout(() => {
+        setRightFigureRevealed(true)
+      }, 1000) // Short delay before revealing figure
+    }
+
+    // Cleanup timers
+    return () => {
+      if (leftTimer) clearTimeout(leftTimer)
+      if (rightTimer) clearTimeout(rightTimer)
+    }
+  }, [isDarkMode, isFlashlightOn, cursorZone])
 
   // Implement flashlight flickering effect
   useEffect(() => {
@@ -707,6 +746,9 @@ export default function ScaryDarkMode() {
       setHasUserMoved(true)
       setCursorPosition({ x, y })
 
+      // Update which zone the cursor is in
+      updateCursorZone(x)
+
       // Set proximity threshold based on device and screen size
       // For mobile, use a percentage of screen width rather than fixed pixels
       const proximityThreshold =
@@ -854,7 +896,14 @@ export default function ScaryDarkMode() {
 
     cleanupFunctionsRef.current.push(cleanup)
     return cleanup
-  }, [isDarkMode, deviceType, lastFlashlightToggle, exitDarkMode, lastTapTime])
+  }, [
+    isDarkMode,
+    deviceType,
+    lastFlashlightToggle,
+    exitDarkMode,
+    lastTapTime,
+    updateCursorZone
+  ])
 
   // Eye movement and reappearance effect
   useEffect(() => {
@@ -1070,6 +1119,13 @@ export default function ScaryDarkMode() {
             darkness
           </li>
           <li>
+            A mysterious figure appears only where your flashlight illuminates
+            it
+          </li>
+          <li>
+            The figure seems to disappear into the darkness when not illuminated
+          </li>
+          <li>
             Pairs of glowing eyes will appear, blink, and move around in the
             darkness
           </li>
@@ -1081,9 +1137,6 @@ export default function ScaryDarkMode() {
           <li>
             Be careful — the batteries seem to be running low, and your light
             might flicker unexpectedly
-          </li>
-          <li>
-            Even with the flashlight off, the eyes will still avoid your cursor
           </li>
         </ul>
 
@@ -1120,20 +1173,63 @@ export default function ScaryDarkMode() {
             pointerEvents: 'none'
           }}
         >
-          {/* Semi-transparent background image overlay */}
+          {/* Background image (always visible) */}
           <div
-            className='forest-bg'
+            className='empty-background'
             style={{
               position: 'fixed',
               width: '100%',
               height: '100%',
               top: 0,
               left: 0,
-              background: `url(${backgroundImage}) no-repeat center center fixed`,
+              background: `url(${emptyBackgroundImage}) no-repeat center center`,
               backgroundSize: 'cover',
-              opacity: 0.4,
+              opacity: isFlashlightOn ? 0.9 : 0,
               zIndex: 101,
-              pointerEvents: 'none'
+              pointerEvents: 'none',
+              transition: 'opacity 0.3s ease-in-out'
+            }}
+          />
+
+          {/* Left side image - visible only when flashlight is on left side AND figure has NOT been revealed yet */}
+          <div
+            className='left-figure'
+            style={{
+              position: 'fixed',
+              width: '50%',
+              height: '100%',
+              top: 0,
+              left: 0,
+              background: `url(${leftFigureImage}) no-repeat center left`,
+              backgroundSize: 'cover',
+              opacity:
+                isFlashlightOn && cursorZone === 'left' && !leftFigureRevealed
+                  ? 0.9
+                  : 0,
+              zIndex: 102,
+              pointerEvents: 'none',
+              transition: 'opacity 0.3s ease-in-out'
+            }}
+          />
+
+          {/* Right side image - visible only when flashlight is on right side AND figure has NOT been revealed yet */}
+          <div
+            className='right-figure'
+            style={{
+              position: 'fixed',
+              width: '50%',
+              height: '100%',
+              top: 0,
+              right: 0,
+              background: `url(${rightFigureImage}) no-repeat center right`,
+              backgroundSize: 'cover',
+              opacity:
+                isFlashlightOn && cursorZone === 'right' && !rightFigureRevealed
+                  ? 0.9
+                  : 0,
+              zIndex: 102,
+              pointerEvents: 'none',
+              transition: 'opacity 0.3s ease-in-out'
             }}
           />
 
