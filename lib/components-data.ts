@@ -20,7 +20,8 @@ import {
   SquareEqual,
   SquareDashedMousePointerIcon,
   CreditCard,
-  Moon
+  Moon,
+  AppWindow
 } from 'lucide-react'
 
 // Define the central category configuration
@@ -29,6 +30,16 @@ export const categoryConfig = {
     id: 'button',
     displayName: 'button',
     icon: SquareMousePointer
+  },
+  dialog: {
+    id: 'dialog',
+    displayName: 'dialog',
+    icon: AppWindow
+  },
+  modal: {
+    id: 'modal',
+    displayName: 'modal',
+    icon: AppWindow
   },
   checkbox: {
     id: 'checkbox',
@@ -288,6 +299,18 @@ export const componentsData: ComponentData[] = [
       import('@/components/dice-pagination').then(mod => mod.default),
     categories: ['pagination', 'random'],
     createdAt: '2024-01-12'
+  },
+  // Register the component in the components data file
+  {
+    slug: 'overburdened-modal',
+    name: 'Overburdened Modal',
+    description:
+      'A modal that groans under the weight of its own content, sinking down the screen.',
+    component: () =>
+      import('@/components/overburdened-modal').then(mod => mod.default),
+    categories: ['modal'],
+    createdAt: '2025-03-23',
+    featured: false
   },
   {
     slug: 'reverse-skeleton',
