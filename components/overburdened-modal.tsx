@@ -89,13 +89,13 @@ export default function OverburdenedModal() {
     if (isVisible) {
       // Initial position - visible in the container
       modalAnimControls.set({ y: 50 })
-      
+
       // Then start the animation after a delay
       const timer = setTimeout(() => {
         startTimeRef.current = Date.now()
         updateAnimation()
       }, 1000)
-      
+
       return () => {
         clearTimeout(timer)
         if (animationRef.current) cancelAnimationFrame(animationRef.current)
@@ -313,7 +313,7 @@ export default function OverburdenedModal() {
   )
 
   return (
-    <div 
+    <div
       className='relative flex flex-col items-center min-h-[400px] w-full mb-32 pt-2'
       ref={containerRef}
     >
@@ -325,7 +325,7 @@ export default function OverburdenedModal() {
           </Button>
         </div>
       )}
-      
+
       <AnimatePresence>
         {isVisible && (
           <motion.div
@@ -366,12 +366,6 @@ export default function OverburdenedModal() {
                 <p className='text-xs text-gray-500 text-center italic mt-4'>
                   Watch as gravity takes its toll...
                 </p>
-                <div className='w-full bg-gray-200 dark:bg-gray-700 h-0.5 rounded overflow-hidden mt-2'>
-                  <div
-                    className='bg-gray-500 dark:bg-gray-400 h-full rounded'
-                    style={{ width: `${sinkProgress * 100}%` }}
-                  />
-                </div>
               </div>
             </div>
           </motion.div>
