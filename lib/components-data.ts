@@ -21,7 +21,8 @@ import {
   SquareDashedMousePointerIcon,
   CreditCard,
   Moon,
-  AppWindow
+  AppWindow,
+  BookText
 } from 'lucide-react'
 
 // Define the central category configuration
@@ -80,6 +81,11 @@ export const categoryConfig = {
     id: 'progress',
     displayName: 'progress',
     icon: RectangleEllipsis
+  },
+  tos: {
+    id: 'tos',
+    displayName: 'terms of service',
+    icon: BookText
   },
   slider: {
     id: 'slider',
@@ -203,6 +209,16 @@ export const componentsData: ComponentData[] = [
       import('@/components/talking-password').then(mod => mod.default),
     categories: ['password'],
     createdAt: '2024-01-02'
+  },
+  {
+    slug: 'obnoxious-tos',
+    name: 'The Obnoxious Terms of Service',
+    description:
+      'Redefining user interaction with disruptive, real-time visibility into every action you take.',
+    component: () =>
+      import('@/components/obnoxious-tos').then(mod => mod.default),
+    categories: ['tos'],
+    createdAt: '2025-03-26'
   },
   {
     slug: 'overshare-tooltip',
