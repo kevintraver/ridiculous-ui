@@ -23,7 +23,8 @@ import {
   Moon,
   AppWindow,
   BookText,
-  ListCollapse
+  ListCollapse,
+  SquareMenu
 } from 'lucide-react'
 
 // Define the central category configuration
@@ -32,6 +33,11 @@ export const categoryConfig = {
     id: 'button',
     displayName: 'button',
     icon: SquareMousePointer
+  },
+  dropdown: {
+    id: 'dropdown',
+    displayName: 'dropdown',
+    icon: SquareMenu
   },
   dialog: {
     id: 'dialog',
@@ -449,6 +455,16 @@ export const componentsData: ComponentData[] = [
     component: () =>
       import('@/components/historical-payment').then(mod => mod.default),
     categories: ['form', 'payment'],
+    createdAt: '2025-03-21',
+    featured: true
+  },
+  {
+    slug: 'infinite-dropdown',
+    name: 'Infinite Dropdown',
+    description: 'A dropdown menu that never stops.',
+    component: () =>
+      import('@/components/infinite-dropdown').then(mod => mod.default),
+    categories: ['dropdown'],
     createdAt: '2025-03-21',
     featured: true
   }
