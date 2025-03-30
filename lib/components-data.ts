@@ -22,7 +22,8 @@ import {
   CreditCard,
   Moon,
   AppWindow,
-  BookText
+  BookText,
+  ListCollapse
 } from 'lucide-react'
 
 // Define the central category configuration
@@ -76,6 +77,11 @@ export const categoryConfig = {
     id: 'password',
     displayName: 'password',
     icon: KeyRound
+  },
+  accordion: {
+    id: 'accordion',
+    displayName: 'accordion',
+    icon: ListCollapse
   },
   progress: {
     id: 'progress',
@@ -269,6 +275,15 @@ export const componentsData: ComponentData[] = [
       import('@/components/schrodinger-checkbox').then(mod => mod.default),
     categories: ['checkbox'],
     createdAt: '2024-01-07'
+  },
+  {
+    slug: 'musical-accordion',
+    name: 'The Musical Accordion',
+    description: 'An accordion that plays wheezing notes when expanded.',
+    component: () =>
+      import('@/components/musical-accordion').then(mod => mod.default),
+    categories: ['accordion'],
+    createdAt: '2024-01-08'
   },
   {
     slug: 'way-too-long-breadcrumbs',
