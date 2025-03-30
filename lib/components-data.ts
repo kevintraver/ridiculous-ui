@@ -34,6 +34,11 @@ export const categoryConfig = {
     displayName: 'button',
     icon: SquareMousePointer
   },
+  text: {
+    id: 'text',
+    displayName: 'text',
+    icon: TextCursor
+  },
   dropdown: {
     id: 'dropdown',
     displayName: 'dropdown',
@@ -467,6 +472,18 @@ export const componentsData: ComponentData[] = [
     categories: ['dropdown'],
     createdAt: '2025-03-21',
     featured: true
+  },
+  {
+    slug: 'permanent-highlighter',
+    name: 'Permanent Highlighter',
+    description:
+      'Select text to highlight it. Keep selecting. It never goes away. Ever.',
+    component: () =>
+      import('@/components/permanent-highlighter').then(mod => mod.default),
+    // Choose categories that fit best from your defined list
+    categories: ['text'],
+    createdAt: '2025-03-30', // Use today's date
+    featured: false // Or true if it's exceptionally ridiculous
   }
 ]
 
